@@ -35,7 +35,7 @@
 | 视频知识蒸馏管线+格式 spec（ffmpeg→ASR→切片→OCR 验证） | 4 | 4 | 1 | 5 | ✅ **机制验收达成：kbv-distill.sh 六原子 CLI 化，自举测试视频（lly tts 合成旁白）→ 查询 cargo new 命中切片+帧图+OCR 证据**；真实教程视频接入待内容 | **P2 ✅** |
 | 记忆市场注册表 MVP（publish/search/verify/结算） | 5 | 5 | 2 | 5 | ✅ **MVP+信任复利上线**：2 包 3 attestation（跨 Win/Linux 双平台回放），attest 计数入索引，gh api 实时读取；结算待 lain42.top | **P2 ✅** |
 | openvibe（暂名，对比语料层：prompt 谱系+每步溯源+跨作者对比） | 5 | 5 | 2 | 5 | 🆕 spec §8 已留钩子；名字已被占需另定 | **P2** |
-| 算力平台 WebRTC 化 + 降级链路由 + GUI-grounding 基准 | 3 | 4 | 2 | 4 | 不变 | **P2/P3** |
+| 算力平台 WebRTC 化 + 降级链路由 + GUI-grounding 基准 | 3 | 4 | 2 | 4 | ✅ **WebRTC Phase 1 信令平面上线**：signal-relay 常驻 lain42.top（/signal/* HTTPS，pingap 反代+systemd），外部读写实测；Phase 2 = cache-node 接 webrtc-rs 数据通道 | **P2 半 ✅** |
 
 **本期主题校准**（商业=痛点，痛点=Token 解决）：商业软件的护城河从"拥有软件"转移到"拥有语料与验证"。openvibe 是**需求侧传感器**（收痛点+解法），mpkg 市场是**供给侧资产**（可验证程序性知识），lilyco/zerostack 是**能力总线**，Radxa 网格是**零边际成本底盘**——四件套互相喂养。
 
