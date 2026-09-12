@@ -33,7 +33,7 @@
 | P2P Rust 编译缓存节点（libp2p/webrtc，零竞争） | 4 | 3 | 2 | 5 | ✅ **cache-node v0.2.0 完成：内容寻址 KV + /manifest + /sync，三平台（Win/WSL/Radxa）三节点收敛 3 blobs/1328312B，1.3MB 真实产物字节级一致**；libp2p/WebRTC 传输归 P2 | **P1 ✅** |
 | 订阅格式转换器（base64 vless → Clash YAML） | 3 | 2 | 5 | 1 | 🆕 已核实根因，一次性小工具 | **P1 低** |
 | 视频知识蒸馏管线+格式 spec（ffmpeg→ASR→切片→OCR 验证） | 4 | 4 | 1 | 5 | ✅ **机制验收达成：kbv-distill.sh 六原子 CLI 化，自举测试视频（lly tts 合成旁白）→ 查询 cargo new 命中切片+帧图+OCR 证据**；真实教程视频接入待内容 | **P2 ✅** |
-| 记忆市场注册表 MVP（publish/search/verify/结算） | 5 | 5 | 2 | 5 | ✅ **MVP+信任复利上线**：2 包 3 attestation（跨 Win/Linux 双平台回放），attest 计数入索引，gh api 实时读取；结算待 lain42.top | **P2 ✅** |
+| 记忆市场注册表 MVP（publish/search/verify/结算） | 5 | 5 | 2 | 5 | ✅ **MVP+信任复利+前脸上线**：2 包 3 attestation（跨 Win/Linux），attest 计数入索引，gh api 实时读取，浏览页 https://lilyco-42.github.io/mpkg-registry/ ；结算待 lain42.top | **P2 ✅** |
 | openvibe（暂名，对比语料层：prompt 谱系+每步溯源+跨作者对比） | 5 | 5 | 2 | 5 | 🆕 spec §8 已留钩子；名字已被占需另定 | **P2** |
 | 算力平台 WebRTC 化 + 降级链路由 + GUI-grounding 基准 | 3 | 4 | 2 | 4 | ✅ **WebRTC Phase 2 数据通道达成**：cache-node v0.3.1 mesh 模式（offer/answer + 分块传输 + hash 验证），CI 发布产物本机回路 1.3MB 字节级一致；Radxa 跨机实测待设备回归（当前离线）；信令 = 自家 lain42.top /signal，ICE = 公共免费（Open Relay + Google/CF STUN，按用户指令） | **P2 半 ✅** |
 
