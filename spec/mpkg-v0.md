@@ -78,6 +78,15 @@ id = sha256( canon_json({ "manifest": <manifest 无 id 字段>, "files": { "<相
 | 验证 > 参数量 | verify 命令 + attestation 回执 = 信任原语 |
 | 原子化构建 | 包 = 最小记忆原子；市场 = 原子组合层 |
 
+## 6.5 trace as commits —— 步骤 ↔ jj 提交 1:1（v0.1 落地）
+
+> 设计指令：一个函数 / 一个 CLI call = 一个 jj commit。回放、审阅、分叉全部继承版本控制能力。
+
+- **record**：按 `steps[]` 逐条执行，每条执行后 `jj commit -m "step N: <cmd>"` —— jj 自动快照工作副本，树无变化也允许空提交（历史 = trace 严格 1:1）。
+- **replay**：逐提交检出并重执行，每步后比对工作副本与记录提交的树差异 → 分叉即停在该步，`jj diff` 直接展示"哪一步、哪几行"偏离原轨迹。
+- **为什么是 jj 不是 git**：自动快照（无暂存仪式）、冲突容忍 rebase（回放分叉可合并）、op log 连回放操作本身都有审计、与 git 共存（GitHub 托管不变）。
+- 参考实现：`proto/sh/mpkg-jj.sh`（record / replay 双模式）。
+
 ## 7. v0 验收（纸上流程 → 可执行）
 
 `make-snake-game` 示例包：agent A 记录"写贪吃蛇"的 trace → `mpkg build` → agent B `mpkg verify`（回放 steps + 跑 verify）→ PASS → B 的机器上出现可玩的贪吃蛇 + 知识原子。全程零人工。
