@@ -1,20 +1,14 @@
 {
-  "_doc": "zerostack 节点网格 ICE 服务器配置。主用=公共免费（当前唯一立即可用路径）；self_hosted=自建 coturn（Lain42 已部署待安全组放行 3478/UDP+TCP、49160-49200/UDP，放行后切主用）。secret 在 Lain42 /root/.turn-secret。",
-  "primary": [
-    { "urls": "stun:stun.l.google.com:19302" },
-    { "urls": "turn:openrelay.metered.ca:80", "username": "openrelayproject", "credential": "openrelayproject" },
-    { "urls": "turn:openrelay.metered.ca:443", "username": "openrelayproject", "credential": "openrelayproject" },
-    { "urls": "turn:openrelay.metered.ca:443?transport=tcp", "username": "openrelayproject", "credential": "openrelayproject" }
+  "_doc": "zerostack 节点网格 ICE 配置 —— 纯自建，不用任何公共免费第三方（用户指令）。全部流量走自家 Lain42 coturn + /signal 信令。当前两节点同网段（Windows/Radxa）直连即可，TURN 为未来跨 NAT 外部节点准备。放行安全组后 TURN-TCP/UDP 即全功能。",
+  "ice_servers": [
+    { "urls": "stun:8.153.102.122:3478" },
+    { "urls": "turn:8.153.102.122:3478", "username": "zerostack", "credential": "<见 Lain42 /root/.turn-secret>" },
+    { "urls": "turn:8.153.102.122:3478?transport=tcp", "username": "zerostack", "credential": "<见 Lain42 /root/.turn-secret>" }
   ],
-  "backup": [
-    { "urls": "stun:stun1.l.google.com:19302" },
-    { "urls": "stun:stun.cloudflare.com:3478" }
-  ],
-  "self_hosted_pending_ports": {
-    "server": "Lain42 coturn (8.153.102.122)",
-    "urls": ["turn:8.153.102.122:3478", "turn:8.153.102.122:3478?transport=tcp", "stun:8.153.102.122:3478"],
-    "username": "zerostack",
-    "status": "deployed+active, pending aliyun security group: 3478/UDP+TCP, 5349/TCP, 49160-49200/UDP",
-    "note": "turnadmin 用户 zerostack, secret 见 /root/.turn-secret; 放行后 ICE 测试: python3 ice-probe.py 8.153.102.122"
+  "self_hosted": {
+    "server": "coturn @ Lain42 (8.153.102.122, 阿里云)",
+    "status": "active on 3478 (TCP 已外部可达, UDP 待安全组)",
+    "pending": "阿里云安全组放行: 3478/UDP+TCP(已部分通), 5349/TCP, 49160-49200/UDP —— 唯一剩余控制台动作",
+    "verify_cmd": "python3 ice-probe.py 8.153.102.122"
   }
 }
