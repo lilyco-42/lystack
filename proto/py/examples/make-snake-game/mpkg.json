@@ -1,0 +1,25 @@
+{
+  "mpkg": "0.1",
+  "name": "make-snake-game",
+  "version": "0.1.0",
+  "intent": "生成并验证一个可玩的贪吃蛇 CLI 游戏（纯标准库，含 headless 自检）",
+  "author": "agent:lilyco-42/lyco_agent",
+  "created": "2026-09-12",
+  "requirements": {
+    "tools": [{ "name": "python", "min_version": "3.8" }],
+    "os": ["windows", "linux", "android"]
+  },
+  "steps": [
+    { "run": "mkdir -p {{work}}/out", "expect": { "exit": 0 } },
+    { "run": "cp {{pkg}}/artifacts/snake.py {{work}}/out/snake.py", "expect": { "exit": 0 } },
+    { "run": "python {{work}}/out/snake.py --selftest 200 --seed 7", "expect": { "exit": 0 } }
+  ],
+  "verify": [
+    "python {{work}}/out/snake.py --selftest 50 --seed 11"
+  ],
+  "atoms": [
+    { "kind": "text", "path": "atoms/how-to-play.md", "title": "贪吃蛇规则与操作" }
+  ],
+  "tags": ["game", "python", "cli"],
+  "license": "MIT"
+}

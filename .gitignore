@@ -1,0 +1,3 @@
+nodes/cache-node/
+proto/py/examples/make-snake-game/dist/
+*.mpkg
