@@ -1,0 +1,20 @@
+{
+  "_doc": "zerostack 节点网格 ICE 服务器配置。主用=公共免费（当前唯一立即可用路径）；self_hosted=自建 coturn（Lain42 已部署待安全组放行 3478/UDP+TCP、49160-49200/UDP，放行后切主用）。secret 在 Lain42 /root/.turn-secret。",
+  "primary": [
+    { "urls": "stun:stun.l.google.com:19302" },
+    { "urls": "turn:openrelay.metered.ca:80", "username": "openrelayproject", "credential": "openrelayproject" },
+    { "urls": "turn:openrelay.metered.ca:443", "username": "openrelayproject", "credential": "openrelayproject" },
+    { "urls": "turn:openrelay.metered.ca:443?transport=tcp", "username": "openrelayproject", "credential": "openrelayproject" }
+  ],
+  "backup": [
+    { "urls": "stun:stun1.l.google.com:19302" },
+    { "urls": "stun:stun.cloudflare.com:3478" }
+  ],
+  "self_hosted_pending_ports": {
+    "server": "Lain42 coturn (8.153.102.122)",
+    "urls": ["turn:8.153.102.122:3478", "turn:8.153.102.122:3478?transport=tcp", "stun:8.153.102.122:3478"],
+    "username": "zerostack",
+    "status": "deployed+active, pending aliyun security group: 3478/UDP+TCP, 5349/TCP, 49160-49200/UDP",
+    "note": "turnadmin 用户 zerostack, secret 见 /root/.turn-secret; 放行后 ICE 测试: python3 ice-probe.py 8.153.102.122"
+  }
+}
