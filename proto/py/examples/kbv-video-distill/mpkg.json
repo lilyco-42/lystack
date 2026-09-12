@@ -1,0 +1,28 @@
+{
+  "mpkg": "0.1",
+  "name": "kbv-video-distill",
+  "version": "0.1.0",
+  "intent": "从教程视频蒸馏可检索知识原子：ffmpeg 提音频/抽帧 + whisper ASR + tesseract OCR + 切片聚类 + 关联索引（kbv spec 六原子管线）",
+  "author": "agent:lilyco-42/lyco_agent",
+  "created": "2026-09-12",
+  "requirements": {
+    "tools": [{ "name": "ffmpeg" }, { "name": "tesseract" }, { "name": "python3" }],
+    "os": ["linux", "windows"]
+  },
+  "steps": [
+    { "run": "bash -n {{pkg}}/artifacts/kbv-distill.sh", "expect": { "exit": 0 } },
+    { "run": "python3 -B -m py_compile {{pkg}}/artifacts/kbv-index.py", "expect": { "exit": 0 } }
+  ],
+  "verify": [
+    "bash -n {{pkg}}/artifacts/kbv-distill.sh"
+  ],
+  "atoms": [
+    { "kind": "text", "path": "atoms/usage.md", "title": "kbv 蒸馏管线使用说明" }
+  ],
+  "provenance": {
+    "generator": "human+ai:z-ai/glm-5.3-flash",
+    "parent": ""
+  },
+  "tags": ["video", "kbv", "ocr", "asr", "whisper", "knowledge"],
+  "license": "MIT OR Apache-2.0"
+}

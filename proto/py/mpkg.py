@@ -67,7 +67,7 @@ def validate(m: dict):
 def collect_files(root: str) -> dict:
     hashes = {}
     for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d != "dist" and not d.startswith(".")]
+        dirnames[:] = [d for d in dirnames if d not in ("dist", "__pycache__") and not d.startswith(".")]
         for fn in filenames:
             if fn.endswith(".mpkg"):
                 continue
@@ -282,6 +282,11 @@ def gh_put_file(repo: str, path: str, data: bytes, message: str):
 
 
 def registry_index(repo: str) -> dict:
+    # gh api 读 contents = 实时且无 CDN 缓存; raw 有 ~5min 缓存, 仅作匿名回退
+    r = subprocess.run(["gh", "api", f"repos/{repo}/contents/index.json",
+                        "--jq", ".content"], capture_output=True, text=True)
+    if r.returncode == 0 and r.stdout.strip():
+        return json.loads(base64.b64decode(r.stdout.strip()))
     url = f"https://raw.githubusercontent.com/{repo}/main/index.json"
     try:
         with urllib.request.urlopen(url, timeout=20) as r:
