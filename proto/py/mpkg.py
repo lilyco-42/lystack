@@ -9,6 +9,7 @@
   mpkg publish <pkg-dir> -r REPO   打包并上架 GitHub 注册表（gh api contents PUT）
   mpkg search TERM -r REPO         检索注册表（name/intent/tags）
   mpkg install NAME -r REPO -o DIR 下载 + check + 解包 artifacts（--verify 加回放）
+  mpkg attest ATTEST.json -r REPO  回放回执上架 → 信任复利（search 显示计数）
 """
 from __future__ import annotations
 
@@ -248,6 +249,10 @@ def main():
     p.add_argument("-o", "--out", default=".", help="artifacts 解包目录")
     p.add_argument("--verify", action="store_true", help="安装前完整回放验证")
     p.set_defaults(fn=cmd_install)
+    p = sub.add_parser("attest")
+    p.add_argument("file", help="attestation json（mpkg verify --out 的产物）")
+    p.add_argument("-r", "--registry", required=True)
+    p.set_defaults(fn=cmd_attest)
     args = ap.parse_args()
     args.fn(args)
 
@@ -326,6 +331,37 @@ def cmd_publish(args):
     print(json.dumps({"published": entry["file"], "id": pid}, ensure_ascii=False))
 
 
+def cmd_attest(args):
+    a = json.load(open(args.file, encoding="utf-8"))
+    if not a.get("ok"):
+        die("refusing to attest a failed replay (attestation ok != true)")
+    pid, name = a["mpkg_id"], a.get("name", "unknown")
+    id12, ts = pid[7:19], time.strftime("%Y%m%dT%H%M%S")
+    host = a.get("host", {})
+    payload = {
+        "id": pid, "name": name, "ok": True,
+        "replayed_at": a.get("replayed_at"),
+        "host_os": host.get("os"), "python": host.get("python"), "shell": host.get("shell"),
+        "steps": len(a.get("steps", [])), "verify": len(a.get("verify", [])),
+    }
+    path = f"attestations/{name}/{id12}/{ts}.json"
+    gh_put_file(args.registry, path,
+                json.dumps(payload, ensure_ascii=False, indent=2).encode(),
+                f"attest {name} {id12} @ {ts}")
+    r = subprocess.run(["gh", "api", f"repos/{args.registry}/contents/index.json",
+                        "--jq", ".content"], capture_output=True, text=True)
+    if r.returncode == 0 and r.stdout.strip():
+        idx = json.loads(base64.b64decode(r.stdout.strip()))
+        for p in idx.get("packages", []):
+            if p.get("id") == pid:
+                p["attestations"] = p.get("attestations", 0) + 1
+        gh_put_file(args.registry, "index.json",
+                    (json.dumps(idx, ensure_ascii=False, indent=2) + "\n").encode(),
+                    f"index: attest count {name} {id12}")
+    print(json.dumps({"attested": name, "id": pid[:27], "file": path},
+                     ensure_ascii=False))
+
+
 def cmd_search(args):
     idx = registry_index(args.registry)
     t = args.term.lower()
@@ -334,7 +370,8 @@ def cmd_search(args):
             or t in p.get("intent", "").lower()
             or any(t in str(tag).lower() for tag in p.get("tags", []))]
     for p in hits:
-        print(f"{p['id'][:19]}  {p['name']}@{p['version']}  {p.get('size', 0)}B  {p.get('intent', '')[:60]}")
+        print(f"{p['id'][:19]}  {p['name']}@{p['version']}  {p.get('size', 0)}B  "
+              f"attest:{p.get('attestations', 0)}  {p.get('intent', '')[:60]}")
     print(f"-- {len(hits)} hit(s) in {args.registry}", file=sys.stderr)
 
 
