@@ -1,4 +1,6 @@
-# zerostack —— 个人零边际成本 AI 能力栈
+# lystack —— 个人零边际成本 AI 能力栈
+
+> 注：栈名 lystack（lyco + stack）。zerostack 特指真实开源产品 gi-dellav/zerostack（Rust 极简 coding agent），已采纳接入而非同名。
 
 > 状态面板（P0-P3 v2，2026-09-12 更新，合并 lain42.top/Radxa 实际进展）
 > 主线：计算机消失，意图常驻。记忆包协议 → 工具层 → 节点网格 → 记忆市场。
