@@ -19,7 +19,7 @@ for md in ch01-00-getting-started ch01-01-installation ch01-02-hello-world \
 done
 
 echo "== 2. distill =="
-python3 "$HERE/asr_code_distill.py" distill "$WORK"
+python3 "$HERE/../py/asr_code_distill.py" distill "$WORK"
 
 echo "== 3. assemble package =="
 PKG="$WORK/pkg"
@@ -57,5 +57,5 @@ EOF2
 echo "== 4. publish =="
 unset GH_TOKEN   # gh 回退到 auth login 的 MPKG_TOKEN (跨仓写权)
 echo "$MPKG_TOKEN" | gh auth login --with-token
-python3 "$HERE/mpkg.py" publish "$PKG" -r "$REGISTRY"
+python3 "$HERE/../py/mpkg.py" publish "$PKG" -r "$REGISTRY"
 echo "== ASR_BUILD_DONE =="
