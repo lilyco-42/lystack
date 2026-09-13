@@ -73,5 +73,5 @@ python proto/py/mpkg.py verify proto/py/examples/make-snake-game/dist/*.mpkg --o
 
 - **构建 = GitHub Runner 全自动**（用户指令：不做本地/设备编译）：`release.yml` 触发规则——推 tag `v*` 或手动 dispatch → zigbuild 容器交叉 musl（aarch64 + x86_64）+ windows MSVC → **sccache**（mozilla-actions，GHA 缓存后端）加速 → SHA256SUMS → 自动发 Release。设备侧只需下载预编译产物，零工具链依赖。
 - **Python/TS**：原型、市场前端、spec 参考实现（快迭代，验证想法）
-- **Rust**：基础设施性能压榨——lilyco（能力总线，已在 crates.io）、cache-node（P2P 缓存节点，已建仓 CI 化）、mpkg 的 Rust 版 verifier、zerostack（采纳，不自研）
+- **Rust**：基础设施性能压榨——lilyco（能力总线，已在 crates.io）、cache-node（P2P 缓存节点 + **mpkg Rust 验证器已落地**，与 Python 实现 content-id 逐字节互证）、zerostack（采纳，不自研）
 - **连通性教训**：Clash fake-ip 劫持 + 坏订阅 = GitHub 间歇全断；Radxa 自愈守护（push-when-up.sh）在连通窗口自动完成 tag 推送与触发——设备端自动化对不可靠网络是刚需。
