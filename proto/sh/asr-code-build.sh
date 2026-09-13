@@ -12,10 +12,14 @@ trap 'rm -rf "$WORK"' EXIT
 
 echo "== 1. fetch book sources (gh api, 稳定路由) =="
 mkdir -p "$WORK/book"
-for md in ch01-00-getting-started ch01-01-installation ch01-02-hello-world \
-          ch01-03-hello-cargo ch02-00-guessing-game-tutorial; do
-  gh api "repos/rust-lang/book/contents/src/$md.md" --jq .content | base64 -d > "$WORK/book/$md.md"
-  echo "  $md $(stat -c%s "$WORK/book/$md.md")B"
+for md in ch01-00-getting-started ch01-01-installation ch01-02-hello-world           ch01-03-hello-cargo ch02-00-guessing-game-tutorial           ch03-00-common-programming-concepts ch03-01-variables-and-mutability           ch03-02-data-types ch03-03-functions ch03-04-comments ch03-05-control-flow           ch04-00-understanding-ownership ch04-01-what-is-ownership           ch04-02-references-and-borrowing ch04-03-slices; do
+  if gh api "repos/rust-lang/book/contents/src/$md.md" --jq .content | base64 -d > "$WORK/book/$md.md" 2>/dev/null; then
+    echo "  $md $(stat -c%s "$WORK/book/$md.md")B"
+  else
+    echo "  $md SKIP (源缺失)"
+    rm -f "$WORK/book/$md.md"
+    continue
+  fi
 done
 
 echo "== 2. distill =="
