@@ -1,0 +1,53 @@
+{
+  "id": "6d89efa6937aa4ff",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-02-data-types.md",
+    "section": "The Boolean Type",
+    "line": 164
+  },
+  "title": "The Boolean Type",
+  "prose_summary": "As in most other programming languages, a Boolean type in Rust has two possible",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthe main way to use boolean values is through conditionals, such as an ",
+      "\nexpression. we’ll cover how ",
+      "bool",
+      "false",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}\n",
+      "true"
+    ],
+    "weak": [
+      "\n\narrays are useful when you want your data allocated on the stack, the same as\nthe other types we have seen so far, rather than the heap (we will discuss the\nstack and the heap more in [chapter 4][stack-and-heap]<!-- ignore -->) or when\nyou want to ensure that you always have a fixed number of elements. an array\nisn’t as flexible as the vector type, though. a vector is a similar collection\ntype provided by the standard library that _is_ allowed to grow or shrink in\nsize because its contents live on the heap. if you’re unsure whether to use an\narray or a vector, chances are you should use a vector. [chapter\n8][vectors]<!-- ignore --> discusses vectors in more detail.\n\nhowever, arrays are more useful when you know the number of elements will not\nneed to change. for example, if you were using the names of the month in a\nprogram, you would probably use an array rather than a vector because you know\nit will always contain 12 elements:\n\n",
+      "\n\nhere, ",
+      "\n\nif we don’t add the ",
+      "\n\nin this example, the variable named ",
+      "\n\nnote that we specify ",
+      "\n\nthe array named ",
+      "\n\nthe program resulted in a runtime error at the point of using an invalid\nvalue in the indexing operation. the program exited with an error message and\ndidn’t execute the final ",
+      "\n\nthe variable ",
+      "\n\nthis code compiles successfully. if you run this code using ",
+      "\n\nthis program creates the tuple ",
+      "\n\nthis program first creates a tuple and binds it to the variable ",
+      "\n\nyou write an array’s type using square brackets with the type of each element,\na semicolon, and then the number of elements in the array, like so:\n\n",
+      "\nindicates the array contains five elements.\n\nyou can also initialize an array to contain the same value for each element by\nspecifying the initial value, followed by a semicolon, and then the length of\nthe array in square brackets, as shown here:\n\n",
+      " and\nenter ",
+      " and ",
+      " and then accesses each element of the tuple\nusing their respective indices. as with most programming languages, the first\nindex in a tuple is 0.\n\nthe tuple without any values has a special name, _unit_. this value and its\ncorresponding type are both written ",
+      " and turn it into three separate\nvariables, ",
+      " because that\nis the value at index ",
+      " binds to the entire tuple because a tuple is considered a\nsingle compound element. to get the individual values out of a tuple, we can\nuse pattern matching to destructure a tuple value, like this:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " elements that will all be set to the value\n"
+    ]
+  },
+  "text": "\nAs in most other programming languages, a Boolean type in Rust has two possible\nvalues: `true` and `false`. Booleans are one byte in size. The Boolean type in\nRust is specified using `bool`. For example:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-08-boolean/src/main.rs}}\n```\n\nThe main way to use Boolean values is through conditionals, such as an `if`\nexpression. We’ll cover how `if` expressions work in Rust in the [“Control\nFlow”][control-flow]<!-- ignore --> section.\n",
+  "chapter": "ch03-02-data-types"
+}

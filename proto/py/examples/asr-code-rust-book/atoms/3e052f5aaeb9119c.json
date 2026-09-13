@@ -1,0 +1,114 @@
+{
+  "id": "3e052f5aaeb9119c",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "`if` Expressions",
+    "line": 9
+  },
+  "title": "`if` Expressions",
+  "prose_summary": "An `if` expression allows you to branch your code depending on conditions. You",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nall ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\nexpression to the following:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " block and move on\nto the next bit of code.\n\ntry running this code; you should see the following output:\n\n",
+      " but got an integer. unlike\nlanguages such as ruby and javascript, rust will not automatically try to\nconvert non-boolean types to a boolean. you must be explicit and always provide\n",
+      " code block to run\nonly when a number is not equal to ",
+      " condition evaluates to a value of ",
+      " expression and\nthe condition is ",
+      " expression, which we chose to do\nhere, to give the program an alternative block of code to execute should the\ncondition evaluate to ",
+      " expressions are sometimes called _arms_,\njust like the arms in ",
+      " expressions start with the keyword ",
+      " expressions that we discussed in the [“comparing\nthe guess to the secret number”][comparing-the-guess-to-the-secret-number]<!--\nignore --> section of chapter 2.\n\noptionally, we can also include an ",
+      " has a\nvalue less than 5. we place the block of code to execute if the condition is\n",
+      " immediately after the condition inside curly brackets. blocks of code\nassociated with the conditions in ",
+      " this time, and rust throws an\nerror:\n\n",
+      " to a value that makes the condition\n",
+      " to see what happens:\n\n",
+      " with a boolean as its condition. if we want the ",
+      ", followed by a condition. in\nthis case, the condition checks whether or not the variable ",
+      ", for example, we can change the ",
+      ", the program will just skip the ",
+      ", we’ll get an error. for example, try running the\nfollowing code:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      ". if\nthe condition isn’t a ",
+      ". if you don’t provide an ",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}\n",
+      "if",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-29-if-not-equal-0/src/main.rs}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nthe ",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\n\nbefore the loop, we declare a variable named ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nthe expression in the ",
+      "\n\nthe outer loop has the label ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see ",
+      "\n\nwhen we try to compile this code, we’ll get an error. the ",
+      "\nagain!\nagain!\nagain!\nagain!\n^cagain!\n",
+      "\narm were ",
+      "\nblock. that’s because rust only executes the block for the first ",
+      "\ncondition, and once it finds one, it doesn’t even check the rest.\n\nusing too many ",
+      "\nexpression. run this code to see what happens:\n\n",
+      "\nloops can be more efficient as well because the index doesn’t need to be\ncompared to the length of the array at every iteration.\n\nusing the "
+    ]
+  },
+  "text": "\nAn `if` expression allows you to branch your code depending on conditions. You\nprovide a condition and then state, “If this condition is met, run this block\nof code. If the condition is not met, do not run this block of code.”\n\nCreate a new project called _branches_ in your _projects_ directory to explore\nthe `if` expression. In the _src/main.rs_ file, input the following:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/src/main.rs}}\n```\n\nAll `if` expressions start with the keyword `if`, followed by a condition. In\nthis case, the condition checks whether or not the variable `number` has a\nvalue less than 5. We place the block of code to execute if the condition is\n`true` immediately after the condition inside curly brackets. Blocks of code\nassociated with the conditions in `if` expressions are sometimes called _arms_,\njust like the arms in `match` expressions that we discussed in the [“Comparing\nthe Guess to the Secret Number”][comparing-the-guess-to-the-secret-number]<!--\nignore --> section of Chapter 2.\n\nOptionally, we can also include an `else` expression, which we chose to do\nhere, to give the program an alternative block of code to execute should the\ncondition evaluate to `false`. If you don’t provide an `else` expression and\nthe condition is `false`, the program will just skip the `if` block and move on\nto the next bit of code.\n\nTry running this code; you should see the following output:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-26-if-true/output.txt}}\n```\n\nLet’s try changing the value of `number` to a value that makes the condition\n`false` to see what happens:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/src/main.rs:here}}\n```\n\nRun the program again, and look at the output:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-27-if-false/output.txt}}\n```\n\nIt’s also worth noting that the condition in this code _must_ be a `bool`. If\nthe condition isn’t a `bool`, we’ll get an error. For example, try running the\nfollowing code:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/src/main.rs}}\n```\n\nThe `if` condition evaluates to a value of `3` this time, and Rust throws an\nerror:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-28-if-condition-must-be-bool/output.txt}}\n```\n\nThe error indicates that Rust expected a `bool` but got an integer. Unlike\nlanguages such as Ruby and JavaScript, Rust will not automatically try to\nconvert non-Boolean types to a Boolean. You must be explicit and always provide\n`if` with a Boolean as its condition. If we want the `if` code block to run\nonly when a number is not equal to `0`, for example, we can change the `if`\nexpression to the following:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-29-if-not-equal-0/src/main.rs}}\n```\n\nRunning this code will print `number was something other than zero`.\n",
+  "chapter": "ch03-05-control-flow"
+}

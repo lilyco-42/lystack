@@ -1,0 +1,61 @@
+{
+  "id": "acb2c730aa6e3647",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "Disambiguating with Loop Labels",
+    "line": 259
+  },
+  "title": "Disambiguating with Loop Labels",
+  "prose_summary": "If you have loops within loops, `break` and `continue` apply to the innermost",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthe outer loop has the label ",
+      " statement will exit the outer loop. this code prints:\n\n",
+      " that\ndoesn’t specify a label will exit the inner loop only. the ",
+      ", and it will count up from 0 to 2.\nthe inner loop without a label counts down from 10 to 9. the first ",
+      "break",
+      "console\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}\n",
+      "continue",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nthe ",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\n\nbefore the loop, we declare a variable named ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\n\nthe expression in the ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see ",
+      "\n\nwhen we try to compile this code, we’ll get an error. the "
+    ]
+  },
+  "text": "\nIf you have loops within loops, `break` and `continue` apply to the innermost\nloop at that point. You can optionally specify a _loop label_ on a loop that\nyou can then use with `break` or `continue` to specify that those keywords\napply to the labeled loop instead of the innermost loop. Loop labels must begin\nwith a single quote. Here’s an example with two nested loops:\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/src/main.rs}}\n```\n\nThe outer loop has the label `'counting_up`, and it will count up from 0 to 2.\nThe inner loop without a label counts down from 10 to 9. The first `break` that\ndoesn’t specify a label will exit the inner loop only. The `break\n'counting_up;` statement will exit the outer loop. This code prints:\n\n```console\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-32-5-loop-labels/output.txt}}\n```\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"conditional-loops-with-while\"></a>\n",
+  "chapter": "ch03-05-control-flow"
+}

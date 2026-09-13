@@ -1,0 +1,43 @@
+{
+  "id": "d2cc3b7f86e124ea",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "Repetition with Loops",
+    "line": 170
+  },
+  "title": "Repetition with Loops",
+  "prose_summary": "It’s often useful to execute a block of code more than once. For this task,",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "for",
+      "loop",
+      "while"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nthe ",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\n\nbefore the loop, we declare a variable named ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\n\nthe expression in the ",
+      "\n\nthe outer loop has the label ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see "
+    ]
+  },
+  "text": "\nIt’s often useful to execute a block of code more than once. For this task,\nRust provides several _loops_, which will run through the code inside the loop\nbody to the end and then start immediately back at the beginning. To experiment\nwith loops, let’s make a new project called _loops_.\n\nRust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each one.\n",
+  "chapter": "ch03-05-control-flow"
+}

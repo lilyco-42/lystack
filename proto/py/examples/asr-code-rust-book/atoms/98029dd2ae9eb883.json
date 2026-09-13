@@ -1,0 +1,65 @@
+{
+  "id": "98029dd2ae9eb883",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "Returning Values from Loops",
+    "line": 232
+  },
+  "title": "Returning Values from Loops",
+  "prose_summary": "One of the uses of a `loop` is to retry an operation you know might fail, such",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nbefore the loop, we declare a variable named ",
+      " and initialize it to\n",
+      " from inside a loop. while ",
+      " is equal to ",
+      " keyword with the value ",
+      " only exits the current\nloop, ",
+      " to hold the value returned from\nthe loop. on every iteration of the loop, we add ",
+      " to the ",
+      " variable,\nand then check whether the ",
+      ", which in this case is ",
+      ".\n\nyou can also ",
+      ". after the loop, we use a\nsemicolon to end the statement that assigns the value to ",
+      ". finally, we\nprint the value in ",
+      ". then, we declare a variable named ",
+      ". when it is, we use the\n",
+      "break",
+      "loop",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-33-return-value-from-loop/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nthe ",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\n\nthe expression in the ",
+      "\n\nthe outer loop has the label ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see ",
+      "\n\nwhen we try to compile this code, we’ll get an error. the "
+    ]
+  },
+  "text": "\nOne of the uses of a `loop` is to retry an operation you know might fail, such\nas checking whether a thread has completed its job. You might also need to pass\nthe result of that operation out of the loop to the rest of your code. To do\nthis, you can add the value you want returned after the `break` expression you\nuse to stop the loop; that value will be returned out of the loop so that you\ncan use it, as shown here:\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-33-return-value-from-loop/src/main.rs}}\n```\n\nBefore the loop, we declare a variable named `counter` and initialize it to\n`0`. Then, we declare a variable named `result` to hold the value returned from\nthe loop. On every iteration of the loop, we add `1` to the `counter` variable,\nand then check whether the `counter` is equal to `10`. When it is, we use the\n`break` keyword with the value `counter * 2`. After the loop, we use a\nsemicolon to end the statement that assigns the value to `result`. Finally, we\nprint the value in `result`, which in this case is `20`.\n\nYou can also `return` from inside a loop. While `break` only exits the current\nloop, `return` always exits the current function.\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"loop-labels-to-disambiguate-between-multiple-loops\"></a>\n",
+  "chapter": "ch03-05-control-flow"
+}

@@ -1,0 +1,136 @@
+{
+  "id": "b039e337b18aea90",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-03-slices.md",
+    "section": "The Slice Type",
+    "line": 1
+  },
+  "title": "The Slice Type",
+  "prose_summary": "_Slices_ let you reference a contiguous sequence of elements in a",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "use patterns"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "use that"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nbecause we need to go through the ",
+      "\n\n</listing>\n\nthis program compiles without any errors and would also do so if we used ",
+      "\n\nnext, we create an iterator over the array of bytes using the ",
+      "\n\nthe ",
+      "\n\nwe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. we’re returning a ",
+      "\n\nwe’ll discuss iterators in more detail in [chapter 13][ch13]<!-- ignore -->.\nfor now, know that ",
+      "\nafter calling ",
+      "\nat all, ",
+      "\nfor the index in the tuple and ",
+      " and returns each element as\npart of a tuple instead. the first element of the tuple returned from\n",
+      " contents\">\n\n",
+      " element by element and check whether\na value is a space, we’ll convert our ",
+      " for the single byte in the tuple.\nbecause we get a reference to the element from ",
+      " function and then changing the ",
+      " function from listing 4-7.\n\n<listing number=\"4-8\" file-name=\"src/main.rs\" caption=\"storing the result from calling the ",
+      " function has a parameter of type ",
+      " function that returns a byte index value into the ",
+      " function. its signature would have to look like this:\n\n",
+      " getting out of sync with the data in\n",
+      " have changed since we saved ",
+      " in ",
+      " in the pattern.\n\ninside the ",
+      " is a method that returns each element in a collection\nand that ",
+      " is tedious and error-prone! managing these indices is even more brittle if\nwe write a ",
+      " is the index, and the second element is a reference to the element.\nthis is a bit more convenient than calculating the index ourselves.\n\nbecause the ",
+      " isn’t connected to the state of ",
+      " loop, we search for the byte that represents the space by\nusing the byte literal syntax. if we find a space, we return the position.\notherwise, we return the length of the string by using ",
+      " loop, we specify a pattern that has ",
+      " method returns a tuple, we can use patterns to\ndestructure that tuple. we’ll be discussing patterns more in [chapter\n6][ch6]<!-- ignore -->. in the ",
+      " method.\n\n",
+      " method:\n\n",
+      " on its own, but it’s\nonly a meaningful number in the context of the ",
+      " parameter\">\n\n",
+      " still contains the value ",
+      " to an array of bytes using the\n",
+      " to try to extract the first word out, but this would be a bug\nbecause the contents of ",
+      " with\nthe variable ",
+      " wraps the result of ",
+      ", there’s no guarantee that it\nwill still be valid in the future. consider the program in listing 4-8 that\nuses the ",
+      ", we use\n",
+      ".\n\n",
+      ".\n\nhaving to worry about the index in ",
+      ". because ",
+      ". in other words,\nbecause it’s a separate value from the ",
+      ". we could use that value ",
+      ". we don’t need\nownership, so this is fine. (in idiomatic rust, functions do not take ownership\nof their arguments unless they need to, and the reasons for that will become\nclear as we keep going.) but what should we return? we don’t really have a way\nto talk about *part* of a string. however, we could return the index of the end\nof the word, indicated by a space. let’s try that, as shown in listing 4-7.\n\n<listing number=\"4-7\" file-name=\"src/main.rs\" caption=\"the ",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}\n",
+      "rust,ignore\nfn first_word(s: &string) -> ?\n",
+      "rust,ignore\nfn second_word(s: &string) -> (usize, usize) {\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}\n",
+      "use patterns",
+      "use that"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere’s the compiler error:\n\n",
+      "\n\n</listing>\n\nif we have a string slice, we can pass that directly. if we have a ",
+      "\n\n</listing>\n\nwe get the index for the end of the word the same way we did in listing 4-7, by\nlooking for the first occurrence of a space. when we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nnow when we call ",
+      "\n\n> note: string slice range indices must occur at valid utf-8 character\n> boundaries. if you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nwith all this information in mind, let’s rewrite ",
+      "\n\na more experienced rustacean would write the signature shown in listing 4-9\ninstead because it allows us to use the same function on both ",
+      "\n\nby the same token, if your slice includes the last byte of the ",
+      "\n\njust as we might want to refer to part of a string, we might want to refer to\npart of an array. we’d do so like this:\n\n",
+      "\n\nrather than a reference to the entire ",
+      "\n\nrecall from the borrowing rules that if we have an immutable reference to\nsomething, we cannot also take a mutable reference. because ",
+      "\n\nthe type of ",
+      "\n\nthis slice has the type ",
+      "\n\nwe now have a straightforward api that’s much harder to mess up because the\ncompiler will ensure that the references into the ",
+      "\n\nyou can also drop both values to take a slice of the entire string. so, these\nare equal:\n\n",
+      "\nafter the call to ",
+      "\nmakes our api more general and useful without losing any functionality:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      "\nwill throw a compile-time error:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " and the immutable reference in ",
+      " bit. we create slices\nusing a range within square brackets by specifying\n",
+      " function by using a string slice for the type of the ",
+      " function:\n\n"
+    ]
+  },
+  "text": "\n_Slices_ let you reference a contiguous sequence of elements in a\n[collection](ch08-00-common-collections.md)<!-- ignore -->. A slice is a kind\nof reference, so it does not have ownership.\n\nHere’s a small programming problem: Write a function that takes a string of\nwords separated by spaces and returns the first word it finds in that string.\nIf the function doesn’t find a space in the string, the whole string must be\none word, so the entire string should be returned.\n\n> Note: For the purposes of introducing slices, we are assuming ASCII only in\n> this section; a more thorough discussion of UTF-8 handling is in the\n> [“Storing UTF-8 Encoded Text with Strings”][strings]<!-- ignore --> section\n> of Chapter 8.\n\nLet’s work through how we’d write the signature of this function without using\nslices, to understand the problem that slices will solve:\n\n```rust,ignore\nfn first_word(s: &String) -> ?\n```\n\nThe `first_word` function has a parameter of type `&String`. We don’t need\nownership, so this is fine. (In idiomatic Rust, functions do not take ownership\nof their arguments unless they need to, and the reasons for that will become\nclear as we keep going.) But what should we return? We don’t really have a way\nto talk about *part* of a string. However, we could return the index of the end\nof the word, indicated by a space. Let’s try that, as shown in Listing 4-7.\n\n<Listing number=\"4-7\" file-name=\"src/main.rs\" caption=\"The `first_word` function that returns a byte index value into the `String` parameter\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:here}}\n```\n\n</Listing>\n\nBecause we need to go through the `String` element by element and check whether\na value is a space, we’ll convert our `String` to an array of bytes using the\n`as_bytes` method.\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:as_bytes}}\n```\n\nNext, we create an iterator over the array of bytes using the `iter` method:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:iter}}\n```\n\nWe’ll discuss iterators in more detail in [Chapter 13][ch13]<!-- ignore -->.\nFor now, know that `iter` is a method that returns each element in a collection\nand that `enumerate` wraps the result of `iter` and returns each element as\npart of a tuple instead. The first element of the tuple returned from\n`enumerate` is the index, and the second element is a reference to the element.\nThis is a bit more convenient than calculating the index ourselves.\n\nBecause the `enumerate` method returns a tuple, we can use patterns to\ndestructure that tuple. We’ll be discussing patterns more in [Chapter\n6][ch6]<!-- ignore -->. In the `for` loop, we specify a pattern that has `i`\nfor the index in the tuple and `&item` for the single byte in the tuple.\nBecause we get a reference to the element from `.iter().enumerate()`, we use\n`&` in the pattern.\n\nInside the `for` loop, we search for the byte that represents the space by\nusing the byte literal syntax. If we find a space, we return the position.\nOtherwise, we return the length of the string by using `s.len()`.\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-07/src/main.rs:inside_for}}\n```\n\nWe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. We’re returning a `usize` on its own, but it’s\nonly a meaningful number in the context of the `&String`. In other words,\nbecause it’s a separate value from the `String`, there’s no guarantee that it\nwill still be valid in the future. Consider the program in Listing 4-8 that\nuses the `first_word` function from Listing 4-7.\n\n<Listing number=\"4-8\" file-name=\"src/main.rs\" caption=\"Storing the result from calling the `first_word` function and then changing the `String` contents\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-08/src/main.rs:here}}\n```\n\n</List",
+  "chapter": "ch04-03-slices"
+}

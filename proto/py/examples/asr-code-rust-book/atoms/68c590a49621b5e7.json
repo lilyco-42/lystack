@@ -1,0 +1,18 @@
+{
+  "id": "68c590a49621b5e7",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-00-understanding-ownership.md",
+    "section": "Understanding Ownership",
+    "line": 1
+  },
+  "title": "Understanding Ownership",
+  "prose_summary": "Ownership is Rust’s most unique feature and has deep implications for the rest",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [],
+    "weak": []
+  },
+  "text": "\nOwnership is Rust’s most unique feature and has deep implications for the rest\nof the language. It enables Rust to make memory safety guarantees without\nneeding a garbage collector, so it’s important to understand how ownership\nworks. In this chapter, we’ll talk about ownership as well as several related\nfeatures: borrowing, slices, and how Rust lays data out in memory.",
+  "chapter": "ch04-00-understanding-ownership"
+}

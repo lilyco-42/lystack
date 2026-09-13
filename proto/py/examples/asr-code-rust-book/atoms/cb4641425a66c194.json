@@ -1,0 +1,92 @@
+{
+  "id": "cb4641425a66c194",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-02-references-and-borrowing.md",
+    "section": "References and Borrowing",
+    "line": 1
+  },
+  "title": "References and Borrowing",
+  "prose_summary": "The issue with the tuple code in Listing 4-5 is that we have to return the",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nfirst, notice that all the tuple code in the variable declaration and the\nfunction return value is gone. second, note that we pass ",
+      "\n\n</listing>\n\nhere’s the error:\n\n",
+      "\n\nthe ",
+      "\n\nthe scope in which the variable ",
+      "\nbut does not own it. because the reference does not own it, the value it points\nto will not be dropped when the reference stops being used.\n\nlikewise, the signature of the function uses ",
+      " ",
+      " and, in its definition, we take ",
+      " doesn’t have ownership. when functions\nhave references as parameters instead of the actual values, we won’t need to\nreturn the values in order to give back ownership, because we never had\nownership.\n\nwe call the action of creating a reference _borrowing_. as in real life, if a\nperson owns something, you can borrow it from them. when you’re done, you have\nto give it back. you don’t own it.\n\nso, what happens if we try to modify something we’re borrowing? try the code in\nlisting 4-6. spoiler alert: it doesn’t work!\n\n<listing number=\"4-6\" file-name=\"src/main.rs\" caption=\"attempting to modify a borrowed value\">\n\n",
+      " into\n",
+      " is _dereferencing_, which is\n> accomplished with the dereference operator, ",
+      " is a reference. let’s add some explanatory annotations:\n\n",
+      " is valid is the same as any function\nparameter’s scope, but the value pointed to by the reference is not dropped\nwhen ",
+      " pointing at\n",
+      " rather than\n",
+      " stops being used, because ",
+      " syntax lets us create a reference that _refers_ to the value of ",
+      " to indicate that the type of\nthe parameter ",
+      ". these ampersands represent references, and they allow you to refer to\nsome value without taking ownership of it. figure 4-6 depicts this concept.\n\n<img alt=\"three tables: the table for s contains only a pointer to the table\nfor s1. the table for s1 contains the stack data for s1 and points to the\nstring data on the heap.\" src=\"img/trpl04-06.svg\" class=\"center\" />\n\n<span class=\"caption\">figure 4-6: a diagram of ",
+      ". we’ll see some uses of the\n> dereference operator in chapter 8 and discuss details of dereferencing in\n> chapter 15.\n\nlet’s take a closer look at the function call here:\n\n",
+      "</span>\n\n> note: the opposite of referencing by using ",
+      "calculate_length",
+      "console\n{{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:all}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-06/src/main.rs}}\n",
+      "string"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause ",
+      "\n\n</listing>\n\nfirst, we change ",
+      "\n\nhere’s the error:\n\n",
+      "\n\nlet’s take a closer look at exactly what’s happening at each stage of our\n",
+      "\n\nrust enforces a similar rule for combining mutable and immutable references.\nthis code results in an error:\n\n",
+      "\n\nthe scopes of the immutable references ",
+      "\n\nthis error message refers to a feature we haven’t covered yet: lifetimes. we’ll\ndiscuss lifetimes in detail in chapter 10. but, if you disregard the parts\nabout lifetimes, the message does contain the key to why this code is a problem:\n\n",
+      "\n\nthis error says that this code is invalid because we cannot borrow ",
+      "\n\nwhew! we _also_ cannot have a mutable reference while we have an immutable one\nto the same value.\n\nusers of an immutable reference don’t expect the value to suddenly change out\nfrom under them! however, multiple immutable references are allowed because no\none who is just reading the data has the ability to affect anyone else’s\nreading of the data.\n\nnote that a reference’s scope starts from where it is introduced and continues\nthrough the last time that reference is used. for instance, this code will\ncompile because the last usage of the immutable references is in the ",
+      "\nwhere they are last used, which is before the mutable reference ",
+      " and ",
+      " and must\nlast until it’s used in the ",
+      " as\nmutable more than once at a time. the first mutable borrow is in ",
+      " code:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " directly:\n\n",
+      " end after the ",
+      " function and update the function signature\nto accept a mutable reference with ",
+      " function will mutate the value it borrows.\n\nmutable references have one big restriction: if you have a mutable reference to\na value, you can have no other references to that value. this code that\nattempts to create two mutable references to ",
+      " is created inside ",
+      " is finished,\n"
+    ]
+  },
+  "text": "\nThe issue with the tuple code in Listing 4-5 is that we have to return the\n`String` to the calling function so that we can still use the `String` after\nthe call to `calculate_length`, because the `String` was moved into\n`calculate_length`. Instead, we can provide a reference to the `String` value.\nA reference is like a pointer in that it’s an address we can follow to access\nthe data stored at that address; that data is owned by some other variable.\nUnlike a pointer, a reference is guaranteed to point to a valid value of a\nparticular type for the life of that reference.\n\nHere is how you would define and use a `calculate_length` function that has a\nreference to an object as a parameter instead of taking ownership of the value:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:all}}\n```\n\n</Listing>\n\nFirst, notice that all the tuple code in the variable declaration and the\nfunction return value is gone. Second, note that we pass `&s1` into\n`calculate_length` and, in its definition, we take `&String` rather than\n`String`. These ampersands represent references, and they allow you to refer to\nsome value without taking ownership of it. Figure 4-6 depicts this concept.\n\n<img alt=\"Three tables: the table for s contains only a pointer to the table\nfor s1. The table for s1 contains the stack data for s1 and points to the\nstring data on the heap.\" src=\"img/trpl04-06.svg\" class=\"center\" />\n\n<span class=\"caption\">Figure 4-6: A diagram of `&String` `s` pointing at\n`String` `s1`</span>\n\n> Note: The opposite of referencing by using `&` is _dereferencing_, which is\n> accomplished with the dereference operator, `*`. We’ll see some uses of the\n> dereference operator in Chapter 8 and discuss details of dereferencing in\n> Chapter 15.\n\nLet’s take a closer look at the function call here:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-07-reference/src/main.rs:here}}\n```\n\nThe `&s1` syntax lets us create a reference that _refers_ to the value of `s1`\nbut does not own it. Because the reference does not own it, the value it points\nto will not be dropped when the reference stops being used.\n\nLikewise, the signature of the function uses `&` to indicate that the type of\nthe parameter `s` is a reference. Let’s add some explanatory annotations:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-08-reference-with-annotations/src/main.rs:here}}\n```\n\nThe scope in which the variable `s` is valid is the same as any function\nparameter’s scope, but the value pointed to by the reference is not dropped\nwhen `s` stops being used, because `s` doesn’t have ownership. When functions\nhave references as parameters instead of the actual values, we won’t need to\nreturn the values in order to give back ownership, because we never had\nownership.\n\nWe call the action of creating a reference _borrowing_. As in real life, if a\nperson owns something, you can borrow it from them. When you’re done, you have\nto give it back. You don’t own it.\n\nSo, what happens if we try to modify something we’re borrowing? Try the code in\nListing 4-6. Spoiler alert: It doesn’t work!\n\n<Listing number=\"4-6\" file-name=\"src/main.rs\" caption=\"Attempting to modify a borrowed value\">\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-06/src/main.rs}}\n```\n\n</Listing>\n\nHere’s the error:\n\n```console\n{{#include ../listings/ch04-understanding-ownership/listing-04-06/output.txt}}\n```\n\nJust as variables are immutable by default, so are references. We’re not\nallowed to modify something we have a reference to.\n",
+  "chapter": "ch04-02-references-and-borrowing"
+}

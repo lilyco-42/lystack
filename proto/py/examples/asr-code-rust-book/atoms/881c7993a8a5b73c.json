@@ -1,0 +1,83 @@
+{
+  "id": "881c7993a8a5b73c",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "Using `if` in a `let` Statement",
+    "line": 119
+  },
+  "title": "Using `if` in a `let` Statement",
+  "prose_summary": "Because `if` is an expression, we can use it on the right side of a `let`",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nthe ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nthe expression in the ",
+      "\n\nwhen we try to compile this code, we’ll get an error. the ",
+      "\narm were ",
+      "\nexpression. run this code to see what happens:\n\n",
+      " and ",
+      " arm and the ",
+      " arms\nhave value types that are incompatible, and rust indicates exactly where to\nfind the problem in the program:\n\n",
+      " block evaluates to a string. this won’t work, because variables must\nhave a single type, and rust needs to know definitively at compile time what\ntype the ",
+      " block evaluates to an integer, and the expression in\nthe ",
+      " expression depends on which block of code executes. this means the\nvalues that have the potential to be results from each arm of the ",
+      " integers. if the types are mismatched, as in the following\nexample, we’ll get an error:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " lets the compiler\nverify the type is valid everywhere we use ",
+      " must be\nthe same type; in listing 3-2, the results of both the ",
+      " variable is. knowing the type of ",
+      " variable will be bound to a value based on the outcome of the ",
+      ". rust wouldn’t be able to\ndo that if the type of ",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/listing-03-02/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}\n",
+      "if",
+      "let",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-02/src/main.rs}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\n\nbefore the loop, we declare a variable named ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\n\nthe outer loop has the label ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see ",
+      "\nagain!\nagain!\nagain!\nagain!\n^cagain!\n",
+      "\nblock. that’s because rust only executes the block for the first ",
+      "\ncondition, and once it finds one, it doesn’t even check the rest.\n\nusing too many "
+    ]
+  },
+  "text": "\nBecause `if` is an expression, we can use it on the right side of a `let`\nstatement to assign the outcome to a variable, as in Listing 3-2.\n\n<Listing number=\"3-2\" file-name=\"src/main.rs\" caption=\"Assigning the result of an `if` expression to a variable\">\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-02/src/main.rs}}\n```\n\n</Listing>\n\nThe `number` variable will be bound to a value based on the outcome of the `if`\nexpression. Run this code to see what happens:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/listing-03-02/output.txt}}\n```\n\nRemember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. In this case, the value of the\nwhole `if` expression depends on which block of code executes. This means the\nvalues that have the potential to be results from each arm of the `if` must be\nthe same type; in Listing 3-2, the results of both the `if` arm and the `else`\narm were `i32` integers. If the types are mismatched, as in the following\nexample, we’ll get an error:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/src/main.rs}}\n```\n\nWhen we try to compile this code, we’ll get an error. The `if` and `else` arms\nhave value types that are incompatible, and Rust indicates exactly where to\nfind the problem in the program:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-31-arms-must-return-same-type/output.txt}}\n```\n\nThe expression in the `if` block evaluates to an integer, and the expression in\nthe `else` block evaluates to a string. This won’t work, because variables must\nhave a single type, and Rust needs to know definitively at compile time what\ntype the `number` variable is. Knowing the type of `number` lets the compiler\nverify the type is valid everywhere we use `number`. Rust wouldn’t be able to\ndo that if the type of `number` was only determined at runtime; the compiler\nwould be more complex and would make fewer guarantees about the code if it had\nto keep track of multiple hypothetical types for any variable.\n",
+  "chapter": "ch03-05-control-flow"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "0c705ba48a138813",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-01-what-is-ownership.md",
+    "section": "What Is Ownership?",
+    "line": 1
+  },
+  "title": "What Is Ownership?",
+  "prose_summary": "_Ownership_ is a set of rules that govern how a Rust program manages memory.",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [],
+    "weak": [
+      "\n\n</listing>\n\nif we tried to use ",
+      "\n\n</listing>\n\nin other words, there are two important points in time here:\n\n- when ",
+      "\n\n</listing>\n\nthe ownership of a variable follows the same pattern every time: assigning a\nvalue to another variable moves it. when a variable that includes data on the\nheap goes out of scope, the value will be cleaned up by ",
+      "\n\n</listing>\n\nwe can probably guess what this is doing: “bind the value ",
+      "\n\nbut this code seems to contradict what we just learned: we don’t have a call to\n",
+      "\n\nif you’ve heard the terms _shallow copy_ and _deep copy_ while working with\nother languages, the concept of copying the pointer, length, and capacity\nwithout copying the data probably sounds like making a shallow copy. but\nbecause rust also invalidates the first variable, instead of being called a\nshallow copy, it’s known as a _move_. in this example, we would say that ",
+      "\n\nso, what’s the difference here? why can ",
+      "\n\nthe double colon ",
+      "\n\nthe variable ",
+      "\n\nthere is a natural point at which we can return the memory our ",
+      "\n\nthis looks very similar, so we might assume that the way it works would be the\nsame: that is, the second line would make a copy of the value in ",
+      "\n\nthis works just fine and explicitly produces the behavior shown in figure 4-3,\nwhere the heap data _does_ get copied.\n\nwhen you see a call to ",
+      "\n\nwe initially declare a variable ",
+      "\n\nyou’ll get an error like this because rust prevents you from using the\ninvalidated reference:\n\n",
+      "\nand ",
+      "\nand assign it to ",
+      "\nfunction on it and its memory will be freed right away. when we print the value\nat the end, it will be ",
+      "\nfunction under the ",
+      "\nholding the value ",
+      "\ntrait, variables that use it do not move, but rather are trivially copied,\nmaking them still valid after assignment to another variable.\n\nrust won’t let us annotate a type with "
+    ]
+  },
+  "text": "\n_Ownership_ is a set of rules that govern how a Rust program manages memory.\nAll programs have to manage the way they use a computer’s memory while running.\nSome languages have garbage collection that regularly looks for no-longer-used\nmemory as the program runs; in other languages, the programmer must explicitly\nallocate and free the memory. Rust uses a third approach: Memory is managed\nthrough a system of ownership with a set of rules that the compiler checks. If\nany of the rules are violated, the program won’t compile. None of the features\nof ownership will slow down your program while it’s running.\n\nBecause ownership is a new concept for many programmers, it does take some time\nto get used to. The good news is that the more experienced you become with Rust\nand the rules of the ownership system, the easier you’ll find it to naturally\ndevelop code that is safe and efficient. Keep at it!\n\nWhen you understand ownership, you’ll have a solid foundation for understanding\nthe features that make Rust unique. In this chapter, you’ll learn ownership by\nworking through some examples that focus on a very common data structure:\nstrings.\n\n> ### The Stack and the Heap\n>\n> Many programming languages don’t require you to think about the stack and the\n> heap very often. But in a systems programming language like Rust, whether a\n> value is on the stack or the heap affects how the language behaves and why\n> you have to make certain decisions. Parts of ownership will be described in\n> relation to the stack and the heap later in this chapter, so here is a brief\n> explanation in preparation.\n>\n> Both the stack and the heap are parts of memory available to your code to use\n> at runtime, but they are structured in different ways. The stack stores\n> values in the order it gets them and removes the values in the opposite\n> order. This is referred to as _last in, first out (LIFO)_. Think of a stack of\n> plates: When you add more plates, you put them on top of the pile, and when\n> you need a plate, you take one off the top. Adding or removing plates from\n> the middle or bottom wouldn’t work as well! Adding data is called _pushing\n> onto the stack_, and removing data is called _popping off the stack_. All\n> data stored on the stack must have a known, fixed size. Data with an unknown\n> size at compile time or a size that might change must be stored on the heap\n> instead.\n>\n> The heap is less organized: When you put data on the heap, you request a\n> certain amount of space. The memory allocator finds an empty spot in the heap\n> that is big enough, marks it as being in use, and returns a _pointer_, which\n> is the address of that location. This process is called _allocating on the\n> heap_ and is sometimes abbreviated as just _allocating_ (pushing values onto\n> the stack is not considered allocating). Because the pointer to the heap is a\n> known, fixed size, you can store the pointer on the stack, but when you want\n> the actual data, you must follow the pointer. Think of being seated at a\n> restaurant. When you enter, you state the number of people in your group, and\n> the host finds an empty table that fits everyone and leads you there. If\n> someone in your group comes late, they can ask where you’ve been seated to\n> find you.\n>\n> Pushing to the stack is faster than allocating on the heap because the\n> allocator never has to search for a place to store new data; that location is\n> always at the top of the stack. Comparatively, allocating space on the heap\n> requires more work because the allocator must first find a big enough space\n> to hold the data and then perform bookkeeping to prepare for the next\n> allocation.\n>\n> Accessing data in the heap is generally slower than accessing data on the\n> stack because you have to follow a pointer to get there. Contemporary\n> processors are faster if they jump around less in memory. Continuing the\n> analogy, consider a server at a restaurant taking orders from many tables.\n> It’s most efficient to get all the orders ",
+  "chapter": "ch04-01-what-is-ownership"
+}

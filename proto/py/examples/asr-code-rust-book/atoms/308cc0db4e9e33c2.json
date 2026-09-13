@@ -1,0 +1,52 @@
+{
+  "id": "308cc0db4e9e33c2",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-04-comments.md",
+    "section": "Comments",
+    "line": 1
+  },
+  "title": "Comments",
+  "prose_summary": "All programmers strive to make their code easy to understand, but sometimes",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nbut you’ll more often see them used in this format, with the comment on a\nseparate line above the code it’s annotating:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      "\n\ncomments can also be placed at the end of lines containing code:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      "\n\nin rust, the idiomatic comment style starts a comment with two slashes, and the\ncomment continues until the end of the line. for comments that extend beyond a\nsingle line, you’ll need to include ",
+      " on each line, like this:\n\n",
+      "rust\n// hello, world\n",
+      "rust\n// so we're doing something complicated here, long enough that we need\n// multiple lines of comments to do it! whew! hopefully, this comment will\n// explain what's going on.\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-24-comments-end-of-line/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-25-comments-above-line/src/main.rs}}\n"
+    ],
+    "weak": []
+  },
+  "text": "\nAll programmers strive to make their code easy to understand, but sometimes\nextra explanation is warranted. In these cases, programmers leave _comments_ in\ntheir source code that the compiler will ignore but that people reading the\nsource code may find useful.\n\nHere’s a simple comment:\n\n```rust\n// hello, world\n```\n\nIn Rust, the idiomatic comment style starts a comment with two slashes, and the\ncomment continues until the end of the line. For comments that extend beyond a\nsingle line, you’ll need to include `//` on each line, like this:\n\n```rust\n// So we're doing something complicated here, long enough that we need\n// multiple lines of comments to do it! Whew! Hopefully, this comment will\n// explain what's going on.\n```\n\nComments can also be placed at the end of lines containing code:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-24-comments-end-of-line/src/main.rs}}\n```\n\nBut you’ll more often see them used in this format, with the comment on a\nseparate line above the code it’s annotating:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-25-comments-above-line/src/main.rs}}\n```\n\nRust also has another kind of comment, documentation comments, which we’ll\ndiscuss in the [“Publishing a Crate to Crates.io”][publishing]<!-- ignore -->\nsection of Chapter 14.\n\n[publishing]: ch14-02-publishing-to-crates-io.html",
+  "chapter": "ch03-04-comments"
+}

@@ -1,0 +1,100 @@
+{
+  "id": "15737ef198e4ec0e",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-01-variables-and-mutability.md",
+    "section": "Shadowing",
+    "line": 124
+  },
+  "title": "Shadowing",
+  "prose_summary": "As you saw in the guessing game tutorial in [Chapter",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nshadowing is different from marking a variable as ",
+      "\n\nthe error says we’re not allowed to mutate a variable’s type:\n\n",
+      "\n\nthe first ",
+      "\n\nthis program first binds ",
+      " a value of ",
+      " and ",
+      " and creates a new\nvariable, multiplying the previous value by ",
+      " and shadowing is that because we’re\neffectively creating a new variable when we use the ",
+      " because we’ll get a\ncompile-time error if we accidentally try to reassign to this variable without\nusing the ",
+      " by repeating ",
+      " for this, as shown\nhere, we’ll get a compile-time error:\n\n",
+      " is ",
+      " keyword again, we can\nchange the type of the value but reuse the same name. for example, say our\nprogram asks a user to show how many spaces they want between some text by\ninputting space characters, and then we want to store that input as a number:\n\n",
+      " keyword. by using ",
+      " name. however, if we try to use ",
+      " returns to being ",
+      " so that\nthe value of ",
+      " statement also shadows ",
+      " to a value of ",
+      " to give ",
+      " variable\nis a number type. shadowing thus spares us from having to come up with\ndifferent names, such as ",
+      " variable is a string type, and the second ",
+      ", taking the original value and adding ",
+      ", we can perform a few transformations\non a value but have the variable be immutable after those transformations have\ncompleted.\n\nthe other difference between ",
+      ".\nwhen that scope is over, the inner shadowing ends and ",
+      ".\nwhen we run this program, it will output the following:\n\n",
+      ". then, it creates a new variable\n",
+      ". then, within an inner scope created with the curly\nbrackets, the third ",
+      "; instead, we can reuse\nthe simpler ",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/output.txt}}\n",
+      "let",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-04-shadowing-can-change-types/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}\n"
+    ],
+    "weak": [
+      "\n\nsave and run the program using ",
+      "\n\nthe constant’s name is ",
+      "\n\nthis example shows how the compiler helps you find errors in your programs.\ncompiler errors can be frustrating, but really they only mean your program\nisn’t safely doing what you want it to do yet; they do _not_ mean that you’re\nnot a good programmer! experienced rustaceans still get compiler errors.\n\nyou received the error message ",
+      "\n\nwe’re allowed to change the value bound to ",
+      "\n\nwhen we run the program now, we get this:\n\n",
+      " ",
+      " also conveys\nintent to future readers of the code by indicating that other parts of the code\nwill be changing this variable’s value.\n\nfor example, let’s change _src/main.rs_ to the following:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " because you tried to assign a second value to the immutable ",
+      " cannot assign twice to immutable variable ",
+      " from ",
+      " in front of the variable name as you did in [chapter\n2][storing-values-with-variables]<!-- ignore -->. adding ",
+      " to ",
+      " variable.\n\nit’s important that we get compile-time errors when we attempt to change a\nvalue that’s designated as immutable, because this very situation can lead to\nbugs. if one part of our code operates on the assumption that a value will\nnever change and another part of our code changes that value, it’s possible\nthat the first part of the code won’t do what it was designed to do. the cause\nof this kind of bug can be difficult to track down after the fact, especially\nwhen the second piece of code changes the value only _sometimes_. the rust\ncompiler guarantees that when you state that a value won’t change, it really\nwon’t change, so you don’t have to keep track of it yourself. your code is thus\neasier to reason through.\n\nbut mutability can be very useful and can make code more convenient to write.\nalthough variables are immutable by default, you can make them mutable by\nadding ",
+      " when ",
+      ". you should receive an error message\nregarding an immutability error, as shown in this output:\n\n",
+      "cargo new variables",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}\n",
+      "const",
+      "mut"
+    ]
+  },
+  "text": "\nAs you saw in the guessing game tutorial in [Chapter\n2][comparing-the-guess-to-the-secret-number]<!-- ignore -->, you can declare a\nnew variable with the same name as a previous variable. Rustaceans say that the\nfirst variable is _shadowed_ by the second, which means that the second\nvariable is what the compiler will see when you use the name of the variable.\nIn effect, the second variable overshadows the first, taking any uses of the\nvariable name to itself until either it itself is shadowed or the scope ends.\nWe can shadow a variable by using the same variable’s name and repeating the\nuse of the `let` keyword as follows:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/src/main.rs}}\n```\n\nThis program first binds `x` to a value of `5`. Then, it creates a new variable\n`x` by repeating `let x =`, taking the original value and adding `1` so that\nthe value of `x` is `6`. Then, within an inner scope created with the curly\nbrackets, the third `let` statement also shadows `x` and creates a new\nvariable, multiplying the previous value by `2` to give `x` a value of `12`.\nWhen that scope is over, the inner shadowing ends and `x` returns to being `6`.\nWhen we run this program, it will output the following:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-03-shadowing/output.txt}}\n```\n\nShadowing is different from marking a variable as `mut` because we’ll get a\ncompile-time error if we accidentally try to reassign to this variable without\nusing the `let` keyword. By using `let`, we can perform a few transformations\non a value but have the variable be immutable after those transformations have\ncompleted.\n\nThe other difference between `mut` and shadowing is that because we’re\neffectively creating a new variable when we use the `let` keyword again, we can\nchange the type of the value but reuse the same name. For example, say our\nprogram asks a user to show how many spaces they want between some text by\ninputting space characters, and then we want to store that input as a number:\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-04-shadowing-can-change-types/src/main.rs:here}}\n```\n\nThe first `spaces` variable is a string type, and the second `spaces` variable\nis a number type. Shadowing thus spares us from having to come up with\ndifferent names, such as `spaces_str` and `spaces_num`; instead, we can reuse\nthe simpler `spaces` name. However, if we try to use `mut` for this, as shown\nhere, we’ll get a compile-time error:\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/src/main.rs:here}}\n```\n\nThe error says we’re not allowed to mutate a variable’s type:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-05-mut-cant-change-types/output.txt}}\n```\n\nNow that we’ve explored how variables work, let’s look at more data types they\ncan have.\n\n[comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number\n[data-types]: ch03-02-data-types.html#data-types\n[storing-values-with-variables]: ch02-00-guessing-game-tutorial.html#storing-values-with-variables\n[const-eval]: ../reference/const_eval.html",
+  "chapter": "ch03-01-variables-and-mutability"
+}

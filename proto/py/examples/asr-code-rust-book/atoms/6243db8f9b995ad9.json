@@ -1,0 +1,59 @@
+{
+  "id": "6243db8f9b995ad9",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-02-data-types.md",
+    "section": "Data Types",
+    "line": 1
+  },
+  "title": "Data Types",
+  "prose_summary": "Every value in Rust is of a certain _data type_, which tells Rust what kind of",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nif we don’t add the ",
+      " type annotation shown in the preceding code, rust\nwill display the following error, which means the compiler needs more\ninformation from us to know which type we want to use:\n\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}\n",
+      "parse",
+      "rust\nlet guess: u32 = \"42\".parse().expect(\"not a number!\");\n",
+      "string"
+    ],
+    "weak": [
+      "\n\narrays are useful when you want your data allocated on the stack, the same as\nthe other types we have seen so far, rather than the heap (we will discuss the\nstack and the heap more in [chapter 4][stack-and-heap]<!-- ignore -->) or when\nyou want to ensure that you always have a fixed number of elements. an array\nisn’t as flexible as the vector type, though. a vector is a similar collection\ntype provided by the standard library that _is_ allowed to grow or shrink in\nsize because its contents live on the heap. if you’re unsure whether to use an\narray or a vector, chances are you should use a vector. [chapter\n8][vectors]<!-- ignore --> discusses vectors in more detail.\n\nhowever, arrays are more useful when you know the number of elements will not\nneed to change. for example, if you were using the names of the month in a\nprogram, you would probably use an array rather than a vector because you know\nit will always contain 12 elements:\n\n",
+      "\n\nhere, ",
+      "\n\nin this example, the variable named ",
+      "\n\nnote that we specify ",
+      "\n\nthe array named ",
+      "\n\nthe main way to use boolean values is through conditionals, such as an ",
+      "\n\nthe program resulted in a runtime error at the point of using an invalid\nvalue in the indexing operation. the program exited with an error message and\ndidn’t execute the final ",
+      "\n\nthe variable ",
+      "\n\nthis code compiles successfully. if you run this code using ",
+      "\n\nthis program creates the tuple ",
+      "\n\nthis program first creates a tuple and binds it to the variable ",
+      "\n\nyou write an array’s type using square brackets with the type of each element,\na semicolon, and then the number of elements in the array, like so:\n\n",
+      "\nexpression. we’ll cover how ",
+      "\nindicates the array contains five elements.\n\nyou can also initialize an array to contain the same value for each element by\nspecifying the initial value, followed by a semicolon, and then the length of\nthe array in square brackets, as shown here:\n\n",
+      " and\nenter ",
+      " and ",
+      " and then accesses each element of the tuple\nusing their respective indices. as with most programming languages, the first\nindex in a tuple is 0.\n\nthe tuple without any values has a special name, _unit_. this value and its\ncorresponding type are both written ",
+      " and turn it into three separate\nvariables, ",
+      " because that\nis the value at index ",
+      " binds to the entire tuple because a tuple is considered a\nsingle compound element. to get the individual values out of a tuple, we can\nuse pattern matching to destructure a tuple value, like this:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n"
+    ]
+  },
+  "text": "\nEvery value in Rust is of a certain _data type_, which tells Rust what kind of\ndata is being specified so that it knows how to work with that data. We’ll look\nat two data type subsets: scalar and compound.\n\nKeep in mind that Rust is a _statically typed_ language, which means that it\nmust know the types of all variables at compile time. The compiler can usually\ninfer what type we want to use based on the value and how we use it. In cases\nwhen many types are possible, such as when we converted a `String` to a numeric\ntype using `parse` in the [“Comparing the Guess to the Secret\nNumber”][comparing-the-guess-to-the-secret-number]<!-- ignore --> section in\nChapter 2, we must add a type annotation, like this:\n\n```rust\nlet guess: u32 = \"42\".parse().expect(\"Not a number!\");\n```\n\nIf we don’t add the `: u32` type annotation shown in the preceding code, Rust\nwill display the following error, which means the compiler needs more\ninformation from us to know which type we want to use:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/output-only-01-no-type-annotations/output.txt}}\n```\n\nYou’ll see different type annotations for other data types.\n",
+  "chapter": "ch03-02-data-types"
+}

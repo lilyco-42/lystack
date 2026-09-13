@@ -1,0 +1,81 @@
+{
+  "id": "2dadda98324c5c0b",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-02-references-and-borrowing.md",
+    "section": "Dangling References",
+    "line": 194
+  },
+  "title": "Dangling References",
+  "prose_summary": "In languages with pointers, it’s easy to erroneously create a _dangling",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nbecause ",
+      "\n\n</listing>\n\nhere’s the error:\n\n",
+      "\n\nlet’s take a closer look at exactly what’s happening at each stage of our\n",
+      "\n\nthis error message refers to a feature we haven’t covered yet: lifetimes. we’ll\ndiscuss lifetimes in detail in chapter 10. but, if you disregard the parts\nabout lifetimes, the message does contain the key to why this code is a problem:\n\n",
+      " code:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " directly:\n\n",
+      " is created inside ",
+      " is finished,\n",
+      " will be deallocated. but we tried to return a reference to it. that means\nthis reference would be pointing to an invalid ",
+      ", when the code of ",
+      ". that’s no good! rust\nwon’t let us do this.\n\nthe solution here is to return the ",
+      "console\n{{#include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/output.txt}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-16-no-dangle/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/src/main.rs}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-15-dangling-reference-annotated/src/main.rs:here}}\n",
+      "text\nthis function's return type contains a borrowed value, but there is no value\nfor it to be borrowed from\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, notice that all the tuple code in the variable declaration and the\nfunction return value is gone. second, note that we pass ",
+      "\n\n</listing>\n\nfirst, we change ",
+      "\n\nhere’s the error:\n\n",
+      "\n\nrust enforces a similar rule for combining mutable and immutable references.\nthis code results in an error:\n\n",
+      "\n\nthe ",
+      "\n\nthe scope in which the variable ",
+      "\n\nthe scopes of the immutable references ",
+      "\n\nthis error says that this code is invalid because we cannot borrow ",
+      "\n\nwhew! we _also_ cannot have a mutable reference while we have an immutable one\nto the same value.\n\nusers of an immutable reference don’t expect the value to suddenly change out\nfrom under them! however, multiple immutable references are allowed because no\none who is just reading the data has the ability to affect anyone else’s\nreading of the data.\n\nnote that a reference’s scope starts from where it is introduced and continues\nthrough the last time that reference is used. for instance, this code will\ncompile because the last usage of the immutable references is in the ",
+      "\nbut does not own it. because the reference does not own it, the value it points\nto will not be dropped when the reference stops being used.\n\nlikewise, the signature of the function uses ",
+      "\nwhere they are last used, which is before the mutable reference ",
+      " ",
+      " and ",
+      " and must\nlast until it’s used in the ",
+      " and, in its definition, we take ",
+      " as\nmutable more than once at a time. the first mutable borrow is in ",
+      " doesn’t have ownership. when functions\nhave references as parameters instead of the actual values, we won’t need to\nreturn the values in order to give back ownership, because we never had\nownership.\n\nwe call the action of creating a reference _borrowing_. as in real life, if a\nperson owns something, you can borrow it from them. when you’re done, you have\nto give it back. you don’t own it.\n\nso, what happens if we try to modify something we’re borrowing? try the code in\nlisting 4-6. spoiler alert: it doesn’t work!\n\n<listing number=\"4-6\" file-name=\"src/main.rs\" caption=\"attempting to modify a borrowed value\">\n\n",
+      " end after the ",
+      " function and update the function signature\nto accept a mutable reference with ",
+      " function will mutate the value it borrows.\n\nmutable references have one big restriction: if you have a mutable reference to\na value, you can have no other references to that value. this code that\nattempts to create two mutable references to "
+    ]
+  },
+  "text": "\nIn languages with pointers, it’s easy to erroneously create a _dangling\npointer_—a pointer that references a location in memory that may have been\ngiven to someone else—by freeing some memory while preserving a pointer to that\nmemory. In Rust, by contrast, the compiler guarantees that references will\nnever be dangling references: If you have a reference to some data, the\ncompiler will ensure that the data will not go out of scope before the\nreference to the data does.\n\nLet’s try to create a dangling reference to see how Rust prevents them with a\ncompile-time error:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/src/main.rs}}\n```\n\n</Listing>\n\nHere’s the error:\n\n```console\n{{#include ../listings/ch04-understanding-ownership/no-listing-14-dangling-reference/output.txt}}\n```\n\nThis error message refers to a feature we haven’t covered yet: lifetimes. We’ll\ndiscuss lifetimes in detail in Chapter 10. But, if you disregard the parts\nabout lifetimes, the message does contain the key to why this code is a problem:\n\n```text\nthis function's return type contains a borrowed value, but there is no value\nfor it to be borrowed from\n```\n\nLet’s take a closer look at exactly what’s happening at each stage of our\n`dangle` code:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-15-dangling-reference-annotated/src/main.rs:here}}\n```\n\n</Listing>\n\nBecause `s` is created inside `dangle`, when the code of `dangle` is finished,\n`s` will be deallocated. But we tried to return a reference to it. That means\nthis reference would be pointing to an invalid `String`. That’s no good! Rust\nwon’t let us do this.\n\nThe solution here is to return the `String` directly:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-16-no-dangle/src/main.rs:here}}\n```\n\nThis works without any problems. Ownership is moved out, and nothing is\ndeallocated.\n",
+  "chapter": "ch04-02-references-and-borrowing"
+}

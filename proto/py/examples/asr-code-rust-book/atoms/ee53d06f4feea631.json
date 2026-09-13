@@ -1,0 +1,71 @@
+{
+  "id": "ee53d06f4feea631",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-03-slices.md",
+    "section": "String Slices as Parameters",
+    "line": 256
+  },
+  "title": "String Slices as Parameters",
+  "prose_summary": "Knowing that you can take slices of literals and `String` values leads us to",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "use the"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nif we have a string slice, we can pass that directly. if we have a ",
+      "\n\na more experienced rustacean would write the signature shown in listing 4-9\ninstead because it allows us to use the same function on both ",
+      "\nmakes our api more general and useful without losing any functionality:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " function by using a string slice for the type of the ",
+      " or a reference to the ",
+      " parameter\">\n\n",
+      " values\nand ",
+      " values.\n\n<listing number=\"4-9\" caption=\"improving the ",
+      ", we\ncan pass a slice of the ",
+      ". this\nflexibility takes advantage of deref coercions, a feature we will cover in\nthe [“using deref coercions in functions and methods”][deref-coercions]<!--\nignore --> section of chapter 15.\n\ndefining a function to take a string slice instead of a reference to a ",
+      "first_word",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}\n",
+      "rust,ignore\nfn first_word(s: &string) -> &str {\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}\n",
+      "string",
+      "use the"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause we need to go through the ",
+      "\n\n</listing>\n\nhere’s the compiler error:\n\n",
+      "\n\n</listing>\n\nthis program compiles without any errors and would also do so if we used ",
+      "\n\n</listing>\n\nwe get the index for the end of the word the same way we did in listing 4-7, by\nlooking for the first occurrence of a space. when we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nnow when we call ",
+      "\n\n> note: string slice range indices must occur at valid utf-8 character\n> boundaries. if you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nwith all this information in mind, let’s rewrite ",
+      "\n\nby the same token, if your slice includes the last byte of the ",
+      "\n\njust as we might want to refer to part of a string, we might want to refer to\npart of an array. we’d do so like this:\n\n",
+      "\n\nnext, we create an iterator over the array of bytes using the ",
+      "\n\nrather than a reference to the entire ",
+      "\n\nrecall from the borrowing rules that if we have an immutable reference to\nsomething, we cannot also take a mutable reference. because ",
+      "\n\nthe ",
+      "\n\nthe type of ",
+      "\n\nthis slice has the type ",
+      "\n\nwe now have a straightforward api that’s much harder to mess up because the\ncompiler will ensure that the references into the ",
+      "\n\nwe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. we’re returning a ",
+      "\n\nwe’ll discuss iterators in more detail in [chapter 13][ch13]<!-- ignore -->.\nfor now, know that ",
+      "\n\nyou can also drop both values to take a slice of the entire string. so, these\nare equal:\n\n",
+      "\nafter calling ",
+      "\nafter the call to ",
+      "\nat all, "
+    ]
+  },
+  "text": "\nKnowing that you can take slices of literals and `String` values leads us to\none more improvement on `first_word`, and that’s its signature:\n\n```rust,ignore\nfn first_word(s: &String) -> &str {\n```\n\nA more experienced Rustacean would write the signature shown in Listing 4-9\ninstead because it allows us to use the same function on both `&String` values\nand `&str` values.\n\n<Listing number=\"4-9\" caption=\"Improving the `first_word` function by using a string slice for the type of the `s` parameter\">\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}\n```\n\n</Listing>\n\nIf we have a string slice, we can pass that directly. If we have a `String`, we\ncan pass a slice of the `String` or a reference to the `String`. This\nflexibility takes advantage of deref coercions, a feature we will cover in\nthe [“Using Deref Coercions in Functions and Methods”][deref-coercions]<!--\nignore --> section of Chapter 15.\n\nDefining a function to take a string slice instead of a reference to a `String`\nmakes our API more general and useful without losing any functionality:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:usage}}\n```\n\n</Listing>\n",
+  "chapter": "ch04-03-slices"
+}

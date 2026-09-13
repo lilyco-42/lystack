@@ -1,0 +1,50 @@
+{
+  "id": "833f1fda08de19e5",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-02-data-types.md",
+    "section": "Floating-Point Types",
+    "line": 128
+  },
+  "title": "Floating-Point Types",
+  "prose_summary": "Rust also has two primitive types for _floating-point numbers_, which are",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "f32",
+      "f64",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-06-floating-point/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\narrays are useful when you want your data allocated on the stack, the same as\nthe other types we have seen so far, rather than the heap (we will discuss the\nstack and the heap more in [chapter 4][stack-and-heap]<!-- ignore -->) or when\nyou want to ensure that you always have a fixed number of elements. an array\nisn’t as flexible as the vector type, though. a vector is a similar collection\ntype provided by the standard library that _is_ allowed to grow or shrink in\nsize because its contents live on the heap. if you’re unsure whether to use an\narray or a vector, chances are you should use a vector. [chapter\n8][vectors]<!-- ignore --> discusses vectors in more detail.\n\nhowever, arrays are more useful when you know the number of elements will not\nneed to change. for example, if you were using the names of the month in a\nprogram, you would probably use an array rather than a vector because you know\nit will always contain 12 elements:\n\n",
+      "\n\nhere, ",
+      "\n\nif we don’t add the ",
+      "\n\nin this example, the variable named ",
+      "\n\nnote that we specify ",
+      "\n\nthe array named ",
+      "\n\nthe main way to use boolean values is through conditionals, such as an ",
+      "\n\nthe program resulted in a runtime error at the point of using an invalid\nvalue in the indexing operation. the program exited with an error message and\ndidn’t execute the final ",
+      "\n\nthe variable ",
+      "\n\nthis code compiles successfully. if you run this code using ",
+      "\n\nthis program creates the tuple ",
+      "\n\nthis program first creates a tuple and binds it to the variable ",
+      "\n\nyou write an array’s type using square brackets with the type of each element,\na semicolon, and then the number of elements in the array, like so:\n\n",
+      "\nexpression. we’ll cover how ",
+      "\nindicates the array contains five elements.\n\nyou can also initialize an array to contain the same value for each element by\nspecifying the initial value, followed by a semicolon, and then the length of\nthe array in square brackets, as shown here:\n\n",
+      " and\nenter ",
+      " and ",
+      " and then accesses each element of the tuple\nusing their respective indices. as with most programming languages, the first\nindex in a tuple is 0.\n\nthe tuple without any values has a special name, _unit_. this value and its\ncorresponding type are both written ",
+      " and turn it into three separate\nvariables, ",
+      " because that\nis the value at index "
+    ]
+  },
+  "text": "\nRust also has two primitive types for _floating-point numbers_, which are\nnumbers with decimal points. Rust’s floating-point types are `f32` and `f64`,\nwhich are 32 bits and 64 bits in size, respectively. The default type is `f64`\nbecause on modern CPUs, it’s roughly the same speed as `f32` but is capable of\nmore precision. All floating-point types are signed.\n\nHere’s an example that shows floating-point numbers in action:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-06-floating-point/src/main.rs}}\n```\n\nFloating-point numbers are represented according to the IEEE-754 standard.\n",
+  "chapter": "ch03-02-data-types"
+}

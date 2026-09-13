@@ -1,0 +1,78 @@
+{
+  "id": "d70134f262da7de0",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-01-variables-and-mutability.md",
+    "section": "Variables and Mutability",
+    "line": 1
+  },
+  "title": "Variables and Mutability",
+  "prose_summary": "As mentioned in the [“Storing Values with",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nsave and run the program using ",
+      "\n\nthis example shows how the compiler helps you find errors in your programs.\ncompiler errors can be frustrating, but really they only mean your program\nisn’t safely doing what you want it to do yet; they do _not_ mean that you’re\nnot a good programmer! experienced rustaceans still get compiler errors.\n\nyou received the error message ",
+      "\n\nwe’re allowed to change the value bound to ",
+      "\n\nwhen we run the program now, we get this:\n\n",
+      " ",
+      " also conveys\nintent to future readers of the code by indicating that other parts of the code\nwill be changing this variable’s value.\n\nfor example, let’s change _src/main.rs_ to the following:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " because you tried to assign a second value to the immutable ",
+      " cannot assign twice to immutable variable ",
+      " from ",
+      " in front of the variable name as you did in [chapter\n2][storing-values-with-variables]<!-- ignore -->. adding ",
+      " to ",
+      " variable.\n\nit’s important that we get compile-time errors when we attempt to change a\nvalue that’s designated as immutable, because this very situation can lead to\nbugs. if one part of our code operates on the assumption that a value will\nnever change and another part of our code changes that value, it’s possible\nthat the first part of the code won’t do what it was designed to do. the cause\nof this kind of bug can be difficult to track down after the fact, especially\nwhen the second piece of code changes the value only _sometimes_. the rust\ncompiler guarantees that when you state that a value won’t change, it really\nwon’t change, so you don’t have to keep track of it yourself. your code is thus\neasier to reason through.\n\nbut mutability can be very useful and can make code more convenient to write.\nalthough variables are immutable by default, you can make them mutable by\nadding ",
+      " when ",
+      ". you should receive an error message\nregarding an immutability error, as shown in this output:\n\n",
+      "cargo new variables",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}\n",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/src/main.rs}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\nshadowing is different from marking a variable as ",
+      "\n\nthe constant’s name is ",
+      "\n\nthe error says we’re not allowed to mutate a variable’s type:\n\n",
+      "\n\nthe first ",
+      "\n\nthis program first binds ",
+      " a value of ",
+      " and ",
+      " and creates a new\nvariable, multiplying the previous value by ",
+      " and shadowing is that because we’re\neffectively creating a new variable when we use the ",
+      " because we’ll get a\ncompile-time error if we accidentally try to reassign to this variable without\nusing the ",
+      " by repeating ",
+      " for this, as shown\nhere, we’ll get a compile-time error:\n\n",
+      " is ",
+      " keyword again, we can\nchange the type of the value but reuse the same name. for example, say our\nprogram asks a user to show how many spaces they want between some text by\ninputting space characters, and then we want to store that input as a number:\n\n",
+      " keyword. by using ",
+      " name. however, if we try to use ",
+      " returns to being ",
+      " so that\nthe value of ",
+      " statement also shadows ",
+      " to a value of "
+    ]
+  },
+  "text": "\nAs mentioned in the [“Storing Values with\nVariables”][storing-values-with-variables]<!-- ignore --> section, by default,\nvariables are immutable. This is one of many nudges Rust gives you to write\nyour code in a way that takes advantage of the safety and easy concurrency that\nRust offers. However, you still have the option to make your variables mutable.\nLet’s explore how and why Rust encourages you to favor immutability and why\nsometimes you might want to opt out.\n\nWhen a variable is immutable, once a value is bound to a name, you can’t change\nthat value. To illustrate this, generate a new project called _variables_ in\nyour _projects_ directory by using `cargo new variables`.\n\nThen, in your new _variables_ directory, open _src/main.rs_ and replace its\ncode with the following code, which won’t compile just yet:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/src/main.rs}}\n```\n\nSave and run the program using `cargo run`. You should receive an error message\nregarding an immutability error, as shown in this output:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-01-variables-are-immutable/output.txt}}\n```\n\nThis example shows how the compiler helps you find errors in your programs.\nCompiler errors can be frustrating, but really they only mean your program\nisn’t safely doing what you want it to do yet; they do _not_ mean that you’re\nnot a good programmer! Experienced Rustaceans still get compiler errors.\n\nYou received the error message `` cannot assign twice to immutable variable `x` `` because you tried to assign a second value to the immutable `x` variable.\n\nIt’s important that we get compile-time errors when we attempt to change a\nvalue that’s designated as immutable, because this very situation can lead to\nbugs. If one part of our code operates on the assumption that a value will\nnever change and another part of our code changes that value, it’s possible\nthat the first part of the code won’t do what it was designed to do. The cause\nof this kind of bug can be difficult to track down after the fact, especially\nwhen the second piece of code changes the value only _sometimes_. The Rust\ncompiler guarantees that when you state that a value won’t change, it really\nwon’t change, so you don’t have to keep track of it yourself. Your code is thus\neasier to reason through.\n\nBut mutability can be very useful and can make code more convenient to write.\nAlthough variables are immutable by default, you can make them mutable by\nadding `mut` in front of the variable name as you did in [Chapter\n2][storing-values-with-variables]<!-- ignore -->. Adding `mut` also conveys\nintent to future readers of the code by indicating that other parts of the code\nwill be changing this variable’s value.\n\nFor example, let’s change _src/main.rs_ to the following:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/src/main.rs}}\n```\n\nWhen we run the program now, we get this:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/no-listing-02-adding-mut/output.txt}}\n```\n\nWe’re allowed to change the value bound to `x` from `5` to `6` when `mut` is\nused. Ultimately, deciding whether to use mutability or not is up to you and\ndepends on what you think is clearest in that particular situation.\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"constants\"></a>\n",
+  "chapter": "ch03-01-variables-and-mutability"
+}

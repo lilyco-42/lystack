@@ -1,0 +1,18 @@
+{
+  "id": "f2294b421016dbe2",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-00-common-programming-concepts.md",
+    "section": "Common Programming Concepts",
+    "line": 1
+  },
+  "title": "Common Programming Concepts",
+  "prose_summary": "This chapter covers concepts that appear in almost every programming language",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [],
+    "weak": []
+  },
+  "text": "\nThis chapter covers concepts that appear in almost every programming language\nand how they work in Rust. Many programming languages have much in common at\ntheir core. None of the concepts presented in this chapter are unique to Rust,\nbut we’ll discuss them in the context of Rust and explain the conventions\naround using them.\n\nSpecifically, you’ll learn about variables, basic types, functions, comments,\nand control flow. These foundations will be in every Rust program, and learning\nthem early will give you a strong core to start from.\n\n> #### Keywords\n>\n> The Rust language has a set of _keywords_ that are reserved for use by the\n> language only, much as in other languages. Keep in mind that you cannot use\n> these words as names of variables or functions. Most of the keywords have\n> special meanings, and you’ll be using them to do various tasks in your Rust\n> programs; a few have no current functionality associated with them but have\n> been reserved for functionality that might be added to Rust in the future. You\n> can find the list of the keywords in [Appendix A][appendix_a]<!-- ignore -->.\n\n[appendix_a]: appendix-01-keywords.md",
+  "chapter": "ch03-00-common-programming-concepts"
+}

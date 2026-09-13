@@ -1,0 +1,51 @@
+{
+  "id": "da46079547833b6a",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-03-slices.md",
+    "section": "String Literals as Slices",
+    "line": 243
+  },
+  "title": "String Literals as Slices",
+  "prose_summary": "Recall that we talked about string literals being stored inside the binary. Now",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthe type of ",
+      " here is ",
+      ": it’s a slice pointing to that specific point of\nthe binary. this is also why string literals are immutable; ",
+      "rust\nlet s = \"hello, world!\";\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause we need to go through the ",
+      "\n\n</listing>\n\nhere’s the compiler error:\n\n",
+      "\n\n</listing>\n\nif we have a string slice, we can pass that directly. if we have a ",
+      "\n\n</listing>\n\nthis program compiles without any errors and would also do so if we used ",
+      "\n\n</listing>\n\nwe get the index for the end of the word the same way we did in listing 4-7, by\nlooking for the first occurrence of a space. when we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nnow when we call ",
+      "\n\n> note: string slice range indices must occur at valid utf-8 character\n> boundaries. if you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nwith all this information in mind, let’s rewrite ",
+      "\n\na more experienced rustacean would write the signature shown in listing 4-9\ninstead because it allows us to use the same function on both ",
+      "\n\nby the same token, if your slice includes the last byte of the ",
+      "\n\njust as we might want to refer to part of a string, we might want to refer to\npart of an array. we’d do so like this:\n\n",
+      "\n\nnext, we create an iterator over the array of bytes using the ",
+      "\n\nrather than a reference to the entire ",
+      "\n\nrecall from the borrowing rules that if we have an immutable reference to\nsomething, we cannot also take a mutable reference. because ",
+      "\n\nthe ",
+      "\n\nthis slice has the type ",
+      "\n\nwe now have a straightforward api that’s much harder to mess up because the\ncompiler will ensure that the references into the ",
+      "\n\nwe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. we’re returning a ",
+      "\n\nwe’ll discuss iterators in more detail in [chapter 13][ch13]<!-- ignore -->.\nfor now, know that ",
+      "\n\nyou can also drop both values to take a slice of the entire string. so, these\nare equal:\n\n",
+      "\nafter calling ",
+      "\nafter the call to "
+    ]
+  },
+  "text": "\nRecall that we talked about string literals being stored inside the binary. Now\nthat we know about slices, we can properly understand string literals:\n\n```rust\nlet s = \"Hello, world!\";\n```\n\nThe type of `s` here is `&str`: It’s a slice pointing to that specific point of\nthe binary. This is also why string literals are immutable; `&str` is an\nimmutable reference.\n",
+  "chapter": "ch04-03-slices"
+}

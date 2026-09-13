@@ -1,0 +1,130 @@
+{
+  "id": "85fee3ac444be647",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-03-slices.md",
+    "section": "String Slices",
+    "line": 111
+  },
+  "title": "String Slices",
+  "prose_summary": "A _string slice_ is a reference to a contiguous sequence of the elements of a",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "use the"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nhere’s the compiler error:\n\n",
+      "\n\n</listing>\n\nwe get the index for the end of the word the same way we did in listing 4-7, by\nlooking for the first occurrence of a space. when we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nnow when we call ",
+      "\n\n> note: string slice range indices must occur at valid utf-8 character\n> boundaries. if you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nwith all this information in mind, let’s rewrite ",
+      "\n\nby the same token, if your slice includes the last byte of the ",
+      "\n\nrather than a reference to the entire ",
+      "\n\nrecall from the borrowing rules that if we have an immutable reference to\nsomething, we cannot also take a mutable reference. because ",
+      "\n\nwe now have a straightforward api that’s much harder to mess up because the\ncompiler will ensure that the references into the ",
+      "\n\nyou can also drop both values to take a slice of the entire string. so, these\nare equal:\n\n",
+      "\nafter the call to ",
+      "\nwill throw a compile-time error:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " and the immutable reference in ",
+      " bit. we create slices\nusing a range within square brackets by specifying\n",
+      " function:\n\n",
+      " is a reference to a\nportion of the ",
+      " needs to\ntruncate the ",
+      " range syntax, if you want to start at index 0, you can drop\nthe value before the two periods. in other words, these are equal:\n\n",
+      " remain valid.\nremember the bug in the program in listing 4-8, when we got the index to the\nend of the first word but then cleared the string so our index was invalid?\nthat code was logically incorrect but didn’t show any immediate errors. the\nproblems would show up later if we kept trying to use the first word index with\nan emptied string. slices make this bug impossible and let us know much sooner\nthat we have a problem with our code. using the slice version of ",
+      " to return a\nslice. the type that signifies “string slice” is written as ",
+      " uses the reference in ",
+      " with a length\nvalue of ",
+      " would\nbe a slice that contains a pointer to the byte at index 6 of ",
+      ", ",
+      ", it needs to get a mutable reference. the ",
+      ", so the immutable\nreference must still be active at that point. rust disallows the mutable\nreference in ",
+      ", specified in the extra ",
+      ", we get back a single value that is tied to the\nunderlying data. the value is made up of a reference to the starting point of\nthe slice and the number of elements in the slice.\n\nreturning a slice would also work for a ",
+      ", where _",
+      ", you\ncan drop the trailing number. that means these are equal:\n\n",
+      ".\n\nfigure 4-7 shows this in a diagram.\n\n<img alt=\"three tables: a table representing the stack data of s, which points\nto the byte at index 0 in a table of the string data &quot;hello world&quot; on\nthe heap. the third table represents the stack data of the slice world, which\nhas a length value of 5 and points to byte 6 of the heap data table.\"\nsrc=\"img/trpl04-07.svg\" class=\"center\" style=\"width: 50%;\" />\n\n<span class=\"caption\">figure 4-7: a string slice referring to part of a\n",
+      ":\n\n<listing file-name=\"src/main.rs\">\n\n",
+      "</span>\n\nwith rust’s ",
+      "_ is one more than the last position\nin the slice. internally, the slice data structure stores the starting position\nand the length of the slice, which corresponds to _",
+      "_ is the first\nposition in the slice and _",
+      "_ minus\n_",
+      "_. so, in the case of ",
+      "console\n{{#include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/output.txt}}\n",
+      "rust\nlet s = string::from(\"hello\");\n\nlet len = s.len();\n\nlet slice = &s[0..len];\nlet slice = &s[..];\n",
+      "rust\nlet s = string::from(\"hello\");\n\nlet len = s.len();\n\nlet slice = &s[3..len];\nlet slice = &s[3..];\n",
+      "rust\nlet s = string::from(\"hello\");\n\nlet slice = &s[0..2];\nlet slice = &s[..2];\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}\n",
+      "rust,ignore\nfn second_word(s: &string) -> &str {\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/src/main.rs:here}}\n",
+      "string",
+      "use the"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause we need to go through the ",
+      "\n\n</listing>\n\nif we have a string slice, we can pass that directly. if we have a ",
+      "\n\n</listing>\n\nthis program compiles without any errors and would also do so if we used ",
+      "\n\na more experienced rustacean would write the signature shown in listing 4-9\ninstead because it allows us to use the same function on both ",
+      "\n\njust as we might want to refer to part of a string, we might want to refer to\npart of an array. we’d do so like this:\n\n",
+      "\n\nnext, we create an iterator over the array of bytes using the ",
+      "\n\nthe ",
+      "\n\nthe type of ",
+      "\n\nthis slice has the type ",
+      "\n\nwe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. we’re returning a ",
+      "\n\nwe’ll discuss iterators in more detail in [chapter 13][ch13]<!-- ignore -->.\nfor now, know that ",
+      "\nafter calling ",
+      "\nat all, ",
+      "\nfor the index in the tuple and ",
+      "\nmakes our api more general and useful without losing any functionality:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " and returns each element as\npart of a tuple instead. the first element of the tuple returned from\n",
+      " contents\">\n\n",
+      " element by element and check whether\na value is a space, we’ll convert our ",
+      " for the single byte in the tuple.\nbecause we get a reference to the element from ",
+      " function and then changing the "
+    ]
+  },
+  "text": "\nA _string slice_ is a reference to a contiguous sequence of the elements of a\n`String`, and it looks like this:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-17-slice/src/main.rs:here}}\n```\n\nRather than a reference to the entire `String`, `hello` is a reference to a\nportion of the `String`, specified in the extra `[0..5]` bit. We create slices\nusing a range within square brackets by specifying\n`[starting_index..ending_index]`, where _`starting_index`_ is the first\nposition in the slice and _`ending_index`_ is one more than the last position\nin the slice. Internally, the slice data structure stores the starting position\nand the length of the slice, which corresponds to _`ending_index`_ minus\n_`starting_index`_. So, in the case of `let world = &s[6..11];`, `world` would\nbe a slice that contains a pointer to the byte at index 6 of `s` with a length\nvalue of `5`.\n\nFigure 4-7 shows this in a diagram.\n\n<img alt=\"Three tables: a table representing the stack data of s, which points\nto the byte at index 0 in a table of the string data &quot;hello world&quot; on\nthe heap. The third table represents the stack data of the slice world, which\nhas a length value of 5 and points to byte 6 of the heap data table.\"\nsrc=\"img/trpl04-07.svg\" class=\"center\" style=\"width: 50%;\" />\n\n<span class=\"caption\">Figure 4-7: A string slice referring to part of a\n`String`</span>\n\nWith Rust’s `..` range syntax, if you want to start at index 0, you can drop\nthe value before the two periods. In other words, these are equal:\n\n```rust\nlet s = String::from(\"hello\");\n\nlet slice = &s[0..2];\nlet slice = &s[..2];\n```\n\nBy the same token, if your slice includes the last byte of the `String`, you\ncan drop the trailing number. That means these are equal:\n\n```rust\nlet s = String::from(\"hello\");\n\nlet len = s.len();\n\nlet slice = &s[3..len];\nlet slice = &s[3..];\n```\n\nYou can also drop both values to take a slice of the entire string. So, these\nare equal:\n\n```rust\nlet s = String::from(\"hello\");\n\nlet len = s.len();\n\nlet slice = &s[0..len];\nlet slice = &s[..];\n```\n\n> Note: String slice range indices must occur at valid UTF-8 character\n> boundaries. If you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nWith all this information in mind, let’s rewrite `first_word` to return a\nslice. The type that signifies “string slice” is written as `&str`:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-18-first-word-slice/src/main.rs:here}}\n```\n\n</Listing>\n\nWe get the index for the end of the word the same way we did in Listing 4-7, by\nlooking for the first occurrence of a space. When we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nNow when we call `first_word`, we get back a single value that is tied to the\nunderlying data. The value is made up of a reference to the starting point of\nthe slice and the number of elements in the slice.\n\nReturning a slice would also work for a `second_word` function:\n\n```rust,ignore\nfn second_word(s: &String) -> &str {\n```\n\nWe now have a straightforward API that’s much harder to mess up because the\ncompiler will ensure that the references into the `String` remain valid.\nRemember the bug in the program in Listing 4-8, when we got the index to the\nend of the first word but then cleared the string so our index was invalid?\nThat code was logically incorrect but didn’t show any immediate errors. The\nproblems would show up later if we kept trying to use the first word index with\nan emptied string. Slices make this bug impossible and let us know much sooner\nthat we have a problem with our code. Using the slice version of `first_word`\nwill throw a compile-time error:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-19-slice-error/s",
+  "chapter": "ch04-03-slices"
+}

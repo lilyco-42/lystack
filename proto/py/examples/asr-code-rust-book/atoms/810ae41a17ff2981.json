@@ -1,0 +1,41 @@
+{
+  "id": "810ae41a17ff2981",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-03-slices.md",
+    "section": "Summary",
+    "line": 319
+  },
+  "title": "Summary",
+  "prose_summary": "The concepts of ownership, borrowing, and slices ensure memory safety in Rust",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "struct"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause we need to go through the ",
+      "\n\n</listing>\n\nhere’s the compiler error:\n\n",
+      "\n\n</listing>\n\nif we have a string slice, we can pass that directly. if we have a ",
+      "\n\n</listing>\n\nthis program compiles without any errors and would also do so if we used ",
+      "\n\n</listing>\n\nwe get the index for the end of the word the same way we did in listing 4-7, by\nlooking for the first occurrence of a space. when we find a space, we return a\nstring slice using the start of the string and the index of the space as the\nstarting and ending indices.\n\nnow when we call ",
+      "\n\n> note: string slice range indices must occur at valid utf-8 character\n> boundaries. if you attempt to create a string slice in the middle of a\n> multibyte character, your program will exit with an error.\n\nwith all this information in mind, let’s rewrite ",
+      "\n\na more experienced rustacean would write the signature shown in listing 4-9\ninstead because it allows us to use the same function on both ",
+      "\n\nby the same token, if your slice includes the last byte of the ",
+      "\n\njust as we might want to refer to part of a string, we might want to refer to\npart of an array. we’d do so like this:\n\n",
+      "\n\nnext, we create an iterator over the array of bytes using the ",
+      "\n\nrather than a reference to the entire ",
+      "\n\nrecall from the borrowing rules that if we have an immutable reference to\nsomething, we cannot also take a mutable reference. because ",
+      "\n\nthe ",
+      "\n\nthe type of ",
+      "\n\nthis slice has the type ",
+      "\n\nwe now have a straightforward api that’s much harder to mess up because the\ncompiler will ensure that the references into the ",
+      "\n\nwe now have a way to find out the index of the end of the first word in the\nstring, but there’s a problem. we’re returning a ",
+      "\n\nwe’ll discuss iterators in more detail in [chapter 13][ch13]<!-- ignore -->.\nfor now, know that ",
+      "\n\nyou can also drop both values to take a slice of the entire string. so, these\nare equal:\n\n",
+      "\nafter calling "
+    ]
+  },
+  "text": "\nThe concepts of ownership, borrowing, and slices ensure memory safety in Rust\nprograms at compile time. The Rust language gives you control over your memory\nusage in the same way as other systems programming languages. But having the\nowner of data automatically clean up that data when the owner goes out of scope\nmeans you don’t have to write and debug extra code to get this control.\n\nOwnership affects how lots of other parts of Rust work, so we’ll talk about\nthese concepts further throughout the rest of the book. Let’s move on to\nChapter 5 and look at grouping pieces of data together in a `struct`.\n\n[ch13]: ch13-02-iterators.html\n[ch6]: ch06-02-match.html#patterns-that-bind-to-values\n[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings\n[deref-coercions]: ch15-02-deref.html#using-deref-coercions-in-functions-and-methods",
+  "chapter": "ch04-03-slices"
+}

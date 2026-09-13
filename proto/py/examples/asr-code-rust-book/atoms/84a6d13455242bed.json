@@ -1,0 +1,114 @@
+{
+  "id": "84a6d13455242bed",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch04-02-references-and-borrowing.md",
+    "section": "Mutable References",
+    "line": 89
+  },
+  "title": "Mutable References",
+  "prose_summary": "We can fix the code from Listing 4-6 to allow us to modify a borrowed value",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "println!",
+        "use curly"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "println!"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nfirst, we change ",
+      "\n\n</listing>\n\nhere’s the error:\n\n",
+      "\n\nhere’s the error:\n\n",
+      "\n\nrust enforces a similar rule for combining mutable and immutable references.\nthis code results in an error:\n\n",
+      "\n\nthe scopes of the immutable references ",
+      "\n\nthis error says that this code is invalid because we cannot borrow ",
+      "\n\nwhew! we _also_ cannot have a mutable reference while we have an immutable one\nto the same value.\n\nusers of an immutable reference don’t expect the value to suddenly change out\nfrom under them! however, multiple immutable references are allowed because no\none who is just reading the data has the ability to affect anyone else’s\nreading of the data.\n\nnote that a reference’s scope starts from where it is introduced and continues\nthrough the last time that reference is used. for instance, this code will\ncompile because the last usage of the immutable references is in the ",
+      "\nwhere they are last used, which is before the mutable reference ",
+      " and ",
+      " and must\nlast until it’s used in the ",
+      " as\nmutable more than once at a time. the first mutable borrow is in ",
+      " end after the ",
+      " function and update the function signature\nto accept a mutable reference with ",
+      " function will mutate the value it borrows.\n\nmutable references have one big restriction: if you have a mutable reference to\na value, you can have no other references to that value. this code that\nattempts to create two mutable references to ",
+      " that borrows the same data as ",
+      " to be ",
+      " where we call the ",
+      " will fail:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      ",\nbefore the mutable reference is introduced:\n\n",
+      ", but between the creation of that\nmutable reference and its usage, we tried to create another mutable reference\nin ",
+      ".\n\nthe restriction preventing multiple mutable references to the same data at the\nsame time allows for mutation but in a very controlled fashion. it’s something\nthat new rustaceans struggle with because most languages let you mutate\nwhenever you’d like. the benefit of having this restriction is that rust can\nprevent data races at compile time. a _data race_ is similar to a race\ncondition and happens when these three behaviors occur:\n\n- two or more pointers access the same data at the same time.\n- at least one of the pointers is being used to write to the data.\n- there’s no mechanism being used to synchronize access to the data.\n\ndata races cause undefined behavior and can be difficult to diagnose and fix\nwhen you’re trying to track them down at runtime; rust prevents this problem by\nrefusing to compile code with data races!\n\nas always, we can use curly brackets to create a new scope, allowing for\nmultiple mutable references, just not _simultaneous_ ones:\n\n",
+      ". then, we create a mutable reference with\n",
+      ". this makes it\nvery clear that the ",
+      "console\n{{#include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/output.txt}}\n",
+      "console\n{{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}\n",
+      "println!",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-09-fixes-listing-04-06/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-11-muts-in-separate-scopes/src/main.rs:here}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-13-reference-scope-ends/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/src/main.rs:here}}\n",
+      "rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/src/main.rs:here}}\n",
+      "use curly"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nbecause ",
+      "\n\n</listing>\n\nfirst, notice that all the tuple code in the variable declaration and the\nfunction return value is gone. second, note that we pass ",
+      "\n\nlet’s take a closer look at exactly what’s happening at each stage of our\n",
+      "\n\nthe ",
+      "\n\nthe scope in which the variable ",
+      "\n\nthis error message refers to a feature we haven’t covered yet: lifetimes. we’ll\ndiscuss lifetimes in detail in chapter 10. but, if you disregard the parts\nabout lifetimes, the message does contain the key to why this code is a problem:\n\n",
+      "\nbut does not own it. because the reference does not own it, the value it points\nto will not be dropped when the reference stops being used.\n\nlikewise, the signature of the function uses ",
+      " ",
+      " and, in its definition, we take ",
+      " code:\n\n<listing file-name=\"src/main.rs\">\n\n",
+      " directly:\n\n",
+      " doesn’t have ownership. when functions\nhave references as parameters instead of the actual values, we won’t need to\nreturn the values in order to give back ownership, because we never had\nownership.\n\nwe call the action of creating a reference _borrowing_. as in real life, if a\nperson owns something, you can borrow it from them. when you’re done, you have\nto give it back. you don’t own it.\n\nso, what happens if we try to modify something we’re borrowing? try the code in\nlisting 4-6. spoiler alert: it doesn’t work!\n\n<listing number=\"4-6\" file-name=\"src/main.rs\" caption=\"attempting to modify a borrowed value\">\n\n",
+      " into\n",
+      " is _dereferencing_, which is\n> accomplished with the dereference operator, ",
+      " is a reference. let’s add some explanatory annotations:\n\n",
+      " is created inside ",
+      " is finished,\n",
+      " is valid is the same as any function\nparameter’s scope, but the value pointed to by the reference is not dropped\nwhen ",
+      " pointing at\n",
+      " rather than\n"
+    ]
+  },
+  "text": "\nWe can fix the code from Listing 4-6 to allow us to modify a borrowed value\nwith just a few small tweaks that use, instead, a _mutable reference_:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-09-fixes-listing-04-06/src/main.rs}}\n```\n\n</Listing>\n\nFirst, we change `s` to be `mut`. Then, we create a mutable reference with\n`&mut s` where we call the `change` function and update the function signature\nto accept a mutable reference with `some_string: &mut String`. This makes it\nvery clear that the `change` function will mutate the value it borrows.\n\nMutable references have one big restriction: If you have a mutable reference to\na value, you can have no other references to that value. This code that\nattempts to create two mutable references to `s` will fail:\n\n<Listing file-name=\"src/main.rs\">\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/src/main.rs:here}}\n```\n\n</Listing>\n\nHere’s the error:\n\n```console\n{{#include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/output.txt}}\n```\n\nThis error says that this code is invalid because we cannot borrow `s` as\nmutable more than once at a time. The first mutable borrow is in `r1` and must\nlast until it’s used in the `println!`, but between the creation of that\nmutable reference and its usage, we tried to create another mutable reference\nin `r2` that borrows the same data as `r1`.\n\nThe restriction preventing multiple mutable references to the same data at the\nsame time allows for mutation but in a very controlled fashion. It’s something\nthat new Rustaceans struggle with because most languages let you mutate\nwhenever you’d like. The benefit of having this restriction is that Rust can\nprevent data races at compile time. A _data race_ is similar to a race\ncondition and happens when these three behaviors occur:\n\n- Two or more pointers access the same data at the same time.\n- At least one of the pointers is being used to write to the data.\n- There’s no mechanism being used to synchronize access to the data.\n\nData races cause undefined behavior and can be difficult to diagnose and fix\nwhen you’re trying to track them down at runtime; Rust prevents this problem by\nrefusing to compile code with data races!\n\nAs always, we can use curly brackets to create a new scope, allowing for\nmultiple mutable references, just not _simultaneous_ ones:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-11-muts-in-separate-scopes/src/main.rs:here}}\n```\n\nRust enforces a similar rule for combining mutable and immutable references.\nThis code results in an error:\n\n```rust,ignore,does_not_compile\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/src/main.rs:here}}\n```\n\nHere’s the error:\n\n```console\n{{#include ../listings/ch04-understanding-ownership/no-listing-12-immutable-and-mutable-not-allowed/output.txt}}\n```\n\nWhew! We _also_ cannot have a mutable reference while we have an immutable one\nto the same value.\n\nUsers of an immutable reference don’t expect the value to suddenly change out\nfrom under them! However, multiple immutable references are allowed because no\none who is just reading the data has the ability to affect anyone else’s\nreading of the data.\n\nNote that a reference’s scope starts from where it is introduced and continues\nthrough the last time that reference is used. For instance, this code will\ncompile because the last usage of the immutable references is in the `println!`,\nbefore the mutable reference is introduced:\n\n```rust\n{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-13-reference-scope-ends/src/main.rs:here}}\n```\n\nThe scopes of the immutable references `r1` and `r2` end after the `println!`\nwhere they are last used, which is before the mutable reference `r3` is\ncreated. These scopes don’t overlap, so this code ",
+  "chapter": "ch04-02-references-and-borrowing"
+}

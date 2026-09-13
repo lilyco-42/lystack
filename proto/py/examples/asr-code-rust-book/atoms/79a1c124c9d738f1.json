@@ -1,0 +1,52 @@
+{
+  "id": "79a1c124c9d738f1",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-01-variables-and-mutability.md",
+    "section": "Declaring Constants",
+    "line": 77
+  },
+  "title": "Declaring Constants",
+  "prose_summary": "Like immutable variables, _constants_ are values that are bound to a name and",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthe constant’s name is ",
+      "const",
+      "let",
+      "mut",
+      "rust\nconst three_hours_in_seconds: u32 = 60 * 60 * 3;\n"
+    ],
+    "weak": [
+      "\n\nsave and run the program using ",
+      "\n\nshadowing is different from marking a variable as ",
+      "\n\nthe error says we’re not allowed to mutate a variable’s type:\n\n",
+      "\n\nthe first ",
+      "\n\nthis example shows how the compiler helps you find errors in your programs.\ncompiler errors can be frustrating, but really they only mean your program\nisn’t safely doing what you want it to do yet; they do _not_ mean that you’re\nnot a good programmer! experienced rustaceans still get compiler errors.\n\nyou received the error message ",
+      "\n\nthis program first binds ",
+      "\n\nwe’re allowed to change the value bound to ",
+      "\n\nwhen we run the program now, we get this:\n\n",
+      " ",
+      " a value of ",
+      " also conveys\nintent to future readers of the code by indicating that other parts of the code\nwill be changing this variable’s value.\n\nfor example, let’s change _src/main.rs_ to the following:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " and ",
+      " and creates a new\nvariable, multiplying the previous value by ",
+      " and shadowing is that because we’re\neffectively creating a new variable when we use the ",
+      " because we’ll get a\ncompile-time error if we accidentally try to reassign to this variable without\nusing the ",
+      " because you tried to assign a second value to the immutable ",
+      " by repeating ",
+      " cannot assign twice to immutable variable ",
+      " for this, as shown\nhere, we’ll get a compile-time error:\n\n",
+      " from "
+    ]
+  },
+  "text": "\nLike immutable variables, _constants_ are values that are bound to a name and\nare not allowed to change, but there are a few differences between constants\nand variables.\n\nFirst, you aren’t allowed to use `mut` with constants. Constants aren’t just\nimmutable by default—they’re always immutable. You declare constants using the\n`const` keyword instead of the `let` keyword, and the type of the value _must_\nbe annotated. We’ll cover types and type annotations in the next section,\n[“Data Types”][data-types]<!-- ignore -->, so don’t worry about the details\nright now. Just know that you must always annotate the type.\n\nConstants can be declared in any scope, including the global scope, which makes\nthem useful for values that many parts of code need to know about.\n\nThe last difference is that constants may be set only to a constant expression,\nnot the result of a value that could only be computed at runtime.\n\nHere’s an example of a constant declaration:\n\n```rust\nconst THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;\n```\n\nThe constant’s name is `THREE_HOURS_IN_SECONDS`, and its value is set to the\nresult of multiplying 60 (the number of seconds in a minute) by 60 (the number\nof minutes in an hour) by 3 (the number of hours we want to count in this\nprogram). Rust’s naming convention for constants is to use all uppercase with\nunderscores between words. The compiler is able to evaluate a limited set of\noperations at compile time, which lets us choose to write out this value in a\nway that’s easier to understand and verify, rather than setting this constant\nto the value 10,800. See the [Rust Reference’s section on constant\nevaluation][const-eval] for more information on what operations can be used\nwhen declaring constants.\n\nConstants are valid for the entire time a program runs, within the scope in\nwhich they were declared. This property makes constants useful for values in\nyour application domain that multiple parts of the program might need to know\nabout, such as the maximum number of points any player of a game is allowed to\nearn, or the speed of light.\n\nNaming hardcoded values used throughout your program as constants is useful in\nconveying the meaning of that value to future maintainers of the code. It also\nhelps to have only one place in your code that you would need to change if the\nhardcoded value needed to be updated in the future.\n",
+  "chapter": "ch03-01-variables-and-mutability"
+}

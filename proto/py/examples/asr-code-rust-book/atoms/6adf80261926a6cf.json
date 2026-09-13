@@ -1,0 +1,57 @@
+{
+  "id": "6adf80261926a6cf",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-02-data-types.md",
+    "section": "Invalid Array Element Access",
+    "line": 334
+  },
+  "title": "Invalid Array Element Access",
+  "prose_summary": "Let’s see what happens if you try to access an element of an array that is past",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthe program resulted in a runtime error at the point of using an invalid\nvalue in the indexing operation. the program exited with an error message and\ndidn’t execute the final ",
+      "\n\nthis code compiles successfully. if you run this code using ",
+      " and\nenter ",
+      " environment variable to display a backtrace\n",
+      ", ",
+      ", or ",
+      ", the program will print out the corresponding\nvalue at that index in the array. if you instead enter a number past the end of\nthe array, such as ",
+      ", you’ll see output like this:\n\n<!-- manual-regeneration\ncd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access\ncargo run\n10\n-->\n\n",
+      "console\nthread 'main' panicked at src/main.rs:19:19:\nindex out of bounds: the len is 5 but the index is 10\nnote: run with ",
+      "rust,ignore,panics\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}\n"
+    ],
+    "weak": [
+      "\n\narrays are useful when you want your data allocated on the stack, the same as\nthe other types we have seen so far, rather than the heap (we will discuss the\nstack and the heap more in [chapter 4][stack-and-heap]<!-- ignore -->) or when\nyou want to ensure that you always have a fixed number of elements. an array\nisn’t as flexible as the vector type, though. a vector is a similar collection\ntype provided by the standard library that _is_ allowed to grow or shrink in\nsize because its contents live on the heap. if you’re unsure whether to use an\narray or a vector, chances are you should use a vector. [chapter\n8][vectors]<!-- ignore --> discusses vectors in more detail.\n\nhowever, arrays are more useful when you know the number of elements will not\nneed to change. for example, if you were using the names of the month in a\nprogram, you would probably use an array rather than a vector because you know\nit will always contain 12 elements:\n\n",
+      "\n\nhere, ",
+      "\n\nif we don’t add the ",
+      "\n\nin this example, the variable named ",
+      "\n\nnote that we specify ",
+      "\n\nthe array named ",
+      "\n\nthe main way to use boolean values is through conditionals, such as an ",
+      "\n\nthe variable ",
+      "\n\nthis program creates the tuple ",
+      "\n\nthis program first creates a tuple and binds it to the variable ",
+      "\n\nyou write an array’s type using square brackets with the type of each element,\na semicolon, and then the number of elements in the array, like so:\n\n",
+      "\nexpression. we’ll cover how ",
+      "\nindicates the array contains five elements.\n\nyou can also initialize an array to contain the same value for each element by\nspecifying the initial value, followed by a semicolon, and then the length of\nthe array in square brackets, as shown here:\n\n",
+      " and ",
+      " and then accesses each element of the tuple\nusing their respective indices. as with most programming languages, the first\nindex in a tuple is 0.\n\nthe tuple without any values has a special name, _unit_. this value and its\ncorresponding type are both written ",
+      " and turn it into three separate\nvariables, ",
+      " because that\nis the value at index ",
+      " binds to the entire tuple because a tuple is considered a\nsingle compound element. to get the individual values out of a tuple, we can\nuse pattern matching to destructure a tuple value, like this:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      " elements that will all be set to the value\n",
+      " from index "
+    ]
+  },
+  "text": "\nLet’s see what happens if you try to access an element of an array that is past\nthe end of the array. Say you run this code, similar to the guessing game in\nChapter 2, to get an array index from the user:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust,ignore,panics\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access/src/main.rs}}\n```\n\nThis code compiles successfully. If you run this code using `cargo run` and\nenter `0`, `1`, `2`, `3`, or `4`, the program will print out the corresponding\nvalue at that index in the array. If you instead enter a number past the end of\nthe array, such as `10`, you’ll see output like this:\n\n<!-- manual-regeneration\ncd listings/ch03-common-programming-concepts/no-listing-15-invalid-array-access\ncargo run\n10\n-->\n\n```console\nthread 'main' panicked at src/main.rs:19:19:\nindex out of bounds: the len is 5 but the index is 10\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n```\n\nThe program resulted in a runtime error at the point of using an invalid\nvalue in the indexing operation. The program exited with an error message and\ndidn’t execute the final `println!` statement. When you attempt to access an\nelement using indexing, Rust will check that the index you’ve specified is less\nthan the array length. If the index is greater than or equal to the length,\nRust will panic. This check has to happen at runtime, especially in this case,\nbecause the compiler can’t possibly know what value a user will enter when they\nrun the code later.\n\nThis is an example of Rust’s memory safety principles in action. In many\nlow-level languages, this kind of check is not done, and when you provide an\nincorrect index, invalid memory can be accessed. Rust protects you against this\nkind of error by immediately exiting instead of allowing the memory access and\ncontinuing. Chapter 9 discusses more of Rust’s error handling and how you can\nwrite readable, safe code that neither panics nor allows invalid memory access.\n\n[comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number\n[twos-complement]: https://en.wikipedia.org/wiki/Two%27s_complement\n[control-flow]: ch03-05-control-flow.html#control-flow\n[strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings\n[stack-and-heap]: ch04-01-what-is-ownership.html#the-stack-and-the-heap\n[vectors]: ch08-01-vectors.html\n[unrecoverable-errors-with-panic]: ch09-01-unrecoverable-errors-with-panic.html\n[appendix_b]: appendix-02-operators.md",
+  "chapter": "ch03-02-data-types"
+}

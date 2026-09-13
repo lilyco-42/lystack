@@ -116,10 +116,11 @@ def distill(outdir: str) -> None:
 
     atoms = []
     token_map: dict[str, set] = {}
-    for slug, md in CHAPTERS:
+    # 扫描 bookdir 全部 md —— 语料清单与构建脚本解耦
+    mds = sorted(f for f in os.listdir(bookdir) if f.endswith(".md"))
+    for md in mds:
+        slug = md[:-3]
         path = os.path.join(bookdir, md)
-        if not os.path.isfile(path):
-            continue
         text = open(path, encoding="utf-8").read()
         for sec in parse_sections(text):
             blocks = extract_blocks(sec["text"])
@@ -177,6 +178,7 @@ def distill(outdir: str) -> None:
 def query(outdir: str, terms: list[str]) -> None:
     idx = json.load(open(os.path.join(outdir, "asr-code.json"), encoding="utf-8"))
     hits = []
+
     for ref in idx["atoms"]:
         a = json.load(open(os.path.join(outdir, ref), encoding="utf-8"))
         hay = json.dumps(a).lower()

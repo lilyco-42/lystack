@@ -1,0 +1,92 @@
+{
+  "id": "ad1ce696504c586d",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch03-05-control-flow.md",
+    "section": "Looping Through a Collection with `for`",
+    "line": 306
+  },
+  "title": "Looping Through a Collection with `for`",
+  "prose_summary": "You can choose to use the `while` construct to loop over the elements of a",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nhere, the code counts up through the elements in the array. it starts at index\n",
+      "\n\n</listing>\n\nwhen we run this code, we’ll see the same output as in listing 3-4. more\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. machine code generated from ",
+      "\n\nall five array values appear in the terminal, as expected. even though ",
+      "\nloops can be more efficient as well because the index doesn’t need to be\ncompared to the length of the array at every iteration.\n\nusing the ",
+      "\nwill reach a value of ",
+      " and then loops until it reaches the final index in the array (that is,\nwhen ",
+      " array to have four elements but forgot to update the\ncondition to ",
+      " at some point, the loop stops executing before trying\nto fetch a sixth value from the array.\n\nhowever, this approach is error-prone; we could cause the program to panic if\nthe index value or test condition is incorrect. for example, if you changed the\ndefinition of the ",
+      " is no longer ",
+      " loop\nin listing 3-3, most rustaceans would use a ",
+      " loop and another method\nwe’ve not yet talked about, ",
+      " loop and execute some code\nfor each item in a collection. a ",
+      " loop looks like the code in listing 3-5.\n\n<listing number=\"3-5\" file-name=\"src/main.rs\" caption=\"looping through each element of a collection using a ",
+      " loop\">\n\n",
+      " loop, you wouldn’t need to remember to change any other code if\nyou changed the number of values in the array, as you would with the method\nused in listing 3-4.\n\nthe safety and conciseness of ",
+      " loop. the way to do that\nwould be to use a ",
+      " loops make them the most commonly used loop\nconstruct in rust. even in situations in which you want to run some code a\ncertain number of times, as in the countdown example that used a ",
+      "). running this code will print every\nelement in the array:\n\n",
+      ", provided by the standard library, which generates\nall numbers in sequence starting from one number and ending before another\nnumber.\n\nhere’s what the countdown would look like using a ",
+      ", the code would panic. it’s also slow, because\nthe compiler adds runtime code to perform the conditional check of whether the\nindex is within the bounds of the array on every iteration through the loop.\n\nas a more concise alternative, you can use a ",
+      ", to reverse the range:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      "a",
+      "console\n{{#include ../listings/ch03-common-programming-concepts/listing-03-04/output.txt}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-05/src/main.rs}}\n",
+      "rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-34-for-range/src/main.rs}}\n",
+      "while"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nthe ",
+      "\n\n</listing>\n\nthis construct eliminates a lot of nesting that would be necessary if you used\n",
+      "\n\nall ",
+      "\n\nbefore the loop, we declare a variable named ",
+      "\n\nit’s also worth noting that the condition in this code _must_ be a ",
+      "\n\nlet’s try changing the value of ",
+      "\n\nremember that blocks of code evaluate to the last expression in them, and\nnumbers by themselves are also expressions. in this case, the value of the\nwhole ",
+      "\n\nrun the program again, and look at the output:\n\n",
+      "\n\nrunning this code will print ",
+      "\n\nthe ",
+      "\n\nthe error indicates that rust expected a ",
+      "\n\nthe expression in the ",
+      "\n\nthe outer loop has the label ",
+      "\n\nthe symbol ",
+      "\n\nthis program has four possible paths it can take. after running it, you should\nsee the following output:\n\n",
+      "\n\nwhen this program executes, it checks each ",
+      "\n\nwhen we run this program, we’ll see ",
+      "\n\nwhen we try to compile this code, we’ll get an error. the ",
+      "\nagain!\nagain!\nagain!\nagain!\n^cagain!\n",
+      "\narm were "
+    ]
+  },
+  "text": "\nYou can choose to use the `while` construct to loop over the elements of a\ncollection, such as an array. For example, the loop in Listing 3-4 prints each\nelement in the array `a`.\n\n<Listing number=\"3-4\" file-name=\"src/main.rs\" caption=\"Looping through each element of a collection using a `while` loop\">\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-04/src/main.rs}}\n```\n\n</Listing>\n\nHere, the code counts up through the elements in the array. It starts at index\n`0` and then loops until it reaches the final index in the array (that is,\nwhen `index < 5` is no longer `true`). Running this code will print every\nelement in the array:\n\n```console\n{{#include ../listings/ch03-common-programming-concepts/listing-03-04/output.txt}}\n```\n\nAll five array values appear in the terminal, as expected. Even though `index`\nwill reach a value of `5` at some point, the loop stops executing before trying\nto fetch a sixth value from the array.\n\nHowever, this approach is error-prone; we could cause the program to panic if\nthe index value or test condition is incorrect. For example, if you changed the\ndefinition of the `a` array to have four elements but forgot to update the\ncondition to `while index < 4`, the code would panic. It’s also slow, because\nthe compiler adds runtime code to perform the conditional check of whether the\nindex is within the bounds of the array on every iteration through the loop.\n\nAs a more concise alternative, you can use a `for` loop and execute some code\nfor each item in a collection. A `for` loop looks like the code in Listing 3-5.\n\n<Listing number=\"3-5\" file-name=\"src/main.rs\" caption=\"Looping through each element of a collection using a `for` loop\">\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/listing-03-05/src/main.rs}}\n```\n\n</Listing>\n\nWhen we run this code, we’ll see the same output as in Listing 3-4. More\nimportantly, we’ve now increased the safety of the code and eliminated the\nchance of bugs that might result from going beyond the end of the array or not\ngoing far enough and missing some items. Machine code generated from `for`\nloops can be more efficient as well because the index doesn’t need to be\ncompared to the length of the array at every iteration.\n\nUsing the `for` loop, you wouldn’t need to remember to change any other code if\nyou changed the number of values in the array, as you would with the method\nused in Listing 3-4.\n\nThe safety and conciseness of `for` loops make them the most commonly used loop\nconstruct in Rust. Even in situations in which you want to run some code a\ncertain number of times, as in the countdown example that used a `while` loop\nin Listing 3-3, most Rustaceans would use a `for` loop. The way to do that\nwould be to use a `Range`, provided by the standard library, which generates\nall numbers in sequence starting from one number and ending before another\nnumber.\n\nHere’s what the countdown would look like using a `for` loop and another method\nwe’ve not yet talked about, `rev`, to reverse the range:\n\n<span class=\"filename\">Filename: src/main.rs</span>\n\n```rust\n{{#rustdoc_include ../listings/ch03-common-programming-concepts/no-listing-34-for-range/src/main.rs}}\n```\n\nThis code is a bit nicer, isn’t it?\n",
+  "chapter": "ch03-05-control-flow"
+}
