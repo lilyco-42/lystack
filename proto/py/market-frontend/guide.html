@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>快速入门 —— lilyco-42</title>
+<style>
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--purple:#bc8cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.c{max-width:880px;margin:0 auto;padding:40px 20px}
+h1{font-size:2rem;margin:20px 0 8px;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:1.2rem;color:var(--blue);margin-top:32px;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+p{color:var(--muted);margin-bottom:12px}
+.code{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;position:relative}
+.code pre{font-family:"Cascadia Code",Consolas,monospace;font-size:.82rem;color:var(--text);white-space:pre-wrap}
+.copy{position:absolute;top:8px;right:8px;background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:.7rem}
+.copy:hover{color:var(--text)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin:12px 0;display:block}
+.card:hover{border-color:var(--blue)}
+.tag{display:inline-block;background:var(--bg3);border:1px solid var(--border);color:var(--blue);padding:2px 8px;border-radius:12px;font-size:.72rem;margin:3px}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:20px 0}
+</style>
+</head>
+<body>
+<div class="c" id="app"></div>
+<script>
+const GUIDES = {
+  "lilyco": {
+    "t": "lilyco —— 一个 struct 生成 CLI/TUI/Web/MCP",
+    "s": "AI 优先的 Rust 框架：定义一个 struct，四个端自动生成，天然可被 Agent 调用。已发布 crates.io。",
+    "steps": [
+      ["安装", "cargo add lilyco   # crates.io (core/macros/cli/tui/gui/mcp)"],
+      ["定义 struct", "use lilyco::prelude::*;\n#[derive(App)]\nstruct Hello {\n    #[arg(about = \"名字\")] name: String,\n}\nfn main() { lilyco::run::<Hello>(); }"],
+      ["四端启动", "cargo run                  # CLI\ncargo run -- --tui         # TUI\ncargo run -- --serve 8080  # Web GUI\ncargo run -- --mcp         # MCP 服务器"]
+    ],
+    "links": [["crates.io", "https://crates.io/crates/lilyco"], ["仓库", "https://github.com/lilyco-42/lilyco"], ["README", "https://github.com/lilyco-42/lilyco#readme"]]
+  },
+  "lyco-engine": {
+    "t": "lyco-engine —— WASM 视觉小说引擎",
+    "s": "YuzuSoft 风格视觉小说引擎，WASM 跨平台，资源流式后端，浏览器即玩。",
+    "steps": [
+      ["浏览器即玩", "打开本站 /lyco/ 在线 demo"],
+      ["源码构建", "git clone https://github.com/lilyco-42/lyco-engine && cd lyco-engine\ncargo build --release"]
+    ],
+    "links": [["在线 demo", "/lyco/"], ["仓库", "https://github.com/lilyco-42/lyco-engine"]]
+  },
+  "lyco-cli": {
+    "t": "lyco-cli —— 多语言脚手架",
+    "s": "gh api 拉模板 + 声明式渲染，一套配置生成项目骨架。",
+    "steps": [
+      ["获取", "git clone https://github.com/lilyco-42/lyco-cli && cd lyco-cli\ncargo build --release"],
+      ["生成项目", "./target/release/lyco-cli --template rust --name my-proj"]
+    ],
+    "links": [["仓库", "https://github.com/lilyco-42/lyco-cli"]]
+  },
+  "lyco_chat": {
+    "t": "lyco_chat —— 从零实现 transformer",
+    "s": "研究 transformer 原理的聊天 AI，核心源自 tinyGPT，跑通注意力与自回归生成。",
+    "steps": [
+      ["获取并运行", "git clone https://github.com/lilyco-42/lyco_chat && cd lyco_chat\ncargo run --release"]
+    ],
+    "links": [["仓库", "https://github.com/lilyco-42/lyco_chat"]]
+  },
+  "lyco-skill": {
+    "t": "lyco-skill —— 项目预研技能",
+    "s": "需求钉死一句话 → gh 近义词搜索 → 论坛冷门知识 → 决策，少造 80% 轮子。",
+    "steps": [
+      ["安装", "git clone https://github.com/lilyco-42/lyco-skill ~/.zcode/skills/lyco"],
+      ["使用", "在 ZCode 会话中: /lyco <需求一句话>"]
+    ],
+    "links": [["仓库", "https://github.com/lilyco-42/lyco-skill"]]
+  },
+  "cute-pet": {
+    "t": "cute-pet —— 丛雨桌宠",
+    "s": "跨平台悬浮桌宠 (Rust + WASM + lazy-UI)，点击玩耍、聊天、看屏幕。",
+    "steps": [
+      ["浏览器即玩", "打开本站 /pet/ （WASM 版，无需安装）"],
+      ["桌面版", "git clone https://github.com/lilyco-42/cute-pet && cd cute-pet\ncargo build --release"]
+    ],
+    "links": [["立即游玩", "/pet/"], ["仓库", "https://github.com/lilyco-42/cute-pet"]]
+  },
+  "webview-mini": {
+    "t": "webview-mini —— 极速 WebView2 封装",
+    "s": "Windows 200KB 独立 exe | 单头文件引入 | xmake 一键构建。",
+    "steps": [
+      ["xmake.lua", "add_requires(\"webview-mini\")\ntarget(\"my-app\")\n    set_kind(\"binary\")\n    add_files(\"main.c\")\n    add_packages(\"webview-mini\")\n    add_syslinks(\"user32\",\"shell32\",\"ole32\",\"shlwapi\",\"version\")"],
+      ["main.c", "#include \"webview.h\"\nint main(void) {\n    webview_t w = webview_create(0, NULL);\n    webview_set_title(w, \"app\");\n    webview_run(w);\n}"]
+    ],
+    "links": [["仓库", "https://github.com/lilyco-42/webview-mini"]]
+  },
+  "webview-capi": {
+    "t": "webview-capi —— WebView2 C API",
+    "s": "17 个导出函数，ctypes/cgo/FFI 绑定，30 秒上手。",
+    "steps": [
+      ["Python 绑定", "import ctypes\ndll = ctypes.CDLL(\"webview_capi.dll\")"]
+    ],
+    "links": [["仓库", "https://github.com/lilyco-42/webview-capi"]]
+  }
+};
+
+const NAME = new URLSearchParams(location.search).get("name") || "";
+const app = document.getElementById("app");
+const g = GUIDES[NAME];
+
+if (!g) {
+  let h = "<h1>快速入门 · 选择项目</h1><p>从 <a href='/'>首页</a> 精选卡片点「快速入门」进入本页。</p><div class='picker'>";
+  for (const k of Object.keys(GUIDES)) {
+    h += "<a class='card' href='guide.html?name=" + k + "'><b>" + k + "</b><br><span style='color:var(--muted);font-size:.82rem'>" + GUIDES[k].s.slice(0, 60) + "…</span></a>";
+  }
+  app.innerHTML = h + "</div>";
+} else {
+  document.title = g.t;
+  let h = "<h1>" + g.t + "</h1><p>" + g.s + "</p>";
+  g.steps.forEach(function (st, i) {
+    h += "<h2>" + (i + 1) + ". " + st[0] + "</h2>" +
+      "<div class='code'><pre>" + st[1].replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</pre>" +
+      "<button class='copy' onclick='navigator.clipboard.writeText(this.previousElementSibling.innerText)'>复制</button></div>";
+  });
+  h += "<h2>链接</h2>" + g.links.map(function (l) {
+    return "<p><a href='" + l[1] + "'>" + l[0] + " →</a></p>";
+  }).join("");
+  h += "<p style='margin-top:30px'><a href='/'>← 返回首页</a></p>";
+  app.innerHTML = h;
+}
+</script>
+</body>
+</html>
