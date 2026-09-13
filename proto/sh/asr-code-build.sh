@@ -55,6 +55,7 @@ cat > "$PKG/mpkg.json" <<EOF2
 EOF2
 
 echo "== 4. publish =="
+unset GH_TOKEN   # gh 回退到 auth login 的 MPKG_TOKEN (跨仓写权)
 echo "$MPKG_TOKEN" | gh auth login --with-token
 python3 "$HERE/mpkg.py" publish "$PKG" -r "$REGISTRY"
 echo "== ASR_BUILD_DONE =="

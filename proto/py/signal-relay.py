@@ -95,6 +95,9 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    srv = ThreadingHTTPServer(("127.0.0.1", 9920), Handler)
-    print("signal relay on 127.0.0.1:9920")
+    import os
+    bind = os.environ.get("SIGNAL_BIND", "127.0.0.1:9920")
+    host, port = bind.rsplit(":", 1)
+    srv = ThreadingHTTPServer((host, int(port)), Handler)
+    print(f"signal relay on {bind}")
     srv.serve_forever()

@@ -267,18 +267,22 @@ def _gh(*argv: str) -> str:
 
 
 def gh_put_file(repo: str, path: str, data: bytes, message: str):
-    # contents API：更新需带旧文件 sha
+    # contents API：更新需带旧文件 sha; body 走 --input (Windows 命令行 32KB 上限)
     sha = None
     r = subprocess.run(["gh", "api", f"repos/{repo}/contents/{path}",
                         "--jq", ".sha"], capture_output=True, text=True)
     if r.returncode == 0:
         sha = r.stdout.strip()
-    argv = ["-X", "PUT", f"repos/{repo}/contents/{path}",
-            "-f", f"message={message}",
-            "-f", f"content={base64.b64encode(data).decode()}"]
+    payload = {"message": message, "content": base64.b64encode(data).decode()}
     if sha:
-        argv += ["-f", f"sha={sha}"]
-    _gh(*argv)
+        payload["sha"] = sha
+    tf = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, encoding="utf-8")
+    json.dump(payload, tf)
+    tf.close()
+    try:
+        _gh("-X", "PUT", f"repos/{repo}/contents/{path}", "--input", tf.name)
+    finally:
+        os.unlink(tf.name)
 
 
 def registry_index(repo: str) -> dict:

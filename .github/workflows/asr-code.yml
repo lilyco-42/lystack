@@ -18,5 +18,6 @@ jobs:
           python-version: "3.11"
       - name: build & publish (需 repo secret MPKG_TOKEN = mpkg-registry 写权 PAT)
         env:
+          GH_TOKEN: ${{ github.token }}          # 书源读取用 (fetch 后脚本内 unset, 发布走 MPKG_TOKEN)
           MPKG_TOKEN: ${{ secrets.MPKG_TOKEN }}
         run: bash proto/sh/asr-code-build.sh lilyco-42/mpkg-registry
