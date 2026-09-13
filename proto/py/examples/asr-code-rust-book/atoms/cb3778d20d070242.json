@@ -1,0 +1,100 @@
+{
+  "id": "cb3778d20d070242",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-03-hello-cargo.md",
+    "section": "Building and Running a Cargo Project",
+    "line": 117
+  },
+  "title": "Building and Running a Cargo Project",
+  "prose_summary": "Now let’s look at what’s different when we build and run the “Hello, world!”",
+  "code_blocks": [
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\ncargo also provides a command called ",
+      "\n\nif all goes well, ",
+      "\n\nthis command creates an executable file in _target/debug/hello_cargo_ (or\n_target\\debug\\hello_cargo.exe_ on windows) rather than in your current\ndirectory. because the default build is a debug build, cargo puts the binary in\na directory named _debug_. you can run the executable with this command:\n\n",
+      "\n\nusing ",
+      "\n\nwhy would you not want an executable? often, ",
+      "\nhello, world!\n",
+      " and ran it with\n",
+      " and then use the whole path to the binary, so most developers use ",
+      " because it skips the step of producing an executable. if you’re\ncontinually checking your work while writing the code, using ",
+      " for the first time also causes cargo to create a new file at the top\nlevel: _cargo.lock_. this file keeps track of the exact versions of\ndependencies in your project. this project doesn’t have dependencies, so the\nfile is a bit sparse. you won’t ever need to change this file manually; cargo\nmanages its contents for you.\n\nwe just built a project with ",
+      " is more convenient than having to remember to run ",
+      " is much faster than\n",
+      " periodically as they write their\nprogram to make sure it compiles. then, they run ",
+      " should print to the terminal. running ",
+      " to compile the\ncode and then run the resultant executable all in one command:\n\n",
+      " when they’re\nready to use the executable.\n\nlet’s recap what we’ve learned so far about cargo:\n\n- we can create a project using ",
+      " will\nspeed up the process of letting you know if your project is still compiling! as\nsuch, many rustaceans run ",
+      ", but we can also use ",
+      ".\n\nnotice that this time we didn’t see output indicating that cargo was compiling\n",
+      ".\n- we can build a project using ",
+      ".\n- we can build a project without producing a binary to check for errors using\n  ",
+      ".\n- we can build and run a project in one step using ",
+      ". cargo figured out that the files hadn’t changed, so it didn’t\nrebuild but just ran the binary. if you had modified your source code, cargo\nwould have rebuilt the project before running it, and you would have seen this\noutput:\n\n",
+      ". this command quickly checks\nyour code to make sure it compiles but doesn’t produce an executable:\n\n",
+      "console\n$ ./target/debug/hello_cargo # or .\\target\\debug\\hello_cargo.exe on windows\nhello, world!\n",
+      "console\n$ cargo build\n   compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    finished dev [unoptimized + debuginfo] target(s) in 2.85 secs\n",
+      "console\n$ cargo check\n   checking hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    finished dev [unoptimized + debuginfo] target(s) in 0.32 secs\n",
+      "console\n$ cargo run\n    finished dev [unoptimized + debuginfo] target(s) in 0.0 secs\n     running ",
+      "console\n$ cargo run\n   compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    finished dev [unoptimized + debuginfo] target(s) in 0.33 secs\n     running "
+    ],
+    "weak": [
+      "\n\n</listing>\n\nthis file is in the [_toml_][toml]<!-- ignore --> (_tom’s obvious, minimal\nlanguage_) format, which is cargo’s configuration format.\n\nthe first line, ",
+      "\n\ncargo has generated a “hello, world!” program for you, just like the one we\nwrote in listing 1-1! so far, the differences between our project and the\nproject cargo generated are that cargo placed the code in the _src_ directory,\nand we have a _cargo.toml_ configuration file in the top directory.\n\ncargo expects your source files to live inside the _src_ directory. the\ntop-level project directory is just for readme files, license information,\nconfiguration files, and anything else not related to your code. using cargo\nhelps you organize your projects. there’s a place for everything, and\neverything is in its place.\n\nif you started a project that doesn’t use cargo, as we did with the “hello,\nworld!” project, you can convert it to a project that does use cargo. move the\nproject code into the _src_ directory and create an appropriate _cargo.toml_\nfile. one easy way to get that _cargo.toml_ file is to run ",
+      "\n\nif you see a version number, you have it! if you see an error, such as ",
+      "\n\nthe first command creates a new directory and project called _hello_cargo_.\nwe’ve named our project _hello_cargo_, and cargo creates its files in a\ndirectory of the same name.\n\ngo into the _hello_cargo_ directory and list the files. you’ll see that cargo\nhas generated two files and one directory for us: a _cargo.toml_ file and a\n_src_ directory with a _main.rs_ file inside.\n\nit has also initialized a new git repository along with a _.gitignore_ file.\ngit files won’t be generated if you run ",
+      " flag. run ",
+      " key in [appendix e][appendix-e]<!-- ignore -->.\n\nthe last line, ",
+      " to\n> use a different version control system or no version control system by using\n> the ",
+      " to see the available options.\n\nopen _cargo.toml_ in your text editor of choice. it should look similar to the\ncode in listing 1-2.\n\n<listing number=\"1-2\" file-name=\"cargo.toml\" caption=\"contents of *cargo.toml* generated by ",
+      " within an existing git\nrepository; you can override this behavior by using ",
+      "\">\n\n",
+      ", is a section heading that indicates that the\nfollowing statements are configuring a package. as we add more information to\nthis file, we’ll add other sections.\n\nthe next three lines set the configuration information cargo needs to compile\nyour program: the name, the version, and the edition of rust to use. we’ll talk\nabout the ",
+      ", is the start of a section for you to list any\nof your project’s dependencies. in rust, packages of code are referred to as\n_crates_. we won’t need any other crates for this project, but we will in the\nfirst project in chapter 2, so we’ll use this dependencies section then.\n\nnow open _src/main.rs_ and take a look:\n\n<span class=\"filename\">filename: src/main.rs</span>\n\n",
+      ".\n\n> note: git is a common version control system. you can change ",
+      "cargo build\n--release",
+      "cargo build --release",
+      "console\n$ cargo --version\n",
+      "console\n$ cargo new hello_cargo\n$ cd hello_cargo\n",
+      "console\n$ git clone example.org/someproject\n$ cd someproject\n$ cargo build\n",
+      "fn main",
+      "hello_cargo"
+    ]
+  },
+  "text": "\nNow let’s look at what’s different when we build and run the “Hello, world!”\nprogram with Cargo! From your _hello_cargo_ directory, build your project by\nentering the following command:\n\n```console\n$ cargo build\n   Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs\n```\n\nThis command creates an executable file in _target/debug/hello_cargo_ (or\n_target\\debug\\hello_cargo.exe_ on Windows) rather than in your current\ndirectory. Because the default build is a debug build, Cargo puts the binary in\na directory named _debug_. You can run the executable with this command:\n\n```console\n$ ./target/debug/hello_cargo # or .\\target\\debug\\hello_cargo.exe on Windows\nHello, world!\n```\n\nIf all goes well, `Hello, world!` should print to the terminal. Running `cargo\nbuild` for the first time also causes Cargo to create a new file at the top\nlevel: _Cargo.lock_. This file keeps track of the exact versions of\ndependencies in your project. This project doesn’t have dependencies, so the\nfile is a bit sparse. You won’t ever need to change this file manually; Cargo\nmanages its contents for you.\n\nWe just built a project with `cargo build` and ran it with\n`./target/debug/hello_cargo`, but we can also use `cargo run` to compile the\ncode and then run the resultant executable all in one command:\n\n```console\n$ cargo run\n    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs\n     Running `target/debug/hello_cargo`\nHello, world!\n```\n\nUsing `cargo run` is more convenient than having to remember to run `cargo\nbuild` and then use the whole path to the binary, so most developers use `cargo\nrun`.\n\nNotice that this time we didn’t see output indicating that Cargo was compiling\n`hello_cargo`. Cargo figured out that the files hadn’t changed, so it didn’t\nrebuild but just ran the binary. If you had modified your source code, Cargo\nwould have rebuilt the project before running it, and you would have seen this\noutput:\n\n```console\n$ cargo run\n   Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs\n     Running `target/debug/hello_cargo`\nHello, world!\n```\n\nCargo also provides a command called `cargo check`. This command quickly checks\nyour code to make sure it compiles but doesn’t produce an executable:\n\n```console\n$ cargo check\n   Checking hello_cargo v0.1.0 (file:///projects/hello_cargo)\n    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs\n```\n\nWhy would you not want an executable? Often, `cargo check` is much faster than\n`cargo build` because it skips the step of producing an executable. If you’re\ncontinually checking your work while writing the code, using `cargo check` will\nspeed up the process of letting you know if your project is still compiling! As\nsuch, many Rustaceans run `cargo check` periodically as they write their\nprogram to make sure it compiles. Then, they run `cargo build` when they’re\nready to use the executable.\n\nLet’s recap what we’ve learned so far about Cargo:\n\n- We can create a project using `cargo new`.\n- We can build a project using `cargo build`.\n- We can build and run a project in one step using `cargo run`.\n- We can build a project without producing a binary to check for errors using\n  `cargo check`.\n- Instead of saving the result of the build in the same directory as our code,\n  Cargo stores it in the _target/debug_ directory.\n\nAn additional advantage of using Cargo is that the commands are the same no\nmatter which operating system you’re working on. So, at this point, we’ll no\nlonger provide specific instructions for Linux and macOS versus Windows.\n",
+  "chapter": "ch01-03-hello-cargo"
+}

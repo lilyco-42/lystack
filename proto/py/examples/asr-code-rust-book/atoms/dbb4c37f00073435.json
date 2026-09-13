@@ -1,0 +1,99 @@
+{
+  "id": "dbb4c37f00073435",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Handling Invalid Input",
+    "line": 838
+  },
+  "title": "Handling Invalid Input",
+  "prose_summary": "To further refine the game’s behavior, rather than crashing the program when",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "enum that"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "println!"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\nguess the number!\nthe secret number is: 61\nplease input your guess.\n10\nyou guessed: 10\ntoo small!\nplease input your guess.\n99\nyou guessed: 99\ntoo big!\nplease input your guess.\nfoo\nplease input your guess.\n61\nyou guessed: 61\nyou win!\n",
+      "\nmethod.\n\nif ",
+      "\ntype and ",
+      "\nvalues, no matter what information they have inside them. so, the program will\nexecute the second arm’s code, ",
+      " and ",
+      " and ask for another guess. so, effectively, the\nprogram ignores all errors that ",
+      " arm, but it does\nmatch the ",
+      " call to a ",
+      " expression here, as we did with the ",
+      " expression to move from crashing\non an error to handling the error. remember that ",
+      " expression will just return the\n",
+      " is _not_ able to turn the string into a number, it will return an\n",
+      " is able to successfully turn the string into a number, it will\nreturn an ",
+      " is an enum that has the variants ",
+      " might encounter!\n\nnow everything in the program should work as expected. let’s try it:\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-05/\ncargo run\n(too small guess)\n(too big guess)\nfoo\n(correct guess)\n-->\n\n",
+      " pattern in the first ",
+      " pattern in the second arm. the underscore, ",
+      " produced and put inside the ",
+      " profile [unoptimized + debuginfo] target(s) in 0.13s\n     running ",
+      " result of the ",
+      " returns a ",
+      " that outputs the\nsecret number. listing 2-6 shows the final code.\n\n<listing number=\"2-6\" file-name=\"src/main.rs\" caption=\"complete guessing game code\">\n\n",
+      " value\ndoes not match the ",
+      " value that ",
+      " value that contains more information about the error. the ",
+      " value that contains the resultant number. that ",
+      " value will\nmatch the first arm’s pattern, and the ",
+      " value. that number\nwill end up right where we want it in the new ",
+      " variable we’re creating.\n\nif ",
+      ", is a\ncatch-all value; in this example, we’re saying we want to match all ",
+      ", which tells the program to go to the\nnext iteration of the ",
+      ". we’re using\na ",
+      "console\n$ cargo run\n   compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    finished ",
+      "enum that",
+      "guess",
+      "println!",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:here}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-06/src/main.rs}}\n",
+      "string",
+      "u32"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, ",
+      "\n\nthe line is:\n\n"
+    ]
+  },
+  "text": "\nTo further refine the game’s behavior, rather than crashing the program when\nthe user inputs a non-number, let’s make the game ignore a non-number so that\nthe user can continue guessing. We can do that by altering the line where\n`guess` is converted from a `String` to a `u32`, as shown in Listing 2-5.\n\n<Listing number=\"2-5\" file-name=\"src/main.rs\" caption=\"Ignoring a non-number guess and asking for another guess instead of crashing the program\">\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-05/src/main.rs:here}}\n```\n\n</Listing>\n\nWe switch from an `expect` call to a `match` expression to move from crashing\non an error to handling the error. Remember that `parse` returns a `Result`\ntype and `Result` is an enum that has the variants `Ok` and `Err`. We’re using\na `match` expression here, as we did with the `Ordering` result of the `cmp`\nmethod.\n\nIf `parse` is able to successfully turn the string into a number, it will\nreturn an `Ok` value that contains the resultant number. That `Ok` value will\nmatch the first arm’s pattern, and the `match` expression will just return the\n`num` value that `parse` produced and put inside the `Ok` value. That number\nwill end up right where we want it in the new `guess` variable we’re creating.\n\nIf `parse` is _not_ able to turn the string into a number, it will return an\n`Err` value that contains more information about the error. The `Err` value\ndoes not match the `Ok(num)` pattern in the first `match` arm, but it does\nmatch the `Err(_)` pattern in the second arm. The underscore, `_`, is a\ncatch-all value; in this example, we’re saying we want to match all `Err`\nvalues, no matter what information they have inside them. So, the program will\nexecute the second arm’s code, `continue`, which tells the program to go to the\nnext iteration of the `loop` and ask for another guess. So, effectively, the\nprogram ignores all errors that `parse` might encounter!\n\nNow everything in the program should work as expected. Let’s try it:\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-05/\ncargo run\n(too small guess)\n(too big guess)\nfoo\n(correct guess)\n-->\n\n```console\n$ cargo run\n   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s\n     Running `target/debug/guessing_game`\nGuess the number!\nThe secret number is: 61\nPlease input your guess.\n10\nYou guessed: 10\nToo small!\nPlease input your guess.\n99\nYou guessed: 99\nToo big!\nPlease input your guess.\nfoo\nPlease input your guess.\n61\nYou guessed: 61\nYou win!\n```\n\nAwesome! With one tiny final tweak, we will finish the guessing game. Recall\nthat the program is still printing the secret number. That worked well for\ntesting, but it ruins the game. Let’s delete the `println!` that outputs the\nsecret number. Listing 2-6 shows the final code.\n\n<Listing number=\"2-6\" file-name=\"src/main.rs\" caption=\"Complete guessing game code\">\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-06/src/main.rs}}\n```\n\n</Listing>\n\nAt this point, you’ve successfully built the guessing game. Congratulations!\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

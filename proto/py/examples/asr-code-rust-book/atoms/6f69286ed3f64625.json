@@ -1,0 +1,39 @@
+{
+  "id": "6f69286ed3f64625",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-01-installation.md",
+    "section": "Using Text Editors and IDEs",
+    "line": 145
+  },
+  "title": "Using Text Editors and IDEs",
+  "prose_summary": "This book makes no assumptions about what tools you use to author Rust code.",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [],
+    "weak": [
+      "\n\nif you see this information, you have installed rust successfully! if you don’t\nsee this information, check that rust is in your ",
+      "\n\nin linux and macos, use:\n\n",
+      "\n\nin powershell, use:\n\n",
+      "\n\nlinux users should generally install gcc or clang, according to their\ndistribution’s documentation. for example, if you use ubuntu, you can install\nthe ",
+      "\n\nthe command downloads a script and starts the installation of the ",
+      "\n\nthis will cache the downloads for these packages so you will not need to\ndownload them later. once you have run this command, you do not need to keep the\n",
+      "\n\nto uninstall rust and ",
+      "\n\nyou should see the version number, commit hash, and commit date for the latest\nstable version that has been released, in the following format:\n\n",
+      "\n\nyou will also need a _linker_, which is a program that rust uses to join its\ncompiled outputs into one file. it is likely you already have one. if you get\nlinker errors, you should install a c compiler, which will typically include a\nlinker. a c compiler is also useful because some common rust packages depend on\nc code and will need a c compiler.\n\non macos, you can get a c compiler by running:\n\n",
+      "\ntool, which installs the latest stable version of rust. you might be prompted\nfor your password. if the install is successful, the following line will appear:\n\n",
+      " flag with all ",
+      " folder. if you have run this command, you can use the\n",
+      " system variable as\nfollows.\n\nin windows cmd, use:\n\n",
+      "$",
+      ", run the following uninstall script from your\nshell:\n\n",
+      ">",
+      "cargo",
+      "console\n$ cargo new get-dependencies\n$ cd get-dependencies\n$ cargo add rand@0.10.1 trpl@0.2.0\n",
+      "console\n$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -ssf | sh\n",
+      "console\n$ echo $path\n"
+    ]
+  },
+  "text": "\nThis book makes no assumptions about what tools you use to author Rust code.\nJust about any text editor will get the job done! However, many text editors and\nintegrated development environments (IDEs) have built-in support for Rust. You\ncan always find a fairly current list of many editors and IDEs on [the tools\npage][tools] on the Rust website.\n",
+  "chapter": "ch01-01-installation"
+}

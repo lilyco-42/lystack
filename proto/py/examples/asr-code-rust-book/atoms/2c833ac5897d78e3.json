@@ -1,0 +1,79 @@
+{
+  "id": "2c833ac5897d78e3",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-02-hello-world.md",
+    "section": "The Anatomy of a Rust Program",
+    "line": 98
+  },
+  "title": "The Anatomy of a Rust Program",
+  "prose_summary": "Let’s review this “Hello, world!” program in detail. Here’s the first piece of",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "fn main"
+      ],
+      "complete": true,
+      "compile": "pass",
+      "code_ref": "code/0012-00.rs"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "println!"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthese lines define a function named ",
+      "\n\nthis line does all the work in this little program: it prints text to the\nscreen. there are three important details to notice here.\n\nfirst, ",
+      " (without the ",
+      " calls a rust macro. if it had called a function instead, it\nwould be entered as ",
+      " function holds the following code:\n\n",
+      " function is special: it\nis always the first code that runs in every executable rust program. here, the\nfirst line declares a function named ",
+      " in\n> [appendix d][devtools]<!-- ignore -->). the rust team has included this tool\n> with the standard rust distribution, as ",
+      " is, so it should already be\n> installed on your computer!\n\nthe body of the ",
+      " means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nsecond, you see the ",
+      " string. we pass this string as an argument\nto ",
+      " that has no parameters and returns\nnothing. if there were parameters, they would go inside the parentheses (",
+      " to format your code in a\n> particular style (more on ",
+      ").\n\nthe function body is wrapped in ",
+      "). rust macros are a way to write\ncode that generates code to extend rust syntax, and we’ll discuss them in more\ndetail in [chapter 20][ch20-macros]<!-- ignore -->. for now, you just need to\nknow that using a ",
+      ", and the string is printed to the screen.\n\nthird, we end the line with a semicolon (",
+      ". rust requires curly brackets around all\nfunction bodies. it’s good style to place the opening curly bracket on the same\nline as the function declaration, adding one space in between.\n\n> note: if you want to stick to a standard style across rust projects, you can\n> use an automatic formatter tool called ",
+      ". the ",
+      "fn main",
+      "println!",
+      "rust\nfn main() {\n\n}\n",
+      "rust\nprintln!(\"hello, world!\");\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nsave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. on linux or macos, enter the following\ncommands to compile and run the file:\n\n",
+      "\n\nfor windows cmd, enter this:\n\n",
+      "\n\nif you have a c or c++ background, you’ll notice that this is similar to ",
+      "\n\nif your _main.rs_ is your “hello, world!” program, this line prints ",
+      "\n\non linux and macos, you’ll see two files. with powershell on windows, you’ll\nsee the same three files that you would see using cmd. with cmd on windows, you\nwould enter the following:\n\n",
+      "\n\non windows, enter the command ",
+      "\n\nregardless of your operating system, the string ",
+      "\n\nthis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on windows, but _main_ on all other platforms), and, when using\nwindows, a file containing debugging information with the _.pdb_ extension.\nfrom here, you run the _main_ or _main.exe_ file, like this:\n\n",
+      "\nor ",
+      " command in your shell:\n\n",
+      " instead of ",
+      " should print to\nthe terminal. if you don’t see this output, refer back to the\n[“troubleshooting”][troubleshooting]<!-- ignore --> part of the installation\nsection for ways to get help.\n\nif ",
+      " to your terminal.\n\nif you’re more familiar with a dynamic language, such as ruby, python, or\njavascript, you might not be used to compiling and running a program as\nseparate steps. rust is an _ahead-of-time compiled_ language, meaning you can\ncompile a program and give the executable to someone else, and they can run it\neven without having rust installed. if you give someone a _.rb_, _.py_, or\n_.js_ file, they need to have a ruby, python, or javascript implementation\ninstalled (respectively). but in those languages, you only need one command to\ncompile and run your program. everything is a trade-off in language design.\n\njust compiling with ",
+      ". after compiling successfully, rust outputs a binary executable.\n\non linux, macos, and powershell on windows, you can see the executable by\nentering the ",
+      ":\n\n",
+      "cmd\n> dir /b %= the /b option says to only show the file names =%\nmain.exe\nmain.pdb\nmain.rs\n",
+      "cmd\n> mkdir \"%userprofile%\\projects\"\n> cd /d \"%userprofile%\\projects\"\n> mkdir hello_world\n> cd hello_world\n",
+      "console\n$ ./main # or .\\main on windows\n",
+      "console\n$ ls\nmain  main.rs\n",
+      "console\n$ mkdir ~/projects\n$ cd ~/projects\n$ mkdir hello_world\n$ cd hello_world\n"
+    ]
+  },
+  "text": "\nLet’s review this “Hello, world!” program in detail. Here’s the first piece of\nthe puzzle:\n\n```rust\nfn main() {\n\n}\n```\n\nThese lines define a function named `main`. The `main` function is special: It\nis always the first code that runs in every executable Rust program. Here, the\nfirst line declares a function named `main` that has no parameters and returns\nnothing. If there were parameters, they would go inside the parentheses (`()`).\n\nThe function body is wrapped in `{}`. Rust requires curly brackets around all\nfunction bodies. It’s good style to place the opening curly bracket on the same\nline as the function declaration, adding one space in between.\n\n> Note: If you want to stick to a standard style across Rust projects, you can\n> use an automatic formatter tool called `rustfmt` to format your code in a\n> particular style (more on `rustfmt` in\n> [Appendix D][devtools]<!-- ignore -->). The Rust team has included this tool\n> with the standard Rust distribution, as `rustc` is, so it should already be\n> installed on your computer!\n\nThe body of the `main` function holds the following code:\n\n```rust\nprintln!(\"Hello, world!\");\n```\n\nThis line does all the work in this little program: It prints text to the\nscreen. There are three important details to notice here.\n\nFirst, `println!` calls a Rust macro. If it had called a function instead, it\nwould be entered as `println` (without the `!`). Rust macros are a way to write\ncode that generates code to extend Rust syntax, and we’ll discuss them in more\ndetail in [Chapter 20][ch20-macros]<!-- ignore -->. For now, you just need to\nknow that using a `!` means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nSecond, you see the `\"Hello, world!\"` string. We pass this string as an argument\nto `println!`, and the string is printed to the screen.\n\nThird, we end the line with a semicolon (`;`), which indicates that this\nexpression is over, and the next one is ready to begin. Most lines of Rust code\nend with a semicolon.\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"compiling-and-running-are-separate-steps\"></a>\n",
+  "chapter": "ch01-02-hello-world"
+}

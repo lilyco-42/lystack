@@ -1,0 +1,75 @@
+{
+  "id": "b27b2f4c908c6905",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-02-hello-world.md",
+    "section": "Rust Program Basics",
+    "line": 49
+  },
+  "title": "Rust Program Basics",
+  "prose_summary": "Next, make a new source file and call it _main.rs_. Rust files always end with",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "fn main",
+        "println!"
+      ],
+      "complete": true,
+      "compile": "pass",
+      "code_ref": "code/0011-00.rs"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "powershell",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nsave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. on linux or macos, enter the following\ncommands to compile and run the file:\n\n",
+      "\n\non windows, enter the command ",
+      "\n\nregardless of your operating system, the string ",
+      " instead of ",
+      " should print to\nthe terminal. if you don’t see this output, refer back to the\n[“troubleshooting”][troubleshooting]<!-- ignore --> part of the installation\nsection for ways to get help.\n\nif ",
+      ":\n\n",
+      "console\n$ rustc main.rs\n$ ./main\nhello, world!\n",
+      "fn main",
+      "hello, world!",
+      "powershell\n> rustc main.rs\n> .\\main\nhello, world!\n",
+      "println!",
+      "rust\nfn main() {\n    println!(\"hello, world!\");\n}\n"
+    ],
+    "weak": [
+      "\n\nfor windows cmd, enter this:\n\n",
+      "\n\nif you have a c or c++ background, you’ll notice that this is similar to ",
+      "\n\nif your _main.rs_ is your “hello, world!” program, this line prints ",
+      "\n\non linux and macos, you’ll see two files. with powershell on windows, you’ll\nsee the same three files that you would see using cmd. with cmd on windows, you\nwould enter the following:\n\n",
+      "\n\nthese lines define a function named ",
+      "\n\nthis line does all the work in this little program: it prints text to the\nscreen. there are three important details to notice here.\n\nfirst, ",
+      "\n\nthis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on windows, but _main_ on all other platforms), and, when using\nwindows, a file containing debugging information with the _.pdb_ extension.\nfrom here, you run the _main_ or _main.exe_ file, like this:\n\n",
+      "\nor ",
+      " (without the ",
+      " calls a rust macro. if it had called a function instead, it\nwould be entered as ",
+      " command in your shell:\n\n",
+      " function holds the following code:\n\n",
+      " function is special: it\nis always the first code that runs in every executable rust program. here, the\nfirst line declares a function named ",
+      " in\n> [appendix d][devtools]<!-- ignore -->). the rust team has included this tool\n> with the standard rust distribution, as ",
+      " is, so it should already be\n> installed on your computer!\n\nthe body of the ",
+      " means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nsecond, you see the ",
+      " string. we pass this string as an argument\nto ",
+      " that has no parameters and returns\nnothing. if there were parameters, they would go inside the parentheses (",
+      " to format your code in a\n> particular style (more on ",
+      " to your terminal.\n\nif you’re more familiar with a dynamic language, such as ruby, python, or\njavascript, you might not be used to compiling and running a program as\nseparate steps. rust is an _ahead-of-time compiled_ language, meaning you can\ncompile a program and give the executable to someone else, and they can run it\neven without having rust installed. if you give someone a _.rb_, _.py_, or\n_.js_ file, they need to have a ruby, python, or javascript implementation\ninstalled (respectively). but in those languages, you only need one command to\ncompile and run your program. everything is a trade-off in language design.\n\njust compiling with "
+    ]
+  },
+  "text": "\nNext, make a new source file and call it _main.rs_. Rust files always end with\nthe _.rs_ extension. If you’re using more than one word in your filename, the\nconvention is to use an underscore to separate them. For example, use\n_hello_world.rs_ rather than _helloworld.rs_.\n\nNow open the _main.rs_ file you just created and enter the code in Listing 1-1.\n\n<Listing number=\"1-1\" file-name=\"main.rs\" caption=\"A program that prints `Hello, world!`\">\n\n```rust\nfn main() {\n    println!(\"Hello, world!\");\n}\n```\n\n</Listing>\n\nSave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. On Linux or macOS, enter the following\ncommands to compile and run the file:\n\n```console\n$ rustc main.rs\n$ ./main\nHello, world!\n```\n\nOn Windows, enter the command `.\\main` instead of `./main`:\n\n```powershell\n> rustc main.rs\n> .\\main\nHello, world!\n```\n\nRegardless of your operating system, the string `Hello, world!` should print to\nthe terminal. If you don’t see this output, refer back to the\n[“Troubleshooting”][troubleshooting]<!-- ignore --> part of the Installation\nsection for ways to get help.\n\nIf `Hello, world!` did print, congratulations! You’ve officially written a Rust\nprogram. That makes you a Rust programmer—welcome!\n\n<!-- Old headings. Do not remove or links may break. -->\n\n<a id=\"anatomy-of-a-rust-program\"></a>\n",
+  "chapter": "ch01-02-hello-world"
+}

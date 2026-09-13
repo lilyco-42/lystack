@@ -1,0 +1,78 @@
+{
+  "id": "34a46b90028ae8ce",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-02-hello-world.md",
+    "section": "Compilation and Execution",
+    "line": 151
+  },
+  "title": "Compilation and Execution",
+  "prose_summary": "You’ve just run a newly created program, so let’s examine each step in the",
+  "code_blocks": [
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "cmd",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nif you have a c or c++ background, you’ll notice that this is similar to ",
+      "\n\nif your _main.rs_ is your “hello, world!” program, this line prints ",
+      "\n\non linux and macos, you’ll see two files. with powershell on windows, you’ll\nsee the same three files that you would see using cmd. with cmd on windows, you\nwould enter the following:\n\n",
+      "\n\nthis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on windows, but _main_ on all other platforms), and, when using\nwindows, a file containing debugging information with the _.pdb_ extension.\nfrom here, you run the _main_ or _main.exe_ file, like this:\n\n",
+      "\nor ",
+      " command in your shell:\n\n",
+      " to your terminal.\n\nif you’re more familiar with a dynamic language, such as ruby, python, or\njavascript, you might not be used to compiling and running a program as\nseparate steps. rust is an _ahead-of-time compiled_ language, meaning you can\ncompile a program and give the executable to someone else, and they can run it\neven without having rust installed. if you give someone a _.rb_, _.py_, or\n_.js_ file, they need to have a ruby, python, or javascript implementation\ninstalled (respectively). but in those languages, you only need one command to\ncompile and run your program. everything is a trade-off in language design.\n\njust compiling with ",
+      ". after compiling successfully, rust outputs a binary executable.\n\non linux, macos, and powershell on windows, you can see the executable by\nentering the ",
+      "cmd\n> dir /b %= the /b option says to only show the file names =%\nmain.exe\nmain.pdb\nmain.rs\n",
+      "console\n$ ./main # or .\\main on windows\n",
+      "console\n$ ls\nmain  main.rs\n",
+      "console\n$ rustc main.rs\n",
+      "rustc"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nsave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. on linux or macos, enter the following\ncommands to compile and run the file:\n\n",
+      "\n\nfor windows cmd, enter this:\n\n",
+      "\n\non windows, enter the command ",
+      "\n\nregardless of your operating system, the string ",
+      "\n\nthese lines define a function named ",
+      "\n\nthis line does all the work in this little program: it prints text to the\nscreen. there are three important details to notice here.\n\nfirst, ",
+      " (without the ",
+      " calls a rust macro. if it had called a function instead, it\nwould be entered as ",
+      " function holds the following code:\n\n",
+      " function is special: it\nis always the first code that runs in every executable rust program. here, the\nfirst line declares a function named ",
+      " in\n> [appendix d][devtools]<!-- ignore -->). the rust team has included this tool\n> with the standard rust distribution, as ",
+      " instead of ",
+      " is, so it should already be\n> installed on your computer!\n\nthe body of the ",
+      " means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nsecond, you see the ",
+      " should print to\nthe terminal. if you don’t see this output, refer back to the\n[“troubleshooting”][troubleshooting]<!-- ignore --> part of the installation\nsection for ways to get help.\n\nif ",
+      " string. we pass this string as an argument\nto ",
+      " that has no parameters and returns\nnothing. if there were parameters, they would go inside the parentheses (",
+      " to format your code in a\n> particular style (more on ",
+      ").\n\nthe function body is wrapped in ",
+      "). rust macros are a way to write\ncode that generates code to extend rust syntax, and we’ll discuss them in more\ndetail in [chapter 20][ch20-macros]<!-- ignore -->. for now, you just need to\nknow that using a "
+    ]
+  },
+  "text": "\nYou’ve just run a newly created program, so let’s examine each step in the\nprocess.\n\nBefore running a Rust program, you must compile it using the Rust compiler by\nentering the `rustc` command and passing it the name of your source file, like\nthis:\n\n```console\n$ rustc main.rs\n```\n\nIf you have a C or C++ background, you’ll notice that this is similar to `gcc`\nor `clang`. After compiling successfully, Rust outputs a binary executable.\n\nOn Linux, macOS, and PowerShell on Windows, you can see the executable by\nentering the `ls` command in your shell:\n\n```console\n$ ls\nmain  main.rs\n```\n\nOn Linux and macOS, you’ll see two files. With PowerShell on Windows, you’ll\nsee the same three files that you would see using CMD. With CMD on Windows, you\nwould enter the following:\n\n```cmd\n> dir /B %= the /B option says to only show the file names =%\nmain.exe\nmain.pdb\nmain.rs\n```\n\nThis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on Windows, but _main_ on all other platforms), and, when using\nWindows, a file containing debugging information with the _.pdb_ extension.\nFrom here, you run the _main_ or _main.exe_ file, like this:\n\n```console\n$ ./main # or .\\main on Windows\n```\n\nIf your _main.rs_ is your “Hello, world!” program, this line prints `Hello,\nworld!` to your terminal.\n\nIf you’re more familiar with a dynamic language, such as Ruby, Python, or\nJavaScript, you might not be used to compiling and running a program as\nseparate steps. Rust is an _ahead-of-time compiled_ language, meaning you can\ncompile a program and give the executable to someone else, and they can run it\neven without having Rust installed. If you give someone a _.rb_, _.py_, or\n_.js_ file, they need to have a Ruby, Python, or JavaScript implementation\ninstalled (respectively). But in those languages, you only need one command to\ncompile and run your program. Everything is a trade-off in language design.\n\nJust compiling with `rustc` is fine for simple programs, but as your project\ngrows, you’ll want to manage all the options and make it easy to share your\ncode. Next, we’ll introduce you to the Cargo tool, which will help you write\nreal-world Rust programs.\n\n[troubleshooting]: ch01-01-installation.html#troubleshooting\n[devtools]: appendix-04-useful-development-tools.html\n[ch20-macros]: ch20-05-macros.html",
+  "chapter": "ch01-02-hello-world"
+}

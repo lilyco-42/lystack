@@ -1,0 +1,66 @@
+{
+  "id": "78c5942a75d6281e",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-01-installation.md",
+    "section": "Installing `rustup` on Linux or macOS",
+    "line": 26
+  },
+  "title": "Installing `rustup` on Linux or macOS",
+  "prose_summary": "If you’re using Linux or macOS, open a terminal and enter the following command:",
+  "code_blocks": [
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "text",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nlinux users should generally install gcc or clang, according to their\ndistribution’s documentation. for example, if you use ubuntu, you can install\nthe ",
+      "\n\nthe command downloads a script and starts the installation of the ",
+      "\n\nyou will also need a _linker_, which is a program that rust uses to join its\ncompiled outputs into one file. it is likely you already have one. if you get\nlinker errors, you should install a c compiler, which will typically include a\nlinker. a c compiler is also useful because some common rust packages depend on\nc code and will need a c compiler.\n\non macos, you can get a c compiler by running:\n\n",
+      "\ntool, which installs the latest stable version of rust. you might be prompted\nfor your password. if the install is successful, the following line will appear:\n\n",
+      "console\n$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -ssf | sh\n",
+      "console\n$ xcode-select --install\n",
+      "text\nrust is installed now. great!\n"
+    ],
+    "weak": [
+      "\n\nif you see this information, you have installed rust successfully! if you don’t\nsee this information, check that rust is in your ",
+      "\n\nin linux and macos, use:\n\n",
+      "\n\nin powershell, use:\n\n",
+      "\n\nthis will cache the downloads for these packages so you will not need to\ndownload them later. once you have run this command, you do not need to keep the\n",
+      "\n\nto uninstall rust and ",
+      "\n\nyou should see the version number, commit hash, and commit date for the latest\nstable version that has been released, in the following format:\n\n",
+      " flag with all ",
+      " folder. if you have run this command, you can use the\n",
+      " system variable as\nfollows.\n\nin windows cmd, use:\n\n",
+      "$",
+      ", run the following uninstall script from your\nshell:\n\n",
+      ">",
+      "cargo",
+      "console\n$ cargo new get-dependencies\n$ cd get-dependencies\n$ cargo add rand@0.10.1 trpl@0.2.0\n",
+      "console\n$ echo $path\n",
+      "console\n$ rustc --version\n",
+      "console\n$ rustup self uninstall\n",
+      "console\n$ rustup update\n",
+      "console\n> echo %path%\n",
+      "powershell\n> echo $env:path\n"
+    ]
+  },
+  "text": "\nIf you’re using Linux or macOS, open a terminal and enter the following command:\n\n```console\n$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh\n```\n\nThe command downloads a script and starts the installation of the `rustup`\ntool, which installs the latest stable version of Rust. You might be prompted\nfor your password. If the install is successful, the following line will appear:\n\n```text\nRust is installed now. Great!\n```\n\nYou will also need a _linker_, which is a program that Rust uses to join its\ncompiled outputs into one file. It is likely you already have one. If you get\nlinker errors, you should install a C compiler, which will typically include a\nlinker. A C compiler is also useful because some common Rust packages depend on\nC code and will need a C compiler.\n\nOn macOS, you can get a C compiler by running:\n\n```console\n$ xcode-select --install\n```\n\nLinux users should generally install GCC or Clang, according to their\ndistribution’s documentation. For example, if you use Ubuntu, you can install\nthe `build-essential` package.\n",
+  "chapter": "ch01-01-installation"
+}

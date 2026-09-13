@@ -1,0 +1,56 @@
+{
+  "id": "c10683533f4e27ac",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-02-hello-world.md",
+    "section": "Project Directory Setup",
+    "line": 18
+  },
+  "title": "Project Directory Setup",
+  "prose_summary": "You’ll start by making a directory to store your Rust code. It doesn’t matter",
+  "code_blocks": [
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "cmd",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nfor windows cmd, enter this:\n\n",
+      "cmd\n> mkdir \"%userprofile%\\projects\"\n> cd /d \"%userprofile%\\projects\"\n> mkdir hello_world\n> cd hello_world\n",
+      "console\n$ mkdir ~/projects\n$ cd ~/projects\n$ mkdir hello_world\n$ cd hello_world\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nsave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. on linux or macos, enter the following\ncommands to compile and run the file:\n\n",
+      "\n\nif you have a c or c++ background, you’ll notice that this is similar to ",
+      "\n\nif your _main.rs_ is your “hello, world!” program, this line prints ",
+      "\n\non linux and macos, you’ll see two files. with powershell on windows, you’ll\nsee the same three files that you would see using cmd. with cmd on windows, you\nwould enter the following:\n\n",
+      "\n\non windows, enter the command ",
+      "\n\nregardless of your operating system, the string ",
+      "\n\nthese lines define a function named ",
+      "\n\nthis line does all the work in this little program: it prints text to the\nscreen. there are three important details to notice here.\n\nfirst, ",
+      "\n\nthis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on windows, but _main_ on all other platforms), and, when using\nwindows, a file containing debugging information with the _.pdb_ extension.\nfrom here, you run the _main_ or _main.exe_ file, like this:\n\n",
+      "\nor ",
+      " (without the ",
+      " calls a rust macro. if it had called a function instead, it\nwould be entered as ",
+      " command in your shell:\n\n",
+      " function holds the following code:\n\n",
+      " function is special: it\nis always the first code that runs in every executable rust program. here, the\nfirst line declares a function named ",
+      " in\n> [appendix d][devtools]<!-- ignore -->). the rust team has included this tool\n> with the standard rust distribution, as ",
+      " instead of ",
+      " is, so it should already be\n> installed on your computer!\n\nthe body of the ",
+      " means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nsecond, you see the ",
+      " should print to\nthe terminal. if you don’t see this output, refer back to the\n[“troubleshooting”][troubleshooting]<!-- ignore --> part of the installation\nsection for ways to get help.\n\nif "
+    ]
+  },
+  "text": "\nYou’ll start by making a directory to store your Rust code. It doesn’t matter\nto Rust where your code lives, but for the exercises and projects in this book,\nwe suggest making a _projects_ directory in your home directory and keeping all\nyour projects there.\n\nOpen a terminal and enter the following commands to make a _projects_ directory\nand a directory for the “Hello, world!” project within the _projects_ directory.\n\nFor Linux, macOS, and PowerShell on Windows, enter this:\n\n```console\n$ mkdir ~/projects\n$ cd ~/projects\n$ mkdir hello_world\n$ cd hello_world\n```\n\nFor Windows CMD, enter this:\n\n```cmd\n> mkdir \"%USERPROFILE%\\projects\"\n> cd /d \"%USERPROFILE%\\projects\"\n> mkdir hello_world\n> cd hello_world\n```\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"writing-and-running-a-rust-program\"></a>\n",
+  "chapter": "ch01-02-hello-world"
+}

@@ -1,0 +1,82 @@
+{
+  "id": "8be31449776f1edb",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Storing Values with Variables",
+    "line": 122
+  },
+  "title": "Storing Values with Variables",
+  "prose_summary": "Next, we’ll create a _variable_ to store the user input, like this:",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "use the"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n> note: the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nthis line creates a new variable named ",
+      " and binds it to the value ",
+      " before the\nvariable name:\n\n",
+      " function creates a\nnew, empty string. you’ll find a ",
+      " function on many types because it’s a\ncommon name for a function that makes a new value of some kind.\n\nin full, the ",
+      " is an associated\nfunction of the ",
+      " is bound to, which is the result of calling\n",
+      " line has created a mutable\nvariable that is currently bound to a new, empty instance of a ",
+      " line indicates that ",
+      " statement to create the variable. here’s another example:\n\n",
+      " syntax in the ",
+      " syntax starts a comment that continues until the end of the\n> line. rust ignores everything in comments. we’ll discuss comments in more\n> detail in [chapter 3][comments]<!-- ignore -->.\n\nreturning to the guessing game program, you now know that ",
+      " type. an _associated function_ is a function that’s\nimplemented on a type, in this case ",
+      " will\nintroduce a mutable variable named ",
+      ") tells rust we\nwant to bind something to the variable now. on the right of the equal sign is\nthe value that ",
+      ", a function that returns a new instance of a ",
+      ".\n[",
+      ".\nin rust, variables are immutable by default, meaning once we give the variable\na value, the value won’t change. we’ll be discussing this concept in detail in\nthe [“variables and mutability”][variables-and-mutability]<!-- ignore -->\nsection in chapter 3. to make a variable mutable, we add ",
+      ". the equal sign (",
+      ". this ",
+      "][string]<!-- ignore --> is a string type provided by the standard\nlibrary that is a growable, utf-8 encoded bit of text.\n\nthe ",
+      "rust,ignore\nlet apples = 5;\n",
+      "rust,ignore\nlet apples = 5; // immutable\nlet mut bananas = 5; // mutable\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:string}}\n",
+      "use the"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, ",
+      "\n\nthe line is:\n\n"
+    ]
+  },
+  "text": "\nNext, we’ll create a _variable_ to store the user input, like this:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:string}}\n```\n\nNow the program is getting interesting! There’s a lot going on in this little\nline. We use the `let` statement to create the variable. Here’s another example:\n\n```rust,ignore\nlet apples = 5;\n```\n\nThis line creates a new variable named `apples` and binds it to the value `5`.\nIn Rust, variables are immutable by default, meaning once we give the variable\na value, the value won’t change. We’ll be discussing this concept in detail in\nthe [“Variables and Mutability”][variables-and-mutability]<!-- ignore -->\nsection in Chapter 3. To make a variable mutable, we add `mut` before the\nvariable name:\n\n```rust,ignore\nlet apples = 5; // immutable\nlet mut bananas = 5; // mutable\n```\n\n> Note: The `//` syntax starts a comment that continues until the end of the\n> line. Rust ignores everything in comments. We’ll discuss comments in more\n> detail in [Chapter 3][comments]<!-- ignore -->.\n\nReturning to the guessing game program, you now know that `let mut guess` will\nintroduce a mutable variable named `guess`. The equal sign (`=`) tells Rust we\nwant to bind something to the variable now. On the right of the equal sign is\nthe value that `guess` is bound to, which is the result of calling\n`String::new`, a function that returns a new instance of a `String`.\n[`String`][string]<!-- ignore --> is a string type provided by the standard\nlibrary that is a growable, UTF-8 encoded bit of text.\n\nThe `::` syntax in the `::new` line indicates that `new` is an associated\nfunction of the `String` type. An _associated function_ is a function that’s\nimplemented on a type, in this case `String`. This `new` function creates a\nnew, empty string. You’ll find a `new` function on many types because it’s a\ncommon name for a function that makes a new value of some kind.\n\nIn full, the `let mut guess = String::new();` line has created a mutable\nvariable that is currently bound to a new, empty instance of a `String`. Whew!\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

@@ -1,0 +1,80 @@
+{
+  "id": "9aa80bb18fa0c992",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Generating a Random Number",
+    "line": 516
+  },
+  "title": "Generating a Random Number",
+  "prose_summary": "Let’s start using `rand` to generate a number to guess. The next step is to",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "trait that",
+        "use\nrand::prelude::",
+        "use rand::prelude::"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\nyou should get different random numbers, and they should all be numbers between\n1 and 100. if you get warnings, they are safe to ignore. if you get errors,\nplease check that you have ",
+      "\n> and click ",
+      "\nguess the number!\nthe secret number is: 7\nplease input your guess.\n4\nyou guessed: 4\n\n$ cargo run\n    finished ",
+      "\nguess the number!\nthe secret number is: 83\nplease input your guess.\n5\nyou guessed: 5\n",
+      " and is\ninclusive on the lower and upper bounds, so we need to specify ",
+      " command will build documentation provided by all your\n> dependencies locally and open it in your browser. if you’re interested in\n> other functionality in the ",
+      " crate, and ",
+      " crate, for example, run ",
+      " function that gives us the particular random number generator we’re\ngoing to use: one that is local to the current thread of execution and is\nseeded by the operating system. then, we call the ",
+      " in the sidebar on the left.\n\nthe second new line prints the secret number. this is useful while we’re\ndeveloping the program to be able to test it, but we’ll delete it from the\nfinal version. it’s not much of a game if the program prints the answer as soon\nas it starts!\n\ntry running the program a few times:\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-03/\ncargo run\n4\ncargo run\n5\n-->\n\n",
+      " in your *cargo.toml* as future\nversions of ",
+      " makes those items\navailable in our program's scope.\n\nnext, we’re adding two lines in the middle. in the first line, we call the\n",
+      " may have a different api, but any version in the ",
+      " method on the\nrandom number generator. this method is defined by the ",
+      " method takes a range\nexpression as an argument and generates a random number in the range. the kind\nof range expression we’re using here takes the form ",
+      " module contains\nthe most commonly used parts of the ",
+      " module that we brought into scope with the ",
+      " profile [unoptimized + debuginfo] target(s) in 0.02s\n     running ",
+      " statement. the ",
+      " to\nrequest a number between 1 and 100.\n\n> note: you won’t just know what to bring into scope and which methods and\n> functions to call from a crate, so each crate has documentation with\n> instructions for using it. another neat feature of cargo is that running the\n> ",
+      " trait that is\npart of the ",
+      ". the ",
+      "console\n$ cargo run\n   compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    finished ",
+      "rand",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:all}}\n",
+      "trait that",
+      "use\nrand::prelude::",
+      "use rand::prelude::"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, "
+    ]
+  },
+  "text": "\nLet’s start using `rand` to generate a number to guess. The next step is to\nupdate _src/main.rs_, as shown in Listing 2-3.\n\n<Listing number=\"2-3\" file-name=\"src/main.rs\" caption=\"Adding code to generate a random number\">\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-03/src/main.rs:all}}\n```\n\n</Listing>\n\nFirst, we add the line `use rand::prelude::*;`. The `prelude` module contains\nthe most commonly used parts of the `rand` crate, and `use` makes those items\navailable in our program's scope.\n\nNext, we’re adding two lines in the middle. In the first line, we call the\n`rand::rng` function that gives us the particular random number generator we’re\ngoing to use: one that is local to the current thread of execution and is\nseeded by the operating system. Then, we call the `random_range` method on the\nrandom number generator. This method is defined by the `RngExt` trait that is\npart of the `rand::prelude` module that we brought into scope with the `use\nrand::prelude::*;` statement. The `random_range` method takes a range\nexpression as an argument and generates a random number in the range. The kind\nof range expression we’re using here takes the form `start..=end` and is\ninclusive on the lower and upper bounds, so we need to specify `1..=100` to\nrequest a number between 1 and 100.\n\n> Note: You won’t just know what to bring into scope and which methods and\n> functions to call from a crate, so each crate has documentation with\n> instructions for using it. Another neat feature of Cargo is that running the\n> `cargo doc --open` command will build documentation provided by all your\n> dependencies locally and open it in your browser. If you’re interested in\n> other functionality in the `rand` crate, for example, run `cargo doc --open`\n> and click `rand` in the sidebar on the left.\n\nThe second new line prints the secret number. This is useful while we’re\ndeveloping the program to be able to test it, but we’ll delete it from the\nfinal version. It’s not much of a game if the program prints the answer as soon\nas it starts!\n\nTry running the program a few times:\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-03/\ncargo run\n4\ncargo run\n5\n-->\n\n```console\n$ cargo run\n   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s\n     Running `target/debug/guessing_game`\nGuess the number!\nThe secret number is: 7\nPlease input your guess.\n4\nYou guessed: 4\n\n$ cargo run\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s\n     Running `target/debug/guessing_game`\nGuess the number!\nThe secret number is: 83\nPlease input your guess.\n5\nYou guessed: 5\n```\n\nYou should get different random numbers, and they should all be numbers between\n1 and 100. If you get warnings, they are safe to ignore. If you get errors,\nplease check that you have `rand = \"0.10.1\"` in your *Cargo.toml* as future\nversions of `rand` may have a different API, but any version in the `0.10`\nseries should work with the code in this chapter.\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

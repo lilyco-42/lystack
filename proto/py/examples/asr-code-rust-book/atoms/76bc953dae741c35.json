@@ -1,0 +1,81 @@
+{
+  "id": "76bc953dae741c35",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-01-installation.md",
+    "section": "Troubleshooting",
+    "line": 71
+  },
+  "title": "Troubleshooting",
+  "prose_summary": "To check whether you have Rust installed correctly, open a shell and enter this",
+  "code_blocks": [
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "text",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "powershell",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nif you see this information, you have installed rust successfully! if you don’t\nsee this information, check that rust is in your ",
+      "\n\nin linux and macos, use:\n\n",
+      "\n\nin powershell, use:\n\n",
+      "\n\nyou should see the version number, commit hash, and commit date for the latest\nstable version that has been released, in the following format:\n\n",
+      " system variable as\nfollows.\n\nin windows cmd, use:\n\n",
+      "console\n$ echo $path\n",
+      "console\n$ rustc --version\n",
+      "console\n> echo %path%\n",
+      "powershell\n> echo $env:path\n",
+      "text\nrustc x.y.z (abcabcabc yyyy-mm-dd)\n"
+    ],
+    "weak": [
+      "\n\nlinux users should generally install gcc or clang, according to their\ndistribution’s documentation. for example, if you use ubuntu, you can install\nthe ",
+      "\n\nthe command downloads a script and starts the installation of the ",
+      "\n\nthis will cache the downloads for these packages so you will not need to\ndownload them later. once you have run this command, you do not need to keep the\n",
+      "\n\nto uninstall rust and ",
+      "\n\nyou will also need a _linker_, which is a program that rust uses to join its\ncompiled outputs into one file. it is likely you already have one. if you get\nlinker errors, you should install a c compiler, which will typically include a\nlinker. a c compiler is also useful because some common rust packages depend on\nc code and will need a c compiler.\n\non macos, you can get a c compiler by running:\n\n",
+      "\ntool, which installs the latest stable version of rust. you might be prompted\nfor your password. if the install is successful, the following line will appear:\n\n",
+      " flag with all ",
+      " folder. if you have run this command, you can use the\n",
+      "$",
+      ", run the following uninstall script from your\nshell:\n\n",
+      ">",
+      "cargo",
+      "console\n$ cargo new get-dependencies\n$ cd get-dependencies\n$ cargo add rand@0.10.1 trpl@0.2.0\n",
+      "console\n$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -ssf | sh\n",
+      "console\n$ rustup self uninstall\n",
+      "console\n$ rustup update\n",
+      "console\n$ xcode-select --install\n",
+      "rand",
+      "rustup",
+      "rustup doc"
+    ]
+  },
+  "text": "\nTo check whether you have Rust installed correctly, open a shell and enter this\nline:\n\n```console\n$ rustc --version\n```\n\nYou should see the version number, commit hash, and commit date for the latest\nstable version that has been released, in the following format:\n\n```text\nrustc x.y.z (abcabcabc yyyy-mm-dd)\n```\n\nIf you see this information, you have installed Rust successfully! If you don’t\nsee this information, check that Rust is in your `%PATH%` system variable as\nfollows.\n\nIn Windows CMD, use:\n\n```console\n> echo %PATH%\n```\n\nIn PowerShell, use:\n\n```powershell\n> echo $env:Path\n```\n\nIn Linux and macOS, use:\n\n```console\n$ echo $PATH\n```\n\nIf that’s all correct and Rust still isn’t working, there are a number of\nplaces you can get help. Find out how to get in touch with other Rustaceans (a\nsilly nickname we call ourselves) on [the community page][community].\n",
+  "chapter": "ch01-01-installation"
+}

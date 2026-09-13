@@ -1,0 +1,80 @@
+{
+  "id": "3f3beca0f3f4a2f4",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Increasing Functionality with a Crate",
+    "line": 332
+  },
+  "title": "Increasing Functionality with a Crate",
+  "prose_summary": "Remember that a crate is a collection of Rust source code files. The project",
+  "code_blocks": [
+    {
+      "lang": "toml",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "console",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      " after adding the ",
+      " again without making any changes, you\nwon’t get any output aside from the ",
+      " as a dependency, cargo also grabbed other crates\nthat ",
+      " crate as a dependency\">\n\n",
+      " crate with the\nsemantic version specifier ",
+      " depends on to work. after downloading the crates, rust compiles\nthem and then compiles the project with the dependencies available.\n\nif you immediately run ",
+      " is actually\nshorthand for ",
+      " line. cargo knows it has already\ndownloaded and compiled the dependencies, and you haven’t changed anything\nabout them in your _cargo.toml_ file. cargo also knows that you haven’t changed\nanything about your code, so it doesn’t recompile that either. with nothing to\ndo, it simply exits.\n\nif you open the _src/main.rs_ file, make a trivial change, and then save it and\nbuild again, you’ll only see two lines of output:\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-02/\ntouch src/main.rs\ncargo build -->\n\n",
+      " profile [unoptimized + debuginfo] target(s) in 0.13s\n",
+      " profile [unoptimized + debuginfo] target(s) in 2.03s\n",
+      " section and\ndownloads any crates listed that aren’t already downloaded. in this case,\nalthough we only listed ",
+      ", which means any version that is at least 0.10.1 but\nbelow 0.11.0.\n\ncargo considers these versions to have public apis compatible with version\n0.10.1, and this specification ensures that you’ll get the latest patch release\nthat will still compile with the code in this chapter. any version 0.11.0 or\ngreater is not guaranteed to have the same api as what the following examples\nuse.\n\nnow, without changing any of the code, let’s build the project, as shown in\nlisting 2-2.\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-02/\nrm cargo.lock\ncargo clean\ncargo build -->\n\n<listing number=\"2-2\" caption=\"the output from running ",
+      ", you\ntell cargo which external crates your project depends on and which versions of\nthose crates you require. in this case, we specify the ",
+      ". cargo understands [semantic\nversioning][semver]<!-- ignore --> (sometimes called _semver_), which is a\nstandard for writing version numbers. the specifier ",
+      "[dependencies]",
+      "console\n$ cargo build\n    updating crates.io index\n     locking 8 packages to latest rust 1.96.0 compatible versions\n  downloaded rand_core v0.10.1\n  downloaded chacha20 v0.10.1\n  downloaded rand v0.10.1\n  downloaded 3 crates (162.9kib) in 0.59s\n   compiling libc v0.2.186\n   compiling rand_core v0.10.1\n   compiling getrandom v0.4.3\n   compiling cfg-if v1.0.4\n   compiling chacha20 v0.10.1\n   compiling rand v0.10.1\n   compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    finished ",
+      "console\n$ cargo build\n   compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    finished ",
+      "rand",
+      "toml\n{{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/cargo.toml:8:}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, ",
+      "\n\nthe line is:\n\n"
+    ]
+  },
+  "text": "\nRemember that a crate is a collection of Rust source code files. The project\nwe’ve been building is a binary crate, which is an executable. The `rand` crate\nis a library crate, which contains code that is intended to be used in other\nprograms and can’t be executed on its own.\n\nCargo’s coordination of external crates is where Cargo really shines. Before we\ncan write code that uses `rand`, we need to modify the _Cargo.toml_ file to\ninclude the `rand` crate as a dependency. Open that file now and add the\nfollowing line to the bottom, beneath the `[dependencies]` section header that\nCargo created for you. Be sure to specify `rand` exactly as we have here, with\nthis version number, or the code examples in this tutorial may not work:\n\n<!-- When updating the version of `rand` used, also update the version of\n`rand` used in these files so they all match:\n\n* ch01-01-installation.md\n* ch07-04-bringing-paths-into-scope-with-the-use-keyword.md\n* ch14-03-cargo-workspaces.md\n-->\n\n<span class=\"filename\">Filename: Cargo.toml</span>\n\n```toml\n{{#include ../listings/ch02-guessing-game-tutorial/listing-02-02/Cargo.toml:8:}}\n```\n\nIn the _Cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. In `[dependencies]`, you\ntell Cargo which external crates your project depends on and which versions of\nthose crates you require. In this case, we specify the `rand` crate with the\nsemantic version specifier `0.10.1`. Cargo understands [Semantic\nVersioning][semver]<!-- ignore --> (sometimes called _SemVer_), which is a\nstandard for writing version numbers. The specifier `0.10.1` is actually\nshorthand for `^0.10.1`, which means any version that is at least 0.10.1 but\nbelow 0.11.0.\n\nCargo considers these versions to have public APIs compatible with version\n0.10.1, and this specification ensures that you’ll get the latest patch release\nthat will still compile with the code in this chapter. Any version 0.11.0 or\ngreater is not guaranteed to have the same API as what the following examples\nuse.\n\nNow, without changing any of the code, let’s build the project, as shown in\nListing 2-2.\n\n<!-- manual-regeneration\ncd listings/ch02-guessing-game-tutorial/listing-02-02/\nrm Cargo.lock\ncargo clean\ncargo build -->\n\n<Listing number=\"2-2\" caption=\"The output from running `cargo build` after adding the `rand` crate as a dependency\">\n\n```console\n$ cargo build\n    Updating crates.io index\n     Locking 8 packages to latest Rust 1.96.0 compatible versions\n  Downloaded rand_core v0.10.1\n  Downloaded chacha20 v0.10.1\n  Downloaded rand v0.10.1\n  Downloaded 3 crates (162.9KiB) in 0.59s\n   Compiling libc v0.2.186\n   Compiling rand_core v0.10.1\n   Compiling getrandom v0.4.3\n   Compiling cfg-if v1.0.4\n   Compiling chacha20 v0.10.1\n   Compiling rand v0.10.1\n   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.03s\n```\n\n</Listing>\n\nYou may see different version numbers (but they will all be compatible with the\ncode, thanks to SemVer!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nWhen we include an external dependency, Cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [Crates.io][cratesio]. Crates.io is where people in the Rust ecosystem\npost their open source Rust projects for others to use.\n\nAfter updating the registry, Cargo checks the `[dependencies]` section and\ndownloads any crates listed that aren’t already downloaded. In this case,\nalthough we only listed `rand` as a dependency, Cargo also grabbed other crates\nthat `rand` depends on to work. After downloading the crates, Rust compiles\nthem and then compiles the project with the dependencies available.\n\nIf you immediately run `cargo build` again without making any changes, you\nwon’t get any output aside from the `Finished` line. Cargo knows it has already\ndownloaded a",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

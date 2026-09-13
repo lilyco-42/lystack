@@ -1,0 +1,23 @@
+{
+  "mpkg": "0.1",
+  "name": "asr-code-rust-book",
+  "version": "0.1.0",
+  "intent": "Rust 官方教程 (The Book ch01-02) 知识蒸馏包: 38 个逐条定位知识原子 + 确定性重蒸验证配方 (asr_code 蒸馏器)",
+  "author": "agent:lilyco-42/lyco_agent",
+  "created": "2026-09-13",
+  "requirements": { "tools": [{ "name": "python3" }] },
+  "steps": [
+    { "run": "mkdir -p {{work}}/out && cp -r {{pkg}}/book {{work}}/out/book && cp {{pkg}}/asr-code.json {{work}}/out/asr-code.json", "expect": { "exit": 0 } },
+    { "run": "python3 -B {{pkg}}/artifacts/asr_code_distill.py distill {{work}}/out", "expect": { "exit": 0 } },
+    { "run": "python3 -c \"import json,sys; a=json.load(open(sys.argv[1])); b=json.load(open(sys.argv[2])); sys.exit(0 if a==b else 1)\" {{work}}/out/asr-code.json {{pkg}}/asr-code.json", "expect": { "exit": 0 } }
+  ],
+  "verify": [
+    "python3 -c \"import json,sys; a=json.load(open(sys.argv[1])); b=json.load(open(sys.argv[2])); sys.exit(0 if a==b else 1)\" {{pkg}}/asr-code.json {{work}}/out/asr-code.json"
+  ],
+  "atoms": [
+    { "kind": "text", "path": "asr-code.json", "title": "asr-code 知识原子索引 (38 atoms / 451 concepts)" }
+  ],
+  "provenance": { "generator": "human+ai:z-ai/glm-5.3-flash", "prompts": [] },
+  "tags": ["rust", "asr-code", "knowledge", "learning", "book"],
+  "license": "MIT OR Apache-2.0"
+}

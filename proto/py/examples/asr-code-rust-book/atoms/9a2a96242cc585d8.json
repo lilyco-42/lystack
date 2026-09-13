@@ -1,0 +1,43 @@
+{
+  "id": "9a2a96242cc585d8",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-01-installation.md",
+    "section": "Installation",
+    "line": 1
+  },
+  "title": "Installation",
+  "prose_summary": "The first step is to install Rust. We’ll download Rust through `rustup`, a",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "$",
+      ">",
+      "rustup"
+    ],
+    "weak": [
+      "\n\nif you see this information, you have installed rust successfully! if you don’t\nsee this information, check that rust is in your ",
+      "\n\nin linux and macos, use:\n\n",
+      "\n\nin powershell, use:\n\n",
+      "\n\nlinux users should generally install gcc or clang, according to their\ndistribution’s documentation. for example, if you use ubuntu, you can install\nthe ",
+      "\n\nthe command downloads a script and starts the installation of the ",
+      "\n\nthis will cache the downloads for these packages so you will not need to\ndownload them later. once you have run this command, you do not need to keep the\n",
+      "\n\nto uninstall rust and ",
+      "\n\nyou should see the version number, commit hash, and commit date for the latest\nstable version that has been released, in the following format:\n\n",
+      "\n\nyou will also need a _linker_, which is a program that rust uses to join its\ncompiled outputs into one file. it is likely you already have one. if you get\nlinker errors, you should install a c compiler, which will typically include a\nlinker. a c compiler is also useful because some common rust packages depend on\nc code and will need a c compiler.\n\non macos, you can get a c compiler by running:\n\n",
+      "\ntool, which installs the latest stable version of rust. you might be prompted\nfor your password. if the install is successful, the following line will appear:\n\n",
+      " flag with all ",
+      " folder. if you have run this command, you can use the\n",
+      " system variable as\nfollows.\n\nin windows cmd, use:\n\n",
+      ", run the following uninstall script from your\nshell:\n\n",
+      "cargo",
+      "console\n$ cargo new get-dependencies\n$ cd get-dependencies\n$ cargo add rand@0.10.1 trpl@0.2.0\n",
+      "console\n$ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -ssf | sh\n",
+      "console\n$ echo $path\n",
+      "console\n$ rustc --version\n",
+      "console\n$ rustup self uninstall\n"
+    ]
+  },
+  "text": "\nThe first step is to install Rust. We’ll download Rust through `rustup`, a\ncommand line tool for managing Rust versions and associated tools. You’ll need\nan internet connection for the download.\n\n> Note: If you prefer not to use `rustup` for some reason, please see the\n> [Other Rust Installation Methods page][otherinstall] for more options.\n\nThe following steps install the latest stable version of the Rust compiler.\nRust’s stability guarantees ensure that all the examples in the book that\ncompile will continue to compile with newer Rust versions. The output might\ndiffer slightly between versions because Rust often improves error messages and\nwarnings. In other words, any newer, stable version of Rust you install using\nthese steps should work as expected with the content of this book.\n\n> ### Command Line Notation\n>\n> In this chapter and throughout the book, we’ll show some commands used in the\n> terminal. Lines that you should enter in a terminal all start with `$`. You\n> don’t need to type the `$` character; it’s the command line prompt shown to\n> indicate the start of each command. Lines that don’t start with `$` typically\n> show the output of the previous command. Additionally, PowerShell-specific\n> examples will use `>` rather than `$`.\n",
+  "chapter": "ch01-01-installation"
+}

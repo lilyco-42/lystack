@@ -1,0 +1,57 @@
+{
+  "id": "f16eba5277e14345",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Printing Values with `println!` Placeholders",
+    "line": 269
+  },
+  "title": "Printing Values with `println!` Placeholders",
+  "prose_summary": "Aside from the closing curly bracket, there’s only one more line to discuss in",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [
+        "println!"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\nthis code would print ",
+      "\n\nthis line prints the string that now contains the user’s input. the ",
+      " as little crab pincers that hold\na value in place. when printing the value of a variable, the variable name can\ngo inside the curly brackets. when printing the result of evaluating an\nexpression, place empty curly brackets in the format string, then follow the\nformat string with a comma-separated list of expressions to print in each empty\ncurly bracket placeholder in the same order. printing a variable and the result\nof an expression in one call to ",
+      " set of\ncurly brackets is a placeholder: think of ",
+      " would look like this:\n\n",
+      "println!",
+      "rust\nlet x = 5;\nlet y = 10;\n\nprintln!(\"x = {x} and y + 2 = {}\", y + 2);\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print_guess}}\n"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n"
+    ]
+  },
+  "text": "\nAside from the closing curly bracket, there’s only one more line to discuss in\nthe code so far:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print_guess}}\n```\n\nThis line prints the string that now contains the user’s input. The `{}` set of\ncurly brackets is a placeholder: Think of `{}` as little crab pincers that hold\na value in place. When printing the value of a variable, the variable name can\ngo inside the curly brackets. When printing the result of evaluating an\nexpression, place empty curly brackets in the format string, then follow the\nformat string with a comma-separated list of expressions to print in each empty\ncurly bracket placeholder in the same order. Printing a variable and the result\nof an expression in one call to `println!` would look like this:\n\n```rust\nlet x = 5;\nlet y = 10;\n\nprintln!(\"x = {x} and y + 2 = {}\", y + 2);\n```\n\nThis code would print `x = 5 and y + 2 = 12`.\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

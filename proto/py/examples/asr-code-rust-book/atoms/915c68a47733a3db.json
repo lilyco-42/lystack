@@ -1,0 +1,42 @@
+{
+  "id": "915c68a47733a3db",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-02-hello-world.md",
+    "section": "Hello, World!",
+    "line": 1
+  },
+  "title": "Hello, World!",
+  "prose_summary": "Now that you’ve installed Rust, it’s time to write your first Rust program.",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "hello, world!",
+      "rust-analyzer"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nsave the file and go back to your terminal window in the\n_~/projects/hello_world_ directory. on linux or macos, enter the following\ncommands to compile and run the file:\n\n",
+      "\n\nfor windows cmd, enter this:\n\n",
+      "\n\nif you have a c or c++ background, you’ll notice that this is similar to ",
+      "\n\nif your _main.rs_ is your “hello, world!” program, this line prints ",
+      "\n\non linux and macos, you’ll see two files. with powershell on windows, you’ll\nsee the same three files that you would see using cmd. with cmd on windows, you\nwould enter the following:\n\n",
+      "\n\non windows, enter the command ",
+      "\n\nregardless of your operating system, the string ",
+      "\n\nthese lines define a function named ",
+      "\n\nthis line does all the work in this little program: it prints text to the\nscreen. there are three important details to notice here.\n\nfirst, ",
+      "\n\nthis shows the source code file with the _.rs_ extension, the executable file\n(_main.exe_ on windows, but _main_ on all other platforms), and, when using\nwindows, a file containing debugging information with the _.pdb_ extension.\nfrom here, you run the _main_ or _main.exe_ file, like this:\n\n",
+      "\nor ",
+      " (without the ",
+      " calls a rust macro. if it had called a function instead, it\nwould be entered as ",
+      " command in your shell:\n\n",
+      " function holds the following code:\n\n",
+      " function is special: it\nis always the first code that runs in every executable rust program. here, the\nfirst line declares a function named ",
+      " in\n> [appendix d][devtools]<!-- ignore -->). the rust team has included this tool\n> with the standard rust distribution, as ",
+      " instead of ",
+      " is, so it should already be\n> installed on your computer!\n\nthe body of the ",
+      " means that you’re calling a macro instead of a normal\nfunction and that macros don’t always follow the same rules as functions.\n\nsecond, you see the "
+    ]
+  },
+  "text": "\nNow that you’ve installed Rust, it’s time to write your first Rust program.\nIt’s traditional when learning a new language to write a little program that\nprints the text `Hello, world!` to the screen, so we’ll do the same here!\n\n> Note: This book assumes basic familiarity with the command line. Rust makes\n> no specific demands about your editing or tooling or where your code lives, so\n> if you prefer to use an IDE instead of the command line, feel free to use your\n> favorite IDE. Many IDEs now have some degree of Rust support; check the IDE’s\n> documentation for details. The Rust team has been focusing on enabling great\n> IDE support via `rust-analyzer`. See [Appendix D][devtools]<!-- ignore -->\n> for more details.\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"creating-a-project-directory\"></a>\n",
+  "chapter": "ch01-02-hello-world"
+}

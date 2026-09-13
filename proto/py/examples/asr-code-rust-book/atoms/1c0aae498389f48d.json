@@ -1,0 +1,82 @@
+{
+  "id": "1c0aae498389f48d",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Processing a Guess",
+    "line": 69
+  },
+  "title": "Processing a Guess",
+  "prose_summary": "The first part of the guessing game program will ask for user input, process",
+  "code_blocks": [
+    {
+      "lang": "rust",
+      "items": [],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "use isn"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    },
+    {
+      "lang": "rust",
+      "items": [
+        "println!"
+      ],
+      "complete": false,
+      "compile": "fragment"
+    }
+  ],
+  "concepts": {
+    "strong": [
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\nthe ",
+      " function is the entry point into the\nprogram:\n\n",
+      " input/output library into scope. the ",
+      " is a macro that prints a string to\nthe screen:\n\n",
+      " library\nprovides you with a number of useful features, including the ability to accept\nuser input.\n\nas you saw in chapter 1, the ",
+      " library comes from the standard\nlibrary, known as ",
+      " statement. using the ",
+      " syntax declares a new function; the parentheses, ",
+      ", indicate there\nare no parameters; and the curly bracket, ",
+      ", starts the body of the function.\n\nas you also learned in chapter 1, ",
+      ":\n\n",
+      "println!",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:all}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:main}}\n",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print}}\n",
+      "use isn"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nif we hadn’t imported the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, ",
+      "\n\nthe line is:\n\n",
+      "\n\nthe next time you run "
+    ]
+  },
+  "text": "\nThe first part of the guessing game program will ask for user input, process\nthat input, and check that the input is in the expected form. To start, we’ll\nallow the player to input a guess. Enter the code in Listing 2-1 into\n_src/main.rs_.\n\n<Listing number=\"2-1\" file-name=\"src/main.rs\" caption=\"Code that gets a guess from the user and prints it\">\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:all}}\n```\n\n</Listing>\n\nThis code contains a lot of information, so let’s go over it line by line. To\nobtain user input and then print the result as output, we need to bring the\n`io` input/output library into scope. The `io` library comes from the standard\nlibrary, known as `std`:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:io}}\n```\n\nBy default, Rust has a set of items defined in the standard library that it\nbrings into the scope of every program. This set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nIf a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a `use` statement. Using the `std::io` library\nprovides you with a number of useful features, including the ability to accept\nuser input.\n\nAs you saw in Chapter 1, the `main` function is the entry point into the\nprogram:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:main}}\n```\n\nThe `fn` syntax declares a new function; the parentheses, `()`, indicate there\nare no parameters; and the curly bracket, `{`, starts the body of the function.\n\nAs you also learned in Chapter 1, `println!` is a macro that prints a string to\nthe screen:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:print}}\n```\n\nThis code is printing a prompt stating what the game is and requesting input\nfrom the user.\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}

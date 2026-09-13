@@ -1,0 +1,22 @@
+name: asr-code
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"   # 每周一 06:00 UTC —— 官方书更新 → 自动出新版知识包
+
+permissions:
+  contents: read
+
+jobs:
+  distill-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: build & publish (需 repo secret MPKG_TOKEN = mpkg-registry 写权 PAT)
+        env:
+          MPKG_TOKEN: ${{ secrets.MPKG_TOKEN }}
+        run: bash proto/sh/asr-code-build.sh lilyco-42/mpkg-registry

@@ -1,0 +1,42 @@
+{
+  "id": "49259f6157a42ed9",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch01-03-hello-cargo.md",
+    "section": "Building for Release",
+    "line": 206
+  },
+  "title": "Building for Release",
+  "prose_summary": "When your project is finally ready for release, you can use `cargo build",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "cargo build\n--release",
+      "cargo build --release"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nthis file is in the [_toml_][toml]<!-- ignore --> (_tom’s obvious, minimal\nlanguage_) format, which is cargo’s configuration format.\n\nthe first line, ",
+      "\n\ncargo also provides a command called ",
+      "\n\ncargo has generated a “hello, world!” program for you, just like the one we\nwrote in listing 1-1! so far, the differences between our project and the\nproject cargo generated are that cargo placed the code in the _src_ directory,\nand we have a _cargo.toml_ configuration file in the top directory.\n\ncargo expects your source files to live inside the _src_ directory. the\ntop-level project directory is just for readme files, license information,\nconfiguration files, and anything else not related to your code. using cargo\nhelps you organize your projects. there’s a place for everything, and\neverything is in its place.\n\nif you started a project that doesn’t use cargo, as we did with the “hello,\nworld!” project, you can convert it to a project that does use cargo. move the\nproject code into the _src_ directory and create an appropriate _cargo.toml_\nfile. one easy way to get that _cargo.toml_ file is to run ",
+      "\n\nif all goes well, ",
+      "\n\nif you see a version number, you have it! if you see an error, such as ",
+      "\n\nthe first command creates a new directory and project called _hello_cargo_.\nwe’ve named our project _hello_cargo_, and cargo creates its files in a\ndirectory of the same name.\n\ngo into the _hello_cargo_ directory and list the files. you’ll see that cargo\nhas generated two files and one directory for us: a _cargo.toml_ file and a\n_src_ directory with a _main.rs_ file inside.\n\nit has also initialized a new git repository along with a _.gitignore_ file.\ngit files won’t be generated if you run ",
+      "\n\nthis command creates an executable file in _target/debug/hello_cargo_ (or\n_target\\debug\\hello_cargo.exe_ on windows) rather than in your current\ndirectory. because the default build is a debug build, cargo puts the binary in\na directory named _debug_. you can run the executable with this command:\n\n",
+      "\n\nusing ",
+      "\n\nwhy would you not want an executable? often, ",
+      "\nhello, world!\n",
+      " and ran it with\n",
+      " and then use the whole path to the binary, so most developers use ",
+      " because it skips the step of producing an executable. if you’re\ncontinually checking your work while writing the code, using ",
+      " flag. run ",
+      " for the first time also causes cargo to create a new file at the top\nlevel: _cargo.lock_. this file keeps track of the exact versions of\ndependencies in your project. this project doesn’t have dependencies, so the\nfile is a bit sparse. you won’t ever need to change this file manually; cargo\nmanages its contents for you.\n\nwe just built a project with ",
+      " is more convenient than having to remember to run ",
+      " is much faster than\n",
+      " key in [appendix e][appendix-e]<!-- ignore -->.\n\nthe last line, ",
+      " periodically as they write their\nprogram to make sure it compiles. then, they run ",
+      " should print to the terminal. running "
+    ]
+  },
+  "text": "\nWhen your project is finally ready for release, you can use `cargo build\n--release` to compile it with optimizations. This command will create an\nexecutable in _target/release_ instead of _target/debug_. The optimizations\nmake your Rust code run faster, but turning them on lengthens the time it takes\nfor your program to compile. This is why there are two different profiles: one\nfor development, when you want to rebuild quickly and often, and another for\nbuilding the final program you’ll give to a user that won’t be rebuilt\nrepeatedly and that will run as fast as possible. If you’re benchmarking your\ncode’s running time, be sure to run `cargo build --release` and benchmark with\nthe executable in _target/release_.\n\n<!-- Old headings. Do not remove or links may break. -->\n<a id=\"cargo-as-convention\"></a>\n",
+  "chapter": "ch01-03-hello-cargo"
+}

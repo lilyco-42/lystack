@@ -1,0 +1,57 @@
+{
+  "id": "cc3c1fe41bd4b0b8",
+  "source": {
+    "repo": "rust-lang/book",
+    "path": "src/ch02-00-guessing-game-tutorial.md",
+    "section": "Receiving User Input",
+    "line": 170
+  },
+  "title": "Receiving User Input",
+  "prose_summary": "Recall that we included the input/output functionality from the standard",
+  "code_blocks": [],
+  "concepts": {
+    "strong": [
+      "\n\nif we hadn’t imported the ",
+      " as the argument to ",
+      " at the beginning of\nthe program, we could still use the function by writing this function call as\n",
+      " calls the [",
+      " function returns an instance of\n[",
+      " indicates that this argument is a _reference_, which gives you a way to\nlet multiple parts of your code access one piece of data without needing to\ncopy that data into memory multiple times. references are a complex feature,\nand one of rust’s major advantages is how safe and easy it is to use\nreferences. you don’t need to know a lot of those details to finish this\nprogram. for now, all you need to know is that, like variables, references are\nimmutable by default. hence, you need to write ",
+      " is to take\nwhatever the user types into standard input and append that into a string\n(without overwriting its contents), so we therefore pass that string as an\nargument. the string argument needs to be mutable so that the method can change\nthe string’s content.\n\nthe ",
+      " module with ",
+      " rather than\n",
+      " to tell it what\nstring to store the user input in. the full job of ",
+      ". the ",
+      "][iostdin]<!-- ignore -->, which is a type that represents a\nhandle to the standard input for your terminal.\n\nnext, the line ",
+      "][read_line]<!--\nignore --> method on the standard input handle to get input from the user.\nwe’re also passing ",
+      "io",
+      "rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:read}}\n",
+      "stdin",
+      "use std::io;"
+    ],
+    "weak": [
+      "\n\n</listing>\n\nfirst, we add another ",
+      "\n\n</listing>\n\nfirst, we add the line ",
+      "\n\n</listing>\n\nthis code contains a lot of information, so let’s go over it line by line. to\nobtain user input and then print the result as output, we need to bring the\n",
+      "\n\n</listing>\n\nwe switch from an ",
+      "\n\n</listing>\n\nyou may see different version numbers (but they will all be compatible with the\ncode, thanks to semver!) and different lines (depending on the operating\nsystem), and the lines may be in a different order.\n\nwhen we include an external dependency, cargo fetches the latest versions of\neverything that dependency needs from the _registry_, which is a copy of data\nfrom [crates.io][cratesio]. crates.io is where people in the rust ecosystem\npost their open source rust projects for others to use.\n\nafter updating the registry, cargo checks the ",
+      "\n\n> note: the ",
+      "\n\nadding the ",
+      "\n\nas you can see, we’ve moved everything from the guess input prompt onward into\na loop. be sure to indent the lines inside the loop another four spaces each\nand run the program again. the program will now ask for another guess forever,\nwhich actually introduces a new problem. it doesn’t seem like the user can quit!\n\nthe user could always interrupt the program by using the keyboard shortcut\n<kbd>ctrl</kbd>-<kbd>c</kbd>. but there’s another way to escape this insatiable\nmonster, as mentioned in the ",
+      "\n\nas you saw in chapter 1, ",
+      "\n\nawesome! with one tiny final tweak, we will finish the guessing game. recall\nthat the program is still printing the secret number. that worked well for\ntesting, but it ruins the game. let’s delete the ",
+      "\n\nby default, rust has a set of items defined in the standard library that it\nbrings into the scope of every program. this set is called the _prelude_, and\nyou can see everything in it [in the standard library documentation][prelude].\n\nif a type you want to use isn’t in the prelude, you have to bring that type\ninto scope explicitly with a ",
+      "\n\ncargo ignores the 0.999.0 release. at this point, you would also notice a\nchange in your _cargo.lock_ file noting that the version of the ",
+      "\n\nhowever, one long line is difficult to read, so it’s best to divide it. it’s\noften wise to introduce a newline and other whitespace to help break up long\nlines when you call a method with the ",
+      "\n\nin the _cargo.toml_ file, everything that follows a header is part of that\nsection that continues until another section starts. in ",
+      "\n\nnow let’s compile this “hello, world!” program and run it in the same step\nusing the ",
+      "\n\nnow the program is getting interesting! there’s a lot going on in this little\nline. we use the ",
+      "\n\nrust warns that you haven’t used the ",
+      "\n\nthe ",
+      "\n\nthe core of the error states that there are _mismatched types_. rust has a\nstrong, static type system. however, it also has type inference. when we wrote\n",
+      "\n\nthe first command, "
+    ]
+  },
+  "text": "\nRecall that we included the input/output functionality from the standard\nlibrary with `use std::io;` on the first line of the program. Now we’ll call\nthe `stdin` function from the `io` module, which will allow us to handle user\ninput:\n\n```rust,ignore\n{{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-01/src/main.rs:read}}\n```\n\nIf we hadn’t imported the `io` module with `use std::io;` at the beginning of\nthe program, we could still use the function by writing this function call as\n`std::io::stdin`. The `stdin` function returns an instance of\n[`std::io::Stdin`][iostdin]<!-- ignore -->, which is a type that represents a\nhandle to the standard input for your terminal.\n\nNext, the line `.read_line(&mut guess)` calls the [`read_line`][read_line]<!--\nignore --> method on the standard input handle to get input from the user.\nWe’re also passing `&mut guess` as the argument to `read_line` to tell it what\nstring to store the user input in. The full job of `read_line` is to take\nwhatever the user types into standard input and append that into a string\n(without overwriting its contents), so we therefore pass that string as an\nargument. The string argument needs to be mutable so that the method can change\nthe string’s content.\n\nThe `&` indicates that this argument is a _reference_, which gives you a way to\nlet multiple parts of your code access one piece of data without needing to\ncopy that data into memory multiple times. References are a complex feature,\nand one of Rust’s major advantages is how safe and easy it is to use\nreferences. You don’t need to know a lot of those details to finish this\nprogram. For now, all you need to know is that, like variables, references are\nimmutable by default. Hence, you need to write `&mut guess` rather than\n`&guess` to make it mutable. (Chapter 4 will explain references more\nthoroughly.)\n\n<!-- Old headings. Do not remove or links may break. -->\n\n<a id=\"handling-potential-failure-with-the-result-type\"></a>\n",
+  "chapter": "ch02-00-guessing-game-tutorial"
+}
