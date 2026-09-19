@@ -43,6 +43,7 @@
 
 ```
 spec/mpkg-v0.md          记忆包格式规范 v0（含 openvibe provenance 钩子 §8）
+proto/mpkg/              **mpkg 格式单一契约源**：schema + GOLDEN.md 规则 + golden 向量（实现须对齐）
 proto/py/mpkg.py         build/check/verify CLI（Python 原型；Rust 基建后继）
 proto/py/examples/make-snake-game/   验收示例：回放→可玩贪吃蛇，attestation 全绿
 nodes/cache-node/        P1-2 第一原子：内容寻址 (sha256) KV 缓存节点（Rust/axum）

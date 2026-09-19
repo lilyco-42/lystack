@@ -1,0 +1,126 @@
+{
+  "format": "mpkg-golden-v1",
+  "contract": "lystack proto/mpkg —— mpkg 格式单一契约源（schema: ../mpkg.schema.json，规则: ../GOLDEN.md）",
+  "canon_rule": "递归键排序（Unicode 码点序）+ 紧凑分隔符 ',' ':' + UTF-8 原样；等价 json.dumps(obj, sort_keys=True, separators=(',',':'), ensure_ascii=False)；生成脚本 ../gen_golden.py（镜像 lilyco pack.rs canon）",
+  "hash_rules": {
+    "content_id": "'sha256:' + sha256(canon_json(包JSON) 的 UTF-8 字节) —— 语义身份，对序列化空白不敏感",
+    "blob_sha256": "sha256(包文件原始字节) —— 存储地址；本表输入为 canon 形式故与 content_id 十六进制相同，非 canon 字节落盘时 blob 变而 content_id 不变（两层哈希，勿混用，详见 GOLDEN.md）"
+  },
+  "files_content": {
+    "multi-file-demo/README.md": "# multi-file-demo\n\n含 files 的多文件 golden 包。\n",
+    "multi-file-demo/artifacts/main.py": "print(\"multi-file-demo\")\n",
+    "multi-file-demo/artifacts/lib/util.py": "def greet():\n    return \"hi from util\"\n",
+    "full-replay-suite/artifacts/out.txt": "42\n"
+  },
+  "files_content_note": "files_content 仅用于复算 pack.files 里的哈希引用（JSON 包形态不内嵌文件本体），不属于包格式",
+  "cases": [
+    {
+      "name": "minimal-manifest-only",
+      "desc": "最小包：仅 manifest，无 files 键（files 为可选字段）",
+      "pack": {
+        "manifest": {
+          "intent": "最小合法包：仅 manifest，无 files 键",
+          "mpkg": "0.1",
+          "name": "hello-mpkg",
+          "steps": [
+            {
+              "run": "echo hello-mpkg"
+            }
+          ],
+          "verify": [
+            "true"
+          ],
+          "version": "0.1.0"
+        }
+      },
+      "canon_json": "{\"manifest\":{\"intent\":\"最小合法包：仅 manifest，无 files 键\",\"mpkg\":\"0.1\",\"name\":\"hello-mpkg\",\"steps\":[{\"run\":\"echo hello-mpkg\"}],\"verify\":[\"true\"],\"version\":\"0.1.0\"}}",
+      "content_id": "sha256:830d8d92aa3a7ca9655468c5fc034e10902f9aad225825fdb7e88824a7eeda58",
+      "blob_sha256": "830d8d92aa3a7ca9655468c5fc034e10902f9aad225825fdb7e88824a7eeda58"
+    },
+    {
+      "name": "multi-file-pack",
+      "desc": "含 files 的多文件包：嵌套相对路径 → 64 位小写 sha256 引用",
+      "pack": {
+        "files": {
+          "README.md": "fa92edd9d1241161b07fce3404e6c8cceb23dd8790521e274923db0afdc14f14",
+          "artifacts/lib/util.py": "b1b3395bd5ce1ca48ec48abae5c25b1007bd4b0762717b811742579f93fe1a83",
+          "artifacts/main.py": "e1f295db15fc563c98997b625f807baf10d885df64a8ab5a4272cde6401afbd2"
+        },
+        "manifest": {
+          "intent": "含 files 的多文件包：嵌套路径哈希引用",
+          "mpkg": "0.1",
+          "name": "multi-file-demo",
+          "steps": [
+            {
+              "expect": {
+                "exit": 0
+              },
+              "run": "echo multi"
+            }
+          ],
+          "verify": [
+            "test -f artifacts/main.py",
+            "test -f artifacts/lib/util.py"
+          ],
+          "version": "0.2.0"
+        }
+      },
+      "canon_json": "{\"files\":{\"README.md\":\"fa92edd9d1241161b07fce3404e6c8cceb23dd8790521e274923db0afdc14f14\",\"artifacts/lib/util.py\":\"b1b3395bd5ce1ca48ec48abae5c25b1007bd4b0762717b811742579f93fe1a83\",\"artifacts/main.py\":\"e1f295db15fc563c98997b625f807baf10d885df64a8ab5a4272cde6401afbd2\"},\"manifest\":{\"intent\":\"含 files 的多文件包：嵌套路径哈希引用\",\"mpkg\":\"0.1\",\"name\":\"multi-file-demo\",\"steps\":[{\"expect\":{\"exit\":0},\"run\":\"echo multi\"}],\"verify\":[\"test -f artifacts/main.py\",\"test -f artifacts/lib/util.py\"],\"version\":\"0.2.0\"}}",
+      "content_id": "sha256:f501b4282a8dcb3d44b3a1978ac0643f280fa5926e131e3f087204e7355febd7",
+      "blob_sha256": "f501b4282a8dcb3d44b3a1978ac0643f280fa5926e131e3f087204e7355febd7"
+    },
+    {
+      "name": "full-replay-suite",
+      "desc": "步骤齐全包：expect.exit、多 verify 命令、requirements/author/tags/license 可选字段",
+      "pack": {
+        "files": {
+          "artifacts/out.txt": "084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0"
+        },
+        "manifest": {
+          "author": "agent:lilyco",
+          "intent": "步骤齐全包：expect.exit / 多 verify / requirements / 溯源可选字段",
+          "license": "MIT",
+          "mpkg": "0.1",
+          "name": "full-replay-suite",
+          "requirements": {
+            "tools": [
+              {
+                "min_version": "3.10",
+                "name": "python3"
+              }
+            ]
+          },
+          "steps": [
+            {
+              "run": "echo step-1"
+            },
+            {
+              "expect": {
+                "exit": 0
+              },
+              "run": "python3 -c 'print(6*7)'"
+            },
+            {
+              "expect": {
+                "exit": 0
+              },
+              "run": "test -d {{work}}"
+            }
+          ],
+          "tags": [
+            "demo",
+            "replay"
+          ],
+          "verify": [
+            "test -f artifacts/out.txt",
+            "grep -q 42 artifacts/out.txt"
+          ],
+          "version": "1.0.0"
+        }
+      },
+      "canon_json": "{\"files\":{\"artifacts/out.txt\":\"084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0\"},\"manifest\":{\"author\":\"agent:lilyco\",\"intent\":\"步骤齐全包：expect.exit / 多 verify / requirements / 溯源可选字段\",\"license\":\"MIT\",\"mpkg\":\"0.1\",\"name\":\"full-replay-suite\",\"requirements\":{\"tools\":[{\"min_version\":\"3.10\",\"name\":\"python3\"}]},\"steps\":[{\"run\":\"echo step-1\"},{\"expect\":{\"exit\":0},\"run\":\"python3 -c 'print(6*7)'\"},{\"expect\":{\"exit\":0},\"run\":\"test -d {{work}}\"}],\"tags\":[\"demo\",\"replay\"],\"verify\":[\"test -f artifacts/out.txt\",\"grep -q 42 artifacts/out.txt\"],\"version\":\"1.0.0\"}}",
+      "content_id": "sha256:7bc60dd2e45e99cdd8b095f36b28234899495743001001d2c1169963bcf55086",
+      "blob_sha256": "7bc60dd2e45e99cdd8b095f36b28234899495743001001d2c1169963bcf55086"
+    }
+  ]
+}

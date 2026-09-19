@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/lilyco-42/lystack/main/proto/mpkg/mpkg.schema.json",
+  "title": "mpkg v0.1 记忆包（JSON 包文件）",
+  "description": "mpkg 格式单一契约源。描述 content-id 的计算输入形态：{\"manifest\": …, \"files\": {相对路径: sha256}}。cache-node zip 容器中的 mpkg.json 即本 schema 的 #/$defs/manifest（manifest 单体，files 由 zip 条目实算后在外层包回 {manifest, files} 再取 canon）。字段语义详见同目录 GOLDEN.md。",
+  "type": "object",
+  "required": ["manifest"],
+  "additionalProperties": false,
+  "properties": {
+    "manifest": { "$ref": "#/$defs/manifest" },
+    "files": { "$ref": "#/$defs/files" }
+  },
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "title": "manifest 清单",
+      "description": "必需六字段与 lilyco lilyco-mpkg/src/pack.rs validate() 及 cache-node src/mpkg_verify.rs validate() 一致；可选字段承接 spec/mpkg-v0.md §3。schema 冻结字段集：新增字段必须先改本 schema（契约源）。",
+      "required": ["mpkg", "name", "version", "intent", "steps", "verify"],
+      "additionalProperties": false,
+      "properties": {
+        "mpkg": {
+          "const": "0.1",
+          "description": "格式版本，恒为 \"0.1\""
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "description": "kebab-case 包名（[A-Za-z0-9_-]+），同时杜绝名字索引路径穿越"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "semver（实现只强制非空字符串）"
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1,
+          "description": "一句话意图（市场搜索主键）"
+        },
+        "author": {
+          "type": "string",
+          "description": "可选，agent:<origin>"
+        },
+        "requirements": {
+          "type": "object",
+          "description": "可选，回放前置条件声明",
+          "additionalProperties": false,
+          "properties": {
+            "tools": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/tool" }
+            },
+            "os": {
+              "type": "array",
+              "items": { "type": "string", "enum": ["windows", "linux", "android"] }
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "description": "有序 CLI 命令（工具优先铁律：仅真实 CLI 进程调用）",
+          "items": { "$ref": "#/$defs/step" }
+        },
+        "verify": {
+          "type": "array",
+          "minItems": 1,
+          "description": "验证命令列表，全部通过 → 包可信",
+          "items": { "type": "string" }
+        },
+        "atoms": {
+          "type": "array",
+          "description": "可选，知识原子（md/图片/视频切片引用）",
+          "items": { "$ref": "#/$defs/atom" }
+        },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "可选，市场检索标签"
+        },
+        "license": {
+          "type": "string",
+          "description": "可选，合规声明"
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "title": "回放步骤",
+      "required": ["run"],
+      "additionalProperties": false,
+      "properties": {
+        "run": {
+          "type": "string",
+          "description": "CLI 命令；zip 回放路径中 {{pkg}}/{{work}} 为包目录/工作目录占位符"
+        },
+        "expect": {
+          "type": "object",
+          "description": "可选，期望结果（cache-node 回放逐条比对；缺省 exit=0）",
+          "additionalProperties": false,
+          "properties": {
+            "exit": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "min_version": { "type": "string" }
+      }
+    },
+    "atom": {
+      "type": "object",
+      "required": ["kind", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["text", "image"] },
+        "path": { "type": "string" },
+        "title": { "type": "string" },
+        "ref": {
+          "type": "string",
+          "description": "预留视频寻址：video:<id>#t=1234,1256"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "title": "prompt 谱系（openvibe 钩子，v0 预留）",
+      "additionalProperties": false,
+      "properties": {
+        "generator": {
+          "type": "string",
+          "description": "human | ai:<model> | human+ai:<model>"
+        },
+        "prompts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["n", "text"],
+            "additionalProperties": false,
+            "properties": {
+              "n": { "type": "integer" },
+              "text": { "type": "string", "description": "指向包内 prompts/*.md 原文" },
+              "step_refs": {
+                "type": "array",
+                "items": { "type": "integer" }
+              }
+            }
+          }
+        },
+        "parent": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "父包 content-id（fork = 新 id + parent 指针）"
+        }
+      }
+    },
+    "files": {
+      "type": "object",
+      "title": "文件哈希表（可选）",
+      "description": "相对路径 → 内容 sha256（64 位小写 hex）。JSON 形态只存哈希引用、不内嵌文件本体；zip 容器形态由全部 zip 条目（含 mpkg.json 自身）实算。缺省整个 files 键时可省略（canon 输入随之不含 files 键，见 GOLDEN.md 漂移表第 3 条）。",
+      "additionalProperties": false,
+      "propertyNames": {
+        "pattern": "^(?!/)(?!.*\\\\)(?!.*(^|/)\\.\\.(/|$))[^/]+(/[^/]+)*$",
+        "description": "非空相对路径：不以 / 开头、不含 \\、任一路径段不为空且不为 .."
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "64 位小写 sha256 hex"
+      }
+    }
+  }
+}
