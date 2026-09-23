@@ -46,7 +46,8 @@ spec/mpkg-v0.md          记忆包格式规范 v0（含 openvibe provenance 钩�
 proto/mpkg/              **mpkg 格式单一契约源**：schema + GOLDEN.md 规则 + golden 向量（实现须对齐）
 proto/py/mpkg.py         build/check/verify CLI（Python 原型；Rust 基建后继）
 proto/py/examples/make-snake-game/   验收示例：回放→可玩贪吃蛇，attestation 全绿
-nodes/cache-node/        P1-2 第一原子：内容寻址 (sha256) KV 缓存节点（Rust/axum）
+lilyco-42/cache-node     P1-2 第一原子：内容寻址 (sha256) KV 缓存节点（Rust/axum）
+                         ⚠️ **独立仓**，不在本仓树内；本仓只有上面的 spec/ 与 proto/
 docs/research-loop-20260912.md       EdgeTTS 采纳建议 + P2P 缓存参考模式
 ```
 
@@ -60,7 +61,8 @@ docs/research-loop-20260912.md       EdgeTTS 采纳建议 + P2P 缓存参考模�
 | Windows 客户端 → WSL 服务端 | 跨机 TCP | 联调 | ✅ 201/roundtrip 一致/篡改 400 |
 | Windows 客户端 → Radxa (真实 LAN) | 跨机 TCP | 联调 | ✅ 201/roundtrip 一致/篡改 400 |
 
-复现：`BASE=http://192.168.10.165:9910 bash nodes/cache-node/smoke.sh`
+复现：先 `git clone https://github.com/lilyco-42/cache-node && cd cache-node`，再
+`BASE=http://192.168.10.165:9910 bash smoke.sh`（`smoke.sh` 在 cache-node 仓根目录）
 
 复现：
 ```bash
