@@ -314,14 +314,38 @@ def build_bytes(root: str) -> tuple:
     return m, files, pid, blob, fname
 
 
-def cmd_publish(args):
-    m, files, pid, blob, fname = build_bytes(os.path.abspath(args.dir))
-    entry = {
+def index_entry(m: dict, pid: str, fname: str, size: int) -> dict:
+    """publish 写入 index 的条目。
+
+    字段集合与**顺序**必须与 tools/reindex.py 的重建结果逐字节一致：注册表 CI 跑
+    `reindex.py --check`，把 index.json 与 f(packages/, attestations/) 逐字符比对，
+    对不上直接判红（实测：本函数少一个 `attestations` 字段 → CI exit 2）。
+    """
+    return {
         "name": m["name"], "version": m["version"], "id": pid, "file": f"packages/{fname}",
         "intent": m.get("intent", ""), "tags": m.get("tags", []),
-        "author": m.get("author", ""), "size": len(blob),
+        "author": m.get("author", ""), "size": size,
         "published_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+        # 新包上架时盘上还没有回执，计数恒为 0；真实计数由 reindex 实算后覆盖。
+        "attestations": 0,
     }
+
+
+def sorted_packages(pkgs: list) -> list:
+    """复刻 tools/reindex.py 的确定性顺序：先 (name, version, id) 升序，
+    再按 published_at 降序**稳定**排序（空串落最后）。
+
+    只补字段、不排序一样过不了门禁 —— 实测「包集合与字段全部一致，仅顺序不同」
+    同样被判 exit 2。
+    """
+    out = sorted(pkgs, key=lambda p: (p.get("name", ""), p.get("version", ""), p.get("id", "")))
+    out.sort(key=lambda p: p.get("published_at", ""), reverse=True)
+    return out
+
+
+def cmd_publish(args):
+    m, files, pid, blob, fname = build_bytes(os.path.abspath(args.dir))
+    entry = index_entry(m, pid, fname, len(blob))
     print(f"publishing {fname} ({len(blob)} bytes) id={pid[:27]}…")
     gh_put_file(args.registry, f"packages/{fname}", blob, f"publish {m['name']} {m['version']} {pid[:19]}")
     idx = None
@@ -331,9 +355,11 @@ def cmd_publish(args):
         idx = json.loads(base64.b64decode(r.stdout.strip()))
     else:
         idx = {"registry": "mpkg", "version": "0.1", "packages": []}
-    idx["packages"] = [p for p in idx.get("packages", [])
-                       if not (p.get("name") == m["name"] and p.get("version") == m["version"])]
-    idx["packages"].append(entry)
+    idx["packages"] = sorted_packages(
+        [p for p in idx.get("packages", [])
+         if not (p.get("name") == m["name"] and p.get("version") == m["version"])]
+        + [entry]
+    )
     gh_put_file(args.registry, "index.json",
                 (json.dumps(idx, ensure_ascii=False, indent=2) + "\n").encode(),
                 f"index: +{m['name']}@{m['version']}")
