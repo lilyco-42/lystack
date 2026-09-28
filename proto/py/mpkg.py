@@ -421,15 +421,26 @@ def cmd_install(args):
                          ensure_ascii=False))
 
 
-def cmd_verify_core(file: str, out: str | None, keep: bool, expect_ok: bool):
-    """cmd_verify 的可复用内核（install --verify 调用）"""
+def cmd_verify_core(file: str, out: str | None, keep: bool, expect_ok: bool) -> bool:
+    """cmd_verify 的可复用内核（install --verify 调用）。返回回放是否通过。
+
+    ⚠️ 不能让 SystemExit 逃逸出去：cmd_verify 结尾恒为 `sys.exit(0 if ok else 2)`，
+    原样 re-raise 会让调用方（cmd_install）在**解包 artifacts 之前**就静默退出 ——
+    实测 `mpkg install … --verify` 退出码 0、却一个文件都没落地，且不报任何错。
+    """
+    argv_backup = sys.argv
     sys.argv = ["mpkg", "verify", file] + (["--out", out] if out else [])
     try:
         cmd_verify(argparse.Namespace(file=file, out=out, keep=keep))
     except SystemExit as e:
-        if expect_ok and e.code not in (0, None):
-            die(f"replay verification failed (exit {e.code})")
-        raise
+        if e.code not in (0, None):
+            if expect_ok:
+                die(f"replay verification failed (exit {e.code})")
+            return False
+        return True
+    finally:
+        sys.argv = argv_backup
+    return True
 
 
 if __name__ == "__main__":
